@@ -14,7 +14,7 @@ import numpy as np
 import xarray as xr
 import pandas as pd
 import os
-import clalib.profile_functions as pf
+import profile_functions as pf
 import time
 from tqdm import tqdm
 import timeit
