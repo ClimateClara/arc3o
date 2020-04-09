@@ -19,7 +19,7 @@ import xarray as xr
 import datetime 
 import itertools
 import time
-import clalib.satsim_analysis_functions as ana
+import satsim_analysis_functions as ana
 
 ##################################################
 
