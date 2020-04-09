@@ -7,3 +7,5 @@ presented in: https://www.the-cryosphere-discuss.net/tc-2019-318/
 Especially, there might not be an error message when ran at another polarization or frequency than 6.9 GHz, vertical polarization but the results have only be evaluated at that frequency and polarization!
 
 If you are interested in 6.9 GHz, vertical polarization, enjoy!
+
+Use the Manual to get started. Contact me at clara.burgard@hzg.de in case of questions.
