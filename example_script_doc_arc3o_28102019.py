@@ -9,20 +9,20 @@ Example script to use ARC3O
 """
 
 import xarray as xr
-import clalib.operation_satsim_functions as satsim
+import operation_satsim_functions as satsim
 
 #inputpath for monthly files
-inputpath = '/work/mh0033/m300411/SatSim/WORK_DATA/assim_SICCI2_50km/'
+inputpath = 'pathtofolder'
 #inputpath for the whole time period
-inputpath0 = '/work/mh0033/m300411/SatSim/WORK_DATA/ass_SICCI2_50km_mergetime/'
+inputpath0 = 'pathtofolder'
 #outputpath for overarching folder for output files
-outputpath0 = '/work/mh0033/m300411/SatSim/SatSim2D/workflow_test/'
+outputpath0 = 'pathtofolder'
 
 #outputpath for your experiment files
 #'yes': create a new path for the output files (will create a new folder in outputpath0, called 
 # yyyymmdd-hhmm)
 #'no': keeps the path given as third option
-outputpath = satsim.new_outputpath('no',outputpath0,'20190516-1047')
+outputpath = satsim.new_outputpath('yes',outputpath0,'20190516-1047')
 
 
 ## read in the whole time period
