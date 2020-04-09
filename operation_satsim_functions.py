@@ -13,9 +13,9 @@ import numpy as np
 import xarray as xr
 import datetime 
 import time
-import clalib.profile_functions as pf
-import clalib.mask_functions as mf
-import clalib.memls_functions_2D as mf2
+import profile_functions as pf
+import mask_functions as mf
+import memls_functions_2D as mf2
 import os
 #import cdo
 #cdo = cdo.Cdo()
