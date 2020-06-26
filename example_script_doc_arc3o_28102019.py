@@ -18,7 +18,7 @@ inputpath0 = 'pathtofolder'
 #outputpath for overarching folder for output files
 outputpath0 = 'pathtofolder'
 
-#outputpath for your experiment files
+# outputpath for your experiment files
 #'yes': create a new path for the output files (will create a new folder in outputpath0, called 
 # yyyymmdd-hhmm)
 #'no': keeps the path given as third option
