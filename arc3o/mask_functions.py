@@ -19,9 +19,11 @@ import xarray as xr
 import datetime 
 import itertools
 import time
-import satsim_analysis_functions as ana
 
 ##################################################
+
+def is_summer(month):
+    return (month >= 4) & (month <= 9)
 
 def ice_type_wholeArctic(sit,timestep):
     """

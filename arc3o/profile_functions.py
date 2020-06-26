@@ -19,7 +19,6 @@ import datetime
 from multiprocessing import Pool, TimeoutError
 import itertools
 from dask.diagnostics import ProgressBar
-import satsim_analysis_functions as ana
 import time
 from tqdm import tqdm
 import os

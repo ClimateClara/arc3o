@@ -129,7 +129,7 @@ def prep_mask(input_data,write_mask,outputpath,timestep):
         print('------- YOU CHOSE TO READ THE MASKS FROM NETCDF ---------------')
 
         info_ds = xr.open_dataset(os.path.abspath(outputpath+'period_masks_assim.nc'))    
-    
+
     return info_ds
 
 
@@ -851,7 +851,7 @@ def compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_
         p.map(f, range(1,13))
     return 
 
-def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.981,e_bias_myi=0.963,snow_emis=np.nan,snow_dens=300.):
+def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.963,e_bias_myi=0.963,snow_emis=1,snow_dens=300.):
 
     """
     This function is the full observation operator and is enough to run it
@@ -886,7 +886,7 @@ def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath
     compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_emis,snow_dens,inputpath,outputpath,file_begin,file_end,info_ds,write_profiles,compute_memls)
     return
 
-def satsim_complete_1month(orig_data,freq_of_int,yy,mm,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.981,e_bias_myi=0.963,snow_emis=np.nan,snow_dens=300.):
+def satsim_complete_1month(orig_data,freq_of_int,yy,mm,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.963,e_bias_myi=0.963,snow_emis=1,snow_dens=300.):
     
     """
     This function is the full observation operator that can be run on a single month
