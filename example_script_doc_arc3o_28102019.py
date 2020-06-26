@@ -27,7 +27,7 @@ outputpath = satsim.new_outputpath('yes',outputpath0,'20190516-1047')
 
 ## read in the whole time period
 orig_data = xr.open_dataset(inputpath0+'assim_SICCI2_50km_echam6_200211-200812_selcode_Arctic.nc')
-#write time in the right format
+# write time in the right format
 orig_data = satsim.prep_time(orig_data)
 
 ### give the first and last year of your time period
