@@ -27,17 +27,34 @@ import os
 
 def compute_ice_snow_int_temp(sit,snd,tsi): 
     
-    """
+    """Compute the snow/ice interface temperature
+    
     This function computes the temperature at the snow-ice interface
 	inspired from Semtner, 1976 
 	
-	INPUT
-	sit : sea-ice thickness in m
-	snd : snow thickness in m
-	tsi : sea-ice (or snow) surface temperature in K
+	Parameters
+	----------
+	sit: xarray.DataArray
+		sea-ice thickness in m
+	snd: xarray.DataArray
+		snow thickness in m
+	tsi: xarray.DataArray
+		sea-ice (or snow) surface temperature in K
 	
-	OUTPUT
-	T_i : temperature at snow-ice interface in K	
+	Returns
+	-------
+	T_i: xarray.DataArray
+		temperature at snow-ice interface in K	
+		
+	Notes
+	-----
+	This function is inspired from [Semtner, 1976]_
+	
+	References
+	----------
+	.. [Semtner, 1976] Semtner, A. J. (1976): A Model for the Thermodynamic Growth of Sea Ice 
+	in Numerical Investigations of Climate. J. Phys. Oceanogr., 6, 379–389, 
+	https://doi.org/10.1175/1520-0485(1976)006<0379:AMFTTG>2.0.CO;2.
     """	
     
     k_s  = 0.31      # thermal conductivity of snow in W/K/m #from MPIOM paper
@@ -47,27 +64,43 @@ def compute_ice_snow_int_temp(sit,snd,tsi):
     return T_i
 
 def build_temp_profile(surf_temp_ice,empty_temp_prof,winter_mask,fyi_mask,myi_mask,layer_amount,snow_opt,snd,sit,e_bias_fyi,e_bias_myi): #gives the temperature in middle of layer
+    """Build the temperature profile.
     
-    """
 	This function builds linear temperature profiles over depth
 	between the snow surface temperature and ice surface temperature
 	and between  ice surface temperature and freezing temperature (-1.8°C)
 	
-	INPUT
-	surf_temp_ice : sea-ice (or snow) surface temperature in K
-	empty_temp_prof : empty xarray with the expected dimensions of the output
-	winter_mask : mask telling us which points are in "winter"
-	layer_amount : number of layers the profile should have
-	snow_opt : 
-		- 'yes' if there is snow on top
-        - 'no' if there is no snow on top
-	snd : snow thickness in m
-	sit : sea-ice thickness in m
-	e_bias_fyi and e_bias_myi : tuning parameter to correct for MEMLS bias in emissivity
+    Parameters
+    ----------
+    surf_temp_ice: xarray.DataArray
+        sea-ice (or snow) surface temperature in K
+    empty_temp_prof: xarray.DataArray
+        empty xarray with the expected dimensions of the output
+    winter_mask: xarray.DataArray
+        mask telling us which points are in "winter"
+    layer_amount: int
+        number of layers the profile should have
+    snow_opt: str 
+        ``'yes'`` if there is snow on top, ``'no'`` if there is no snow on top
+    snd: xarray.DataArray
+        snow thickness in m
+    sit: xarray.DataArray
+        sea-ice thickness in m
+    e_bias_fyi: xarray.DataArray
+        tuning parameter to correct for MEMLS bias in emissivity for first-year ice
+    e_bias_myi: xarray.DataArray
+        tuning parameter to correct for MEMLS bias in emissivity for multiyear ice
+    
 	
-	OUTPUT
-	e_bias*shorter_prof : tuned temperature profile over layer_amount in K	
-	"""
+    Returns
+    -------
+    shorter_prof: xarray.DataArray
+        tuned temperature profile over layer_amount in K
+
+    Notes
+    -----
+    All input data arrays must be broadcastable towards each other!
+    """
 
     print('------------------------------------')
     print('BUILDING TEMPERATURE PROFILES')
@@ -138,18 +171,27 @@ def build_temp_profile(surf_temp_ice,empty_temp_prof,winter_mask,fyi_mask,myi_ma
 
 def build_thickness_profile(sit,snd,empty_thick_prof,winter_mask,layer_amount):
     
-    """
+    """Build the thickness profile.
+    
 	This function builds thickness profiles with equidistant layers over total ice thickness. 
 	
-	INPUT
-	sit : sea-ice thickness in m
-	snd : snow thickness in m
-	empty_thick_prof : empty xarray with the expected dimensions of the output
-	winter_mask : mask telling us which points are in "winter"
-	layer_amount : number of layers the profile should have
+	Parameters
+	----------
+	sit: xarray.DataArray
+		sea-ice thickness in m
+	snd: xarray.DataArray
+		snow thickness in m
+	empty_thick_prof: xarray.DataArray
+		empty xarray with the expected dimensions of the output
+	winter_mask: xarray.DataArray
+		mask telling us which points are in "winter"
+	layer_amount: int
+		number of layers the profile should have
 	
-	OUTPUT
-	empty_thick_prof : thickness profile over layer_amount in m	
+	Returns
+	-------
+	empty_thick_prof: xarray.DataArray
+		thickness profile over layer_amount in m	
 	"""
 
     print('------------------------------------')
@@ -173,16 +215,30 @@ def build_thickness_profile(sit,snd,empty_thick_prof,winter_mask,layer_amount):
  
 def sal_approx_fy(norm_z):
     
-    """
+    """Build salinity profile f(depth) for first-year ice.
+    
 	This function builds a salinity profile as a function of depth
-	for first-year ice 
-	formula from Griewank and Notz, 2015
+	for first-year ice.
 	
-	INPUT
-	norm_z : normalized depth, 1 is bottom and 0 is top
+	Parameters
+	----------
+	norm_z: xarray.DataArray
+		normalized depth, 1 is bottom and 0 is top
 	 
-	OUTPUT
-	sal_fy : salinity profile for first-year ice in g/kg	
+	Returns
+	-------
+	sal_fy: xarray.DataArray
+		salinity profile for first-year ice in g/kg
+	
+	Notes
+	-----
+	This formula is based on Eq. 17 in [Griewank & Notz, 2015]_	
+	
+	References
+	----------
+	.. [Griewank & Notz, 2015] Griewank, P. J. and Notz, D. (2015): A 1-D modelling study 
+	of Arctic sea-ice salinity, The Cryosphere, 9, 305–329, https://doi.org/10.5194/tc-9-305-2015. 
+
     """
     
     a=1.0964
@@ -194,16 +250,29 @@ def sal_approx_fy(norm_z):
 
 def sal_approx_my(norm_z):
     
-    """
+    """Build salinity profile f(depth) for first-year ice.
+    
 	This function builds a salinity profile as a function of depth
-	for multiyear ice 
-	formula from Griewank and Notz, 2015
+	for multiyear ice.
 	
-	INPUT
-	norm_z : normalized depth, 1 is bottom and 0 is top
+	Parameters
+	----------
+	norm_z: xarray.DataArray
+		normalized depth, 1 is bottom and 0 is top
 	 
-	OUTPUT
-	sal_fy : salinity profile for multiyear ice in g/kg	
+	Returns
+	-------
+	sal_my: xarray.DataArray
+		salinity profile for multiyear ice in g/kg
+	
+	Notes
+	-----
+	This formula is based on Eq. 18 in [Griewank & Notz, 2015]_	
+	
+	References
+	----------
+	.. [Griewank & Notz, 2015] Griewank, P. J. and Notz, D. (2015): A 1-D modelling study 
+	of Arctic sea-ice salinity, The Cryosphere, 9, 305–329, https://doi.org/10.5194/tc-9-305-2015. 
 	"""
 	
     a=0.17083
@@ -217,19 +286,37 @@ def sal_approx_my(norm_z):
 
 def build_salinity_profile(empty_sal_prof,fyi_mask,myi_mask,winter_mask,layer_amount):
     
-    """
+    """Combine FYI and MYI salinity profiles
+        
 	This function builds salinity profiles according to the ice type and 
-	formulas from Griewank and Notz, 2015
+	formulas from [Griewank and Notz, 2015]_
 	
-	INPUT
-	empty_sal_prof : empty xarray with the expected dimensions of the output
-	fyi_mask : mask telling where there is first-year ice
-	myi_mask : mask telling where there is multiyear ice
-	winter_mask : mask telling us which points are in "winter"
-	layer_amount : number of layers the profile should have
+	Parameters
+	----------
+	empty_sal_prof: xarray.DataArray
+		empty xarray with the expected dimensions of the output
+	fyi_mask: xarray.DataArray
+		mask telling where there is first-year ice
+	myi_mask: xarray.DataArray
+		mask telling where there is multiyear ice
+	winter_mask: xarray.DataArray
+		mask telling us which points are in "winter"
+	layer_amount: int
+		number of layers the profile should have
 	
-	OUTPUT
-	tot_sal : salinity profiles over layer_amount and for different ice types in g/kg	
+	Returns
+	-------
+	tot_sal: xarray.DataArray
+		salinity profiles over layer_amount and for different ice types in g/kg	
+		
+	Notes
+	-----
+	This formula is based on Eq. 19 in [Griewank & Notz, 2015]_	
+	
+	References
+	----------
+	.. [Griewank & Notz, 2015] Griewank, P. J. and Notz, D. (2015): A 1-D modelling study 
+	of Arctic sea-ice salinity, The Cryosphere, 9, 305–329, https://doi.org/10.5194/tc-9-305-2015. 
 	"""
 
     print('------------------------------------')
@@ -257,16 +344,23 @@ def build_salinity_profile(empty_sal_prof,fyi_mask,myi_mask,winter_mask,layer_am
 
 def build_wetness_profile(empty_wet_prof,winter_mask):
     
-    """
+    """Build wetness profiles
+    
 	This function builds wetness profiles
-	currently everything is set to 0
+	currently everything is set to 0 as the ice brine volume fraction is computed in 
+	:func:`Vb`.
 	
-	INPUT
-	empty_wet_prof : empty xarray with the expected dimensions of the output
-	winter_mask : mask telling us which points are in "winter"
+	Parameters
+	----------
+	empty_wet_prof: xarray.DataArray
+		empty xarray with the expected dimensions of the output
+	winter_mask: xarray.DataArray
+		mask telling us which points are in "winter"
 	
-	OUTPUT
-	wet : wetness profiles	
+	Returns
+	-------
+	wet: xarray.DataArray
+		wetness profiles (everything set to zero)
 	"""
 	
     print('------------------------------------')
@@ -280,15 +374,32 @@ def build_wetness_profile(empty_wet_prof,winter_mask):
 
 def Sb(T):
     
-    """
-	This function computes the brine salinity
-	formulas from Notz, 2005 
+    """Compute brine salinity.
+    
+	This function computes the brine salinity 
 	
-	INPUT
-	T : temperature in K or °C
+	Parameters
+	----------
+	T: xarray.DataArray
+		temperature in K or °C
 	
-	OUTPUT
-	tot_Sb : Brine Salinity in g/kg	
+	Returns
+	-------
+	tot_Sb: xarray.DataArray
+		Brine Salinity in g/kg	
+	
+	Notes
+	-----
+	The formulas are based on Eq. 39 in [Vant et al., 1978]_ and Eq. 3.4 and 3.5 in [Notz, 2005]_
+	
+	References
+	----------
+	..[Vant et al., 1978] Vant, M., Ramseier, R., and Makios, V. (1978): The complex-dielectric constant 
+	of sea ice at frequencies in the range 0.1-40 GHz, Journal of Applied Physics, 49, 
+	1264–1280, doi: 10.1063/1.325018.
+	..[Notz, 2005] Notz, D. (2005): Thermodynamic and Fluid-Dynamical Processes in Sea Ice, 
+	Ph.D. thesis, University of Cambridge.
+	
 	"""
 
     #T must be in degrees C!
@@ -328,35 +439,64 @@ def Sb(T):
 
 def Vb(S,Sbr):
     
-    """
-	This function computes the liquid water fraction (=brine volume fraction)
-	equation from Notz, 2005 
+    """Compute brine volume fraction
+    
+	This function computes the brine volume fraction.
 	
-	INPUT
-	S : bulk salinity in g/kg
-	Sbr : Brine salinity in g/kg
+	Parameters
+	----------
+	S: xarray.DataArray
+		bulk salinity in g/kg
+	Sbr: xarray.DataArray
+		Brine salinity in g/kg
 	
-	OUTPUT
-	lwf : liquid water fraction (between 0 and 1)	
+	Returns
+	-------
+	bvf: xarray.DataArray
+		brine volume fraction (between 0 and 1)	
+	
+	Notes
+	-----
+	The formula is based on Eq. 1.5 in [Notz, 2005]_
+	
+	References
+	----------
+	..[Notz, 2005] Notz, D. (2005): Thermodynamic and Fluid-Dynamical Processes in Sea Ice, 
+	Ph.D. thesis, University of Cambridge.
 	"""
     
     ## Eq. 1.5 from Notz 2005
-    lwf = S.where(Sbr>0,1)/Sbr.where(Sbr>0,1)
-    lwf = lwf.where((lwf<=1),1)
-    return lwf
+    bvf = S.where(Sbr>0,1)/Sbr.where(Sbr>0,1)
+    bvf = bvf.where((bvf<=1),1)
+    return bvf
 
 def icerho(T,S):
     
-    """
-	This function computes the sea-ice density
-	equations from Notz, 2005
+    """Compute sea-ice density.
+    
+	This function computes the sea-ice density.
 	
-	INPUT
-	T : temperature in K
-	S : bulk salinity in g/kg
+	Parameters
+	----------
+	T: xarray.DataArray
+		temperature in K
+	S: xarray.DataArray
+		bulk salinity in g/kg
 	
-	OUTPUT
-	rho_tot : sea-ice density in kg/m3	
+	Returns
+	-------
+	rho_tot: xarray.DataArray
+		sea-ice density in kg/m3	
+	
+	Notes
+	-----
+	The formulas are based on [Pounder, 1965]_ and Eq. 3.8 in [Notz, 2005]_
+	
+	References
+	----------
+	..[Pounder, 1965] Pounder, E. (1965): The Physics of Ice, Elsevier, 1st ed edn.
+	..[Notz, 2005] Notz, D. (2005): Thermodynamic and Fluid-Dynamical Processes in Sea Ice, 
+	Ph.D. thesis, University of Cambridge.
 	"""
     
     #print('calculating density')  
@@ -376,19 +516,29 @@ def icerho(T,S):
 
 def build_density_profile(empty_dens_prof,temperature,salinity,winter_mask,layer_amount,snow_dens):
     
-    """
+    """Build density profiles.
+    
 	This function builds sea-ice and snow density profiles 
 	
-	INPUT
-	empty_dens_prof : empty xarray with the expected dimensions of the output
-	temperature : temperature profile in K
-	salinity : salinity profile in g/kg
-	winter_mask : mask telling us which points are in "winter"
-	layer_amount : number of layers the profile should have
-	snow_dens : constant snow density we want to assign to the snow (usually 300 or 330 kg/m3)
+	Parameters
+	----------
+	empty_dens_prof: xarray.DataArray
+		empty xarray with the expected dimensions of the output
+	temperature: xarray.DataArray
+		temperature profile in K
+	salinity: xarray.DaraArray
+		salinity profile in g/kg
+	winter_mask: xarray.DataArray
+		mask telling us which points are in "winter"
+	layer_amount: int
+		number of layers the profile should have
+	snow_dens: float
+		constant snow density we want to assign to the snow (usually 300 or 330 kg/m3)
 	
-	OUTPUT
-	dens : density profiles over layer_amount taking into account ice and snow
+	Returns
+	-------
+		dens: xarray.DataArray 
+			density profiles over `layer_amount` taking into account ice and snow
 	"""
 
     print('------------------------------------')
@@ -406,18 +556,35 @@ def build_density_profile(empty_dens_prof,temperature,salinity,winter_mask,layer
 
 def build_corrlen_profile(empty_corrlen_prof,prof_thick,fyi_mask,winter_mask,layer_amount):
     
-    """
+    """Build correlation length profiles.
+    
 	This function builds correlation length profiles 
 	
-	INPUT
-	empty_corrlen_prof : empty xarray with the expected dimensions of the output
-	prof_thick : thickness profile in m
-	fyi_mask : mask telling where there is first-year ice
-	winter_mask : mask telling us which points are in "winter"
-	layer_amount : number of layers the profile should have
+	Parameters
+	----------
+	empty_corrlen_prof: xarray.DataArray
+		empty xarray with the expected dimensions of the output
+	prof_thick: xarray.DataArray
+		thickness profile in m
+	fyi_mask: xarray.DataArray
+		mask telling where there is first-year ice
+	winter_mask: xarray.DataArray
+		mask telling us which points are in "winter"
+	layer_amount: int
+		number of layers the profile should have
 	
-	OUTPUT
-	corrlen : correlation length over layer_amount in mm
+	Returns
+	-------
+	corrlen: xarray.DataArray
+		correlation length over layer_amount in mm
+		
+	Notes
+	-----
+	The correlation lengths are defined as such:
+	- First-year ice upper 20 cm: 0.25 mm
+	- First-year ice lower 20 cm: 0.35 mm
+	- Multiyear ice: 1.5 mm
+	based on experiments by R.T.Tonboe
 	"""
 
     print('------------------------------------')
@@ -446,19 +613,28 @@ def build_corrlen_profile(empty_corrlen_prof,prof_thick,fyi_mask,winter_mask,lay
 
 def build_sisn_prof(empty_def_prof,myi_mask,fyi_mask,winter_mask,layer_amount):
     
-    """
+    """Build snow/FYI/MYI information profiles
+    
 	This function builds layer type profiles 
 	
-	INPUT
-	empty_def_prof : empty xarray with the expected dimensions of the output
-	myi_mask : mask telling where there is multiyear ice
-	fyi_mask : mask telling where there is first-year ice
-	winter_mask : mask telling us which points are in "winter"
-	layer_amount : number of layers the profile should have
+	Parameters
+	----------
+	empty_def_prof: xarray.DataArray
+		empty xarray with the expected dimensions of the output
+	myi_mask: xarray.DataArray
+		mask telling where there is multiyear ice
+	fyi_mask: xarray.DataArray
+		mask telling where there is first-year ice
+	winter_mask: xarray.DataArray
+		mask telling us which points are in "winter"
+	layer_amount: int
+		number of layers the profile should have
 	
-	OUTPUT
-	sisn : profiles defining layer type, where
-	        1 = snow, 3 = first-year ice, 4 = multiyear ice 		  
+	Returns
+	-------
+	sisn: xarray.DataArray
+		profiles defining layer type, where
+	    1 = snow, 3 = first-year ice, 4 = multiyear ice 		  
 	"""
 	
     print('------------------------------------')
@@ -478,23 +654,36 @@ def build_sisn_prof(empty_def_prof,myi_mask,fyi_mask,winter_mask,layer_amount):
 
 def create_profiles(surf_temp_ice,sit,snow,layer_amount,info_ds,e_bias_fyi,e_bias_myi,snow_dens):
     
-    """
-	This function summarizes all profiles to write them out
+    """Combine all profile informations.
 	
-	INPUT
-	surf_temp_ice : sea ice (or snow) surface temperature
-	sit : sea-ice thickness in m
-	snow : snow thickness in m
-	layer_amount : number of layers the profile should have
-	info_ds : file storing the masks
-	e_bias_fyi : tuning coefficient for first-year ice
-	e_bias_myi : tuning coefficient for multiyear ice
-	snow_dens : snow density (constant)
+	This function summarizes all profiles to write them out, for both snow-covered and
+	snow-free profiles
+	
+	Parameters
+	----------
+	surf_temp_ice: xarray.DataArray
+		sea ice (or snow) surface temperature
+	sit: xarray.DataArray
+		sea-ice thickness in m
+	snow: xarray.DataArray
+		snow thickness in m
+	layer_amount: int
+		number of layers the profile should have
+	info_ds: xarray.Dataset
+		dataset containing the mask information
+	e_bias_fyi: float
+		tuning coefficient for first-year ice
+	e_bias_myi: float
+		tuning coefficient for multiyear ice
+	snow_dens: float
+		snow density (constant)
 
-	
-	OUTPUT
-	profiles1 : profiles of all properties if covered by snow
-	profiles2 : profiles of all properties if bare ice		  
+	Returns
+	-------
+	profiles1: xarray.Dataset
+		profiles of all properties if covered by snow
+	profiles2: xarray.Dataset
+		profiles of all properties if bare ice		  
 	"""
 
     print('------------------------------------')

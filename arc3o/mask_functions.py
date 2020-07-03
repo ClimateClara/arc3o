@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Created on Tue Aug 14 11:14:31 2018
+"""
+Created on Tue Aug 14 11:14:31 2018
 
-This script goes through the whole timeseries of data
-and defines two masks:
+These functions go through the whole timeseries of data
+and define two masks:
 1. for the different ice types: open water (OW,1), first-year ice (FYI,2), multiyear ice (MYI,3)
-2. for the different seasons: open water (0), winter (1), melting snow (2), bare summer ice (3)"""
+2. for the different seasons: open water (0), winter (1), melting snow (2), bare summer ice (3)
+"""
 
 ##################################################
 
@@ -33,7 +35,8 @@ def is_summer(month):
     return (month >= 4) & (month <= 9)
 
 def ice_type_wholeArctic(sit,timestep):
-    """
+    """Prepare mask for ice types
+    
     This function defines the mask for ice types
     
 	Parameters
@@ -81,7 +84,8 @@ def ice_type_wholeArctic(sit,timestep):
 
 def snow_period_masks(tsi,snow):
     
-    """
+    """Identify snow growth and snow melt.
+    
 	This function defines when there is snow growth 
 	and snow melt 
 	
@@ -120,7 +124,8 @@ def snow_period_masks(tsi,snow):
 
 def summer_bareice_mask(sit,snow,timestep):
     
-    """
+    """Identify areas of bare ice in summer.
+    
 	This function defines areas of bare ice in summer
 	
 	Parameters
@@ -158,7 +163,8 @@ def summer_bareice_mask(sit,snow,timestep):
 
 def define_periods(sit,snow,tsi,timestep):
     
-    """
+    """Build masks for different seasons.
+    
 	This function combines all season masking functions 
 	to have an overall season overview
 	
@@ -175,7 +181,7 @@ def define_periods(sit,snow,tsi,timestep):
 	
 	Returns
 	-------
-	period_masks : xarray.DataArray
+	period_masks: xarray.DataArray
 		mask for all seasons, where
 		0 = open water 
 		1 = winter
