@@ -10,7 +10,6 @@ Functions for MEMLS for the operational version
 #####################################################
 
 import numpy as np
-#import matplotlib.pyplot as plt
 import xarray as xr
 import pandas as pd
 import os
@@ -23,19 +22,35 @@ import timeit
 
 def epsice(Ti,freq):
     
-    """
+    """Compute dielectric permittivity of ice
+    
 	This function computes the dielectric permittivity of ice
 	After Hufford, Mitzima and Matzler
 	
-	INPUT
-	Ti : ice temperature in K
-	freq : frequency in GHz
+	Parameters
+	----------
+	Ti: np.array or xarray.DataArray
+		ice temperature in K
+	freq: float
+		frequency in GHz
 	
-	OUTPUT
-	eice : dielectric permittivity of ice
+	Returns
+	-------
+	eice: np.array or xarray.DataArray
+		dielectric permittivity of ice
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland	
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+
 	"""
     
     pp = (300/Ti)-1;
@@ -53,17 +68,31 @@ def epsice(Ti,freq):
 
 def epsr(roi):
     
-    """
+    """Compute real part of dielectric permittivity for dry snow
+    
 	This function computes the real part of dielectric permittivity for dry snow from density
 
-    INPUT
-	roi : snow density in g/cm3
+    Parameters
+    ----------
+	roi: np.array or xarray.DataArray
+		snow density in g/cm3
 	
-	OUTPUT
-	epsi : real part of dielectric permittivity of dry snow
+	Returns
+	-------
+	epsi: np.array or xarray.DataArray
+		real part of dielectric permittivity of dry snow
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland	
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     vfi = roi/0.917
@@ -80,20 +109,37 @@ def epsr(roi):
 
 def ro2epsd(roi,Ti,freq):
     
-    """
+    """Compute real part of dielectric permittivity for dry snow
+    
 	This function computes the dielectric permittivity for dry snow from density
 	
-	INPUT
-	roi : snow density in g/cm3
-	Ti : snow temperature in K
-	freq : frequency in GHz
+	Parameters
+	----------
+	roi: np.array or xarray.DataArray
+		snow density in g/cm3
+	Ti: np.array or xarray.DataArray
+		snow temperature in K
+	freq: float
+		frequency in GHz
 	 
-	OUTPUT
-	epsi : real part of dielectric permittivity of dry snow
-	epsii : imaginary part of dielectric permittivity of dry snow
+	Returns
+	-------
+	epsi: np.array or xarray.DataArray
+		real part of dielectric permittivity of dry snow
+	epsii: np.array or xarray.DataArray
+		imaginary part of dielectric permittivity of dry snow
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland	
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     eice = epsice(Ti,freq)
@@ -127,24 +173,43 @@ def ro2epsd(roi,Ti,freq):
 
 def mixmod(f,Ti,Wi,epsi,epsii):  
     
-    """
+    """Compute permittivity for snow wetness above 0
+    
 	This function computes the permittivity for Wetness > 0
 	Physical Mixing Model Weise 97 after Matzler 1987 (corrected)
-    water temperature is assumed constant at 273.15 K
+    The water temperature is assumed constant at 273.15 K
 	
-	INPUT
-	f : frequency in GHz
-    Ti : snow/ice temperature in K
-	Wi : snow/ice wetness between 0 and 1
-	epsi : real part of dielectric permittivity of dry snow
-	epsii : imaginary part of dielectric permittivity
+	Parameters
+	----------
+	f: float
+		frequency in GHz
+    Ti: np.array or xarray.DataArray
+    	snow/ice temperature in K
+	Wi: np.array or xarray.DataArray
+		snow/ice wetness between 0 and 1
+	epsi: np.array or xarray.DataArray
+		real part of dielectric permittivity of dry snow
+	epsii: np.array or xarray.DataArray
+		imaginary part of dielectric permittivity
 	
-	OUTPUT
-	epsi : real part of dielectric permittivity of wet snow
-	epsii : imaginary part of dielectric permittivity of wet snow
+	Returns
+	-------
+	epsi: np.array or xarray.DataArray
+		real part of dielectric permittivity of wet snow
+	epsii: np.array or xarray.DataArray
+		imaginary part of dielectric permittivity of wet snow
 
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland	
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     Aa = 0.005
@@ -190,20 +255,36 @@ def mixmod(f,Ti,Wi,epsi,epsii):
   	
 def epice(T,freq):
     
-    """
-	This function computes the dielectric constant of pure ice: 
-	Mätzler, 1998, Microwave properties of ice and snow, in: 
-	B. Smitht et al. (eds.) solar system ices, 241-257, Kluwer.
+    """Compute the dielectric constant of pure ice.
+    
+	This function computes the dielectric constant of pure ice, based on [Mätzler, 1998]_
 	
-	INPUT
-	T : ice temperature in K or °C
-	freq : frequency in GHz
+	Parameters
+	----------
+	T: np.array or xarray.DataArray
+		ice temperature in K or °C
+	freq: float
+		frequency in GHz
 	
-	OUTPUT
-	epui: dielectric constant of pure ice
+	Returns
+	-------
+	epui: np.array or xarray.DataArray
+		dielectric constant of pure ice
 	
-    Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland	
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Mätzler, 1998] Matzler C. (1998): Microwave Properties of Ice and Snow. 
+	In: Schmitt B., De Bergh C., Festou M. (eds) Solar System Ices. Astrophysics and Space 
+	Science Library, vol 227. Springer, Dordrecht
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     if T.max() < 100:
@@ -219,19 +300,38 @@ def epice(T,freq):
 
 def Nsw(Ssw):
     
-    """
+    """Compute normality of sea water or brine
+    
 	This function computes the normality of sea water or brine 
-	Ulaby et al. 1986, Eq.20
 	
-	INPUT
-	Ssw : salinity of brine or sea water in g/kg
-	freq : frequency in GHz
+	Parameters
+	----------
+	Ssw: np.array or xarray.DataArray
+		salinity of brine or sea water in g/kg
+	freq: float
+		frequency in GHz
 	 
-	OUTPUT
-	N: normality of sea water or brine
+	Returns
+	-------
+	N: np.array or xarray.DataArray
+		normality of sea water or brine
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland	
+	Notes
+	-----
+	This function is based on Eq. 20 in [Ulaby et al., 1986]_.
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
+	of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
+	Applications, chap. 18, pp. 1412–1521, Artech House, Inc.	
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+
 	"""
     
     N = 0.9141*Ssw*(1.707e-2 +1.205e-5*Ssw+4.058e-9*(Ssw**2))
@@ -240,18 +340,35 @@ def Nsw(Ssw):
 
 def condbrine(T):
     
-    """
+    """Compute the conductivity of brine
+    
 	This function computes the conductivity of brine
-	Stogryn and Desargant 1985, Eq.7
-	
-	INPUT
-	T : ice temperature in K or °C
+
+	Parameters
+	----------
+	T: np.array or xarray.DataArray
+		ice temperature in K or °C
 	 
-	OUTPUT
-	condbrine: conductivity of brine
+	Returns
+	-------
+	condbrine: np.array or xarray.DataArray
+		conductivity of brine
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland	
+	Notes
+	-----
+	This function is based on Eq. 7 in [Stogryn and Desargant, 1985]_.
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): "The dielectric properties 
+	of brine in sea ice at microwave frequencies," in IEEE Transactions on Antennas and Propagation, 
+	vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.	
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     if T.max() > 100:
@@ -267,17 +384,33 @@ def condbrine(T):
 
 def relaxt(T):
     
-    """
+    """Compute relaxation time
+    
 	This function computes the relaxation time
-	Stogryn and Desargant, 1985, Eq.12
-	fit up to -25°C
+	Fit valid up to -25°C
 	
-	INPUT
-	T : ice temperature in K or °C
+	Parameters
+	----------
+	T: np.array or xarray.DataArray
+		ice temperature in K or °C
 	 
-	OUTPUT
-	relax: relaxation time in nanoseconds
+	Returns
+	-------
+	relax: np.array or xarray.DataArray
+		relaxation time in nanoseconds
 	
+	Notes
+	-----
+	This function is based on Eq. 12 in [Stogryn and Desargant, 1985]_.
+	It was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): "The dielectric properties 
+	of brine in sea ice at microwave frequencies," in IEEE Transactions on Antennas and Propagation, 
+	vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.	
+
 	"""
     
     if T.max() > 100:
@@ -291,16 +424,32 @@ def relaxt(T):
 
 def epsib0(T):
     
-    """
+    """Compute static dielectric constant of brine.
+    
 	This function computes the static dielectric constant of brine
-	Stogryn and Desargant, 1985, Eq.10
-	fit up to -25°C
+	Fit valid up to -25°C
 	
-	INPUT
-	T : ice temperature in K or °C
+	Parameters
+	----------
+	T: np.array or xarray.DataArray
+		ice temperature in K or °C
 	
-	OUTPUT
-	epsib0: static dielectric constant of brine
+	Returns
+	-------
+	epsib0: np.array or xarray.DataArray
+		static dielectric constant of brine
+
+	Notes
+	-----
+	This function is based on Eq. 10 in [Stogryn and Desargant, 1985]_.
+	It was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): "The dielectric properties 
+	of brine in sea ice at microwave frequencies," in IEEE Transactions on Antennas and Propagation, 
+	vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.
 	
 	"""
     
@@ -314,18 +463,36 @@ def epsib0(T):
 
 def ebrine(T,freq):
     
-    """
+    """Compute brine permittivity
+    
 	This function computes the brine permittivity
-	Stogryn and Desargant, 1985, Eq.1
-	fit up to -25°C
+	Fit valid up to -25°C
 	
-	INPUT
-	T : ice temperature in K or °C
-    freq : frequency in GHz
+	Parameters
+	----------
+	T: np.array or xarray.DataArray
+		ice temperature in K or °C
+    freq: float
+    	frequency in GHz
 	
-	OUTPUT
-	ebr.real: real part of brine permittivity
-	ebr.imag: imaginary part of brine permittivity
+	Returns
+	-------
+	ebr.real: np.array or xarray.DataArray
+		real part of brine permittivity
+	ebr.imag: np.array or xarray.DataArray
+		imaginary part of brine permittivity
+
+	Notes
+	-----
+	This function is based on Eq. 1 in [Stogryn and Desargant, 1985]_.
+	It was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): "The dielectric properties 
+	of brine in sea ice at microwave frequencies," in IEEE Transactions on Antennas and Propagation, 
+	vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.
 	"""
     
     if T.max() > 100:
@@ -349,19 +516,36 @@ def ebrine(T,freq):
 
 def eice_s2p(e1,e2,v):
     
-    """
+    """Compute effective dielectric constant of medium consisting of e1 and e2
 	This function computes the effective dielectric constant of medium consisting of e1 and e2
-	improved born approximation by C. Mätzler (1998). J. Appl. Phys. 83(11),6111-7
+	
+	Improved born approximation by [Mätzler, 1998]_.
 	Polder/VanSanten mixing formulae for spherical inclusions
 	
-	INPUT
-	e1 : dielectric constant of background
-	e2: dielectric constant of sherical inclusions
-	v: fraction of inclusions
+	Parameters
+	----------
+	e1: np.array or xarray.DataArray
+		dielectric constant of background
+	e2: np.array or xarray.DataArray
+		dielectric constant of sherical inclusions
+	v: np.array or xarray.DataArray
+		fraction of inclusions
 	 
-	OUTPUT
-	eeff: effective dielectric constant of medium consisting of e1 and e2
+	Returns
+	-------
+	eeff: np.array or xarray.DataArray
+		effective dielectric constant of medium consisting of e1 and e2
+
+	Notes
+	-----
+	This function is based on the improved born approximation in [Mätzler, 1998]_.
+	It was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
 	
+	References
+	----------
+	..[Mätzler, 1998] Mätzler, C. (1998): Improved Born approximation for scattering of radiation in a granular medium
+Journal of Applied Physics 83, 6111, doi: 10.1063/1.367496
 	"""
     
     eeff=0.25*(2.*e1-e2+3.*v*(e2-e1)+np.sqrt((2.*e1-e2+3.*v*(e2-e1))**2 +8.*e1*e2))
@@ -371,21 +555,44 @@ def eice_s2p(e1,e2,v):
 
 def sie(si,sal,Ti,freq,epsi,epsii):  
     
-    """
-	This function computes the dielectric constant of ice if it is an ice layer
-  	Background information: Ulaby et al. 1986 vol. III.
+    """Compute dielectric constant of ice if it is an ice layer
+    
+	This function computes the dielectric constant of ice if it is a sea-ice layer
+  	Background information: [Ulaby et al., 1986]_.
 	
-	INPUT
-	si : sea ice/snow layer 1 or 0
-	sal : salinity in g/kg
-	Ti : ice temperature in K
-	freq : frequency in GHz
-	epsi : initial permittivity (of snow)
-	epsii : initial loss (of snow)
+	Parameters
+	----------
+	si: np.array or xarray.DataArray
+		sea ice/snow layer 1 or 0
+	sal: np.array or xarray.DataArray
+		salinity in g/kg
+	Ti: np.array or xarray.DataArray
+		ice temperature in K
+	freq: float
+		frequency in GHz
+	epsi: np.array or xarray.DataArray
+		initial permittivity (of snow)
+	epsii: np.array or xarray.DataArray
+		initial loss (of snow)
  
-	OUTPUT
-	epsi: permittivity of ice
-	epsii : loss of ice
+	Returns
+	-------
+	epsi: np.array or xarray.DataArray
+		permittivity of ice
+	epsii: np.array or xarray.DataArray
+		loss of ice
+
+	Notes
+	-----
+	This function is based on formulas in [Ulaby et al., 1986]_.
+	It was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
+	of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
+	Applications, chap. 18, pp. 1412–1521, Artech House, Inc.	
 	"""
     
     if Ti.max() > 100:
@@ -410,23 +617,48 @@ def sie(si,sal,Ti,freq,epsi,epsii):
 
 
 def mysie(si,rho,Ti,sal,freq,epsi,epsii):
+
     
-    """
+    """Compute dielectric constant of ice if it is a mutliyear ice layer
+    
 	This function computes the dielectric constant of ice if it is a multiyear ice layer
-  	Background information: Ulaby et al. 1986 vol. III.
+  	Background information: [Ulaby et al., 1986]_.
 	
-	INPUT
-	si : sea ice/snow layer 1 or 0
-	rho : density of ice layer in g/cm3
-	Ti : ice temperature in K
-	sal : salinity in g/kg
-	freq : frequency in GHz
-	epsi : initial permittivity (of snow)
-	epsii : initial loss (of snow)
+	Parameters
+	----------
+	si: np.array or xarray.DataArray
+		sea ice/snow layer 1 or 0
+	rho: np.array or xarray.DataArray
+		density of ice layer in g/cm3
+	Ti: np.array or xarray.DataArray
+		ice temperature in K
+	sal: np.array or xarray.DataArray
+		salinity in g/kg
+	freq: float
+		frequency in GHz
+	epsi: np.array or xarray.DataArray
+		initial permittivity (of snow)
+	epsii: np.array or xarray.DataArray
+		initial loss (of snow)
+ 
+	Returns
+	-------
+	epsi: np.array or xarray.DataArray
+		permittivity of ice
+	epsii: np.array or xarray.DataArray
+		loss of ice
+
+	Notes
+	-----
+	This function is based on formulas in [Ulaby et al., 1986]_.
+	It was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
 	
-	OUTPUT
-	epsi: permittivity of ice
-	epsii : loss of ice
+	References
+	----------
+	..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
+	of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
+	Applications, chap. 18, pp. 1412–1521, Artech House, Inc.	
 	"""
     #permittivity of saline ice
     [sepsi, sepsii] = sie(si,sal,Ti,freq,epsi,epsii)
@@ -455,21 +687,42 @@ def mysie(si,rho,Ti,sal,freq,epsi,epsii):
 
 def abscoeff(epsi,epsii,Ti,freq):
     
-    """
+    """Compute absorption coefficient.
+    
 	This function computes the absorption coefficient from the dielectric properties
-  	Background information: Ulaby et al. 1986 vol. III.
+  	Background information: [Ulaby et al., 1986]_.
 	
-	INPUT
-	epsi:  real part dielectric constant
-	epsii: imaginary part dielectric constant
-	Ti : ice temperature in K
-	freq : frequency in GHz
+	Parameters
+	----------
+	epsi: np.array or xarray.DataArray
+		real part dielectric constant
+	epsii: np.array or xarray.DataArray
+		imaginary part dielectric constant
+	Ti: np.array or xarray.DataArray
+		ice temperature in K
+	freq: float
+		frequency in GHz
 	
-	OUTPUT
-	gai: absorption coefficient
+	Returns
+	-------
+	gai: np.array or xarray.DataArray
+		absorption coefficient
 	
-	Copyright (c) 1997 by the Institute of Applied Physics, 
-    University of Bern, Switzerland
+	Notes
+	-----
+	This function is based on formulas in [Ulaby et al., 1986]_.
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
+	of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
+	Applications, chap. 18, pp. 1412–1521, Artech House, Inc.		
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     # constants
@@ -485,16 +738,27 @@ def abscoeff(epsi,epsii,Ti,freq):
 
 def tei_ndim(teta,ns):
     
-    """
+    """Append teta at the end of the dimension `layer_nb`
+	
 	This function has practical reasons, it appends teta at the 
   	end of ns over dimension layer_nb
 
-	INPUT
-	teta:  incidence angle in degrees
-	ns: real part of the refractive index of the slab
+	Parameters
+	----------
+	teta: float
+		incidence angle in degrees
+	ns: xarray.DataArray
+		real part of the refractive index of the slab
 	
-	OUTPUT
-	tei_ndim: local incidence angle
+	Returns
+	-------
+	tei_ndim: xarray.DataArray
+		local incidence angle
+
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 	
 	"""
     
@@ -507,16 +771,27 @@ def tei_ndim(teta,ns):
 
 def append_laydim_end(xrda,const):
     
-    """
+    """Append a constant at the end of the dimension `layer_nb`
+	
 	This function has practical reasons, it appends a constant at the 
   	end of a dimension, here layer_nb
 	
-	INPUT
-	xrda:  variable where it has to be appended
-	const: constant to be appended at the end
+	Parameters
+	----------
+	xrda: xarray.DataArray
+		variable where it has to be appended
+	const: float
+		constant to be appended at the end
 	 
-	OUTPUT
-	xrda_app: longer array
+	Returns
+	-------
+	xrda_app: xarray.DataArray
+		longer array
+
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 	
 	"""
     
@@ -527,16 +802,27 @@ def append_laydim_end(xrda,const):
     
 def append_laydim_begin(xrda,const):
     
-    """
+    """Append a constant at the beginning of the dimension `layer_nb`
+	
 	This function has practical reasons, it appends a constant at the 
   	beginning of a dimension, here layer_nb
 	
-	INPUT
-	xrda:  variable where it has to be appended
-	const: constant to be appended at the beginning
+	Parameters
+	----------
+	xrda: xarray.DataArray
+		variable where it has to be appended
+	const: float
+		constant to be appended at the beginning
 	
-	OUTPUT
-	xrda_app: longer array
+	Returns
+	-------
+	xrda_app: xarray.DataArray
+		longer array
+
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 
 	"""
     
@@ -548,18 +834,33 @@ def append_laydim_begin(xrda,const):
 
 def pfadi(tei,di):
     
-    """
+    """Compute effective path length in a layer
+    
 	This function computes the effective path length in a layer
 	
-	INPUT
-	tei:  local incidence angle
-	di : ice thickness of layer in m
+	Parameters
+	----------
+	tei: xarray.DataArray
+		local incidence angle
+	di: xarray.DataArray
+		ice thickness of layer in m
 	
-	OUTPUT
-	dei: effective path length in m
+	Returns
+	-------
+	dei: xarray.DataArray
+		effective path length in m
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------		
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     N = len(di.layer_nb)
@@ -569,20 +870,36 @@ def pfadi(tei,di):
 
 def fresnelc0(tei,epsi):
     
-    """
+    """Compute the fresnel reflection coefficients
+    
 	This function computes the fresnel reflection coefficients (assuming eps'' = 0)
 	(layer n+1 is the air above the snowpack)
 	
-	INPUT
-	tei : local incidence angle
-	epsi : real part of dielectric permittivity
+	Parameters
+	----------
+	tei: xarray.DataArray
+		local incidence angle
+	epsi: xarray.DataArray
+		real part of dielectric permittivity
 	
-	OUTPUT
-	sih : interface reflectivity at h pol
-	siv : interface reflectivity at v pol
+	Returns
+	-------
+	sih: xarray.DataArray
+		interface reflectivity at h pol
+	siv: xarray.DataArray
+		interface reflectivity at v pol
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------		
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     N = len(epsi.layer_nb)-1
@@ -603,27 +920,50 @@ def fresnelc0(tei,epsi):
 
 def sccoeff(roi,Ti,pci,freq,Wi,gai,sccho):
     
-    """
+    """Compute the the scattering coefficient
+    
 	This function computes the the scattering coefficient from structural parameters
 	different algorithms can be chosen, by changing "sccho"
 	
-	INPUT
-	roi:   density in g/cm3
-	Ti : temperature in K
-	pci : correlation length in mm
-	freq : frequency in GHz
-	Wi : wetness between 0 and 1
-	gai : absorption coefficient
-	sccho: scattering coefficient algorithm chosen
+	Parameters
+	----------
+	roi: xarray.DataArray
+		density in g/cm3
+	Ti: xarray.DataArray
+		temperature in K
+	pci: xarray.DataArray
+		correlation length in mm
+	freq: float
+		frequency in GHz
+	Wi: xarray.DataArray
+		wetness between 0 and 1
+	gai: xarray.DataArray
+		absorption coefficient
+	sccho: xarray.DataArray
+		scattering coefficient algorithm chosen
 	
-	OUTPUT
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
+	Returns
+	-------
+	gbih: xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: xarray.DataArray
+		2-flux absorption coefficient
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------		
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
+	layered snowpacks, Remote Sens. Environ., 70, 307–316.
 	"""
     
     ## constants
