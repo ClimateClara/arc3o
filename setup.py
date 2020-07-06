@@ -71,7 +71,8 @@ setuptools.setup(
       ],
       
     project_urls={
-    	'Bug Reports': 'https://github.com/ClimateClara/arc3o/issues',
+        'Source': 'https://github.com/ClimateClara/arc3o',
+        'Tracker': 'https://github.com/ClimateClara/arc3o/issues',
     #    'Documentation': 'https://arc3o.readthedocs.io',
       },
     
