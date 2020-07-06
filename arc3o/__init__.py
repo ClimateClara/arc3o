@@ -5,8 +5,10 @@ Created on Tue Aug 14 11:14:31 2018
 
 functions for operational SATSIM
 
-@author: m300411
+@author: Clara Burgard
 """
+
+__version__ = '0.1'
 
 import numpy as np
 #import matplotlib.pyplot as plt
@@ -793,7 +795,10 @@ def satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,
             at top of the atmosphere in K
 
     """   
-
+	
+	if freq_of_int != 6.9:
+		return print('ARC3O has currently only been evaluated for 6.9 GHz VERTICAL polarization! You need to tweak the code if you want to apply it to other frequencies ;)') 
+	
     #function inside the loop for the timesteps
     year_data = xr.open_dataset(file)
     #write time in the right format
