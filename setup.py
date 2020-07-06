@@ -51,7 +51,7 @@ setuptools.setup(
     
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Intended Audience :: Climate scientists',
+        'Intended Audience :: Science/Research',
         'License :: OSI Approved :: GNU General Public License v3 (GPL-3.0)',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
