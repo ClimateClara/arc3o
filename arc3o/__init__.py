@@ -8,6 +8,8 @@ functions for operational ARC3O
 @author: Clara Burgard
 """
 
+__version__='0.1'
+
 import numpy as np
 import xarray as xr
 import datetime 
