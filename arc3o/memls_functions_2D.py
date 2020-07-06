@@ -4,7 +4,8 @@ Created on Wed Aug 20 17:39 2018
 Functions for MEMLS for the operational version
 
 @author: Clara Burgard, based on a 1D Matlab version developed by A. Wiesmann and C. Mätzler, and 
-		 extended for sea ice by R.T. Tonboe, see Wiesmann and Mätzler (1998) and Tonboe (2006)
+		 extended for sea ice by R.T. Tonboe, see Wiesmann and Mätzler (1998), Wiesmann and Mätzler (1999)
+		 and Tonboe (2006)
 """
 
 #####################################################
@@ -43,13 +44,15 @@ def epsice(Ti,freq):
 	-----
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
 	----------
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 
 	"""
     
@@ -86,13 +89,15 @@ def epsr(roi):
 	-----
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
 	----------
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 	"""
     
     vfi = roi/0.917
@@ -133,13 +138,15 @@ def ro2epsd(roi,Ti,freq):
 	-----
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
 	----------
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 	"""
     
     eice = epsice(Ti,freq)
@@ -203,13 +210,15 @@ def mixmod(f,Ti,Wi,epsi,epsii):
 	-----
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
 	----------
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 	"""
     
     Aa = 0.005
@@ -275,7 +284,7 @@ def epice(T,freq):
 	-----
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
@@ -283,8 +292,10 @@ def epice(T,freq):
 	..[Mätzler, 1998] Matzler C. (1998): Microwave Properties of Ice and Snow. 
 	In: Schmitt B., De Bergh C., Festou M. (eds) Solar System Ices. Astrophysics and Space 
 	Science Library, vol 227. Springer, Dordrecht
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 	"""
     
     if T.max() < 100:
@@ -321,7 +332,7 @@ def Nsw(Ssw):
 	This function is based on Eq. 20 in [Ulaby et al., 1986]_.
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
@@ -329,8 +340,11 @@ def Nsw(Ssw):
 	..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
 	of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
 	Applications, chap. 18, pp. 1412–1521, Artech House, Inc.	
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 
 	"""
     
@@ -359,7 +373,7 @@ def condbrine(T):
 	This function is based on Eq. 7 in [Stogryn and Desargant, 1985]_.
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
@@ -367,8 +381,11 @@ def condbrine(T):
 	..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): "The dielectric properties 
 	of brine in sea ice at microwave frequencies," in IEEE Transactions on Antennas and Propagation, 
 	vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.	
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 	"""
     
     if T.max() > 100:
@@ -713,7 +730,7 @@ def abscoeff(epsi,epsii,Ti,freq):
 	This function is based on formulas in [Ulaby et al., 1986]_.
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
@@ -721,8 +738,11 @@ def abscoeff(epsi,epsii,Ti,freq):
 	..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
 	of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
 	Applications, chap. 18, pp. 1412–1521, Artech House, Inc.		
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 	"""
     
     # constants
@@ -854,13 +874,16 @@ def pfadi(tei,di):
 	-----
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
 	----------		
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 	"""
     
     N = len(di.layer_nb)
@@ -893,13 +916,16 @@ def fresnelc0(tei,epsi):
 	-----
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
 	----------		
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 	"""
     
     N = len(epsi.layer_nb)-1
@@ -927,43 +953,46 @@ def sccoeff(roi,Ti,pci,freq,Wi,gai,sccho):
 	
 	Parameters
 	----------
-	roi: xarray.DataArray
+	roi: np.array or xarray.DataArray
 		density in g/cm3
-	Ti: xarray.DataArray
+	Ti: np.array or xarray.DataArray
 		temperature in K
-	pci: xarray.DataArray
+	pci: np.array or xarray.DataArray
 		correlation length in mm
 	freq: float
 		frequency in GHz
-	Wi: xarray.DataArray
+	Wi: np.array or xarray.DataArray
 		wetness between 0 and 1
-	gai: xarray.DataArray
+	gai: np.array or xarray.DataArray
 		absorption coefficient
-	sccho: xarray.DataArray
+	sccho: int
 		scattering coefficient algorithm chosen
 	
 	Returns
 	-------
-	gbih: xarray.DataArray
+	gbih: np.array or xarray.DataArray
 		2-flux scattering coefficient at h pol
-	gbiv: xarray.DataArray
+	gbiv: np.array or xarray.DataArray
 		2-flux scattering coefficient at v pol
-	gs6: xarray.DataArray
+	gs6: np.array or xarray.DataArray
 		6-flux scattering coefficient
-	ga2i: xarray.DataArray
+	ga2i: np.array or xarray.DataArray
 		2-flux absorption coefficient
 	
 	Notes
 	-----
 	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
 	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1999]_
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
 	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	References
 	----------		
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): Microwave emission model of 
-	layered snowpacks, Remote Sens. Environ., 70, 307–316.
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 	"""
     
     ## constants
@@ -1059,27 +1088,49 @@ def sccoeff(roi,Ti,pci,freq,Wi,gai,sccho):
 
 def meteo_sc(si,rroi,rTi,rpci,freq,rWi,rgai,gbih,gbiv,gs6,ga2i):
     
-    """
+    """Compute the scattering coefficient of fresh snow
+    
 	This function computes the scattering coefficient of only partly 
 	recrystallized snow, linear combination of iborn, wahl==6
 	
-	INPUT
-	si : layer type ice/snow [1/0]
-	rroi:   density in g/cm3
-	rTi : temperature in K or °C
-	rpci : correlation length in mm
-	freq : frequency in GHz
-	rgai : absorption coefficient
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
+	Parameters
+	----------
+	si: xarray.DataArray
+		layer type ice/snow [1/0]
+	rroi: xarray.DataArray
+		density in g/cm3
+	rTi: xarray.DataArray
+		temperature in K or °C
+	rpci: xarray.DataArray
+		correlation length in mm
+	freq: float
+		frequency in GHz
+	rgai: xarray.DataArray
+		absorption coefficient
+	gbih: xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: xarray.DataArray
+		2-flux absorption coefficient
 	
-	OUTPUT
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
+	Returns
+	-------
+	gbih: xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: xarray.DataArray
+		2-flux absorption coefficient
+		
+	Notes
+	-----
+	This function was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	"""
     
@@ -1091,21 +1142,41 @@ def meteo_sc(si,rroi,rTi,rpci,freq,rWi,rgai,gbih,gbiv,gs6,ga2i):
 
 def iborn_s2p(e1,e2,eeff,v,k,pcc):
     
-    """
-	This function computes the improved born approximation by C. Mätzler (1998). 
-	J. Appl. Phys. 83(11),6111-7, scattering coefficient of a collection of spherical inclusions
+    """Compute the scattering coefficient with improved born approximation
+    
+	This function computes the scattering coefficient of a collection of spherical inclusions
 	articles with correlation length pcc using improved born approximation
 	
-	INPUT
-	e1 : dielectric constant of background
-	e2 : dielectric constant of sherical inclusions
-	eeff: effective dielectric constant of medium consisting of e1 and e2
-	v : liquid volume fraction
-	k : given constant (f(freq))
-	pcc : correlation length in mm
+	Parameters
+	----------
+	e1: np.array or xarray.DataArray
+		dielectric constant of background
+	e2: np.array or xarray.DataArray
+		dielectric constant of sherical inclusions
+	eeff: np.array or xarray.DataArray
+		effective dielectric constant of medium consisting of e1 and e2
+	v: np.array or xarray.DataArray
+		brine volume fraction
+	k: float
+		given constant (f(freq))
+	pcc: np.array or xarray.DataArray
+		correlation length in mm
 	
-	OUTPUT
-	ss = 6-flux scattering coefficient for ice (?)
+	Returns
+	-------
+	ss:	np.array or xarray.DataArray
+		6-flux scattering coefficient for ice (?)
+	
+	Notes
+	-----
+	This function is based on the improved born approximation in [Mätzler, 1998]_.
+	It was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Mätzler, 1998] Mätzler, C. (1998): Improved Born approximation for scattering of radiation in a granular medium
+	Journal of Applied Physics 83, 6111, doi: 10.1063/1.367496
 	
 	"""
     
@@ -1117,25 +1188,46 @@ def iborn_s2p(e1,e2,eeff,v,k,pcc):
 
 def scice(si,gbih,gbiv,gs6,ga2i,Ti,sal,freq,pci):
     
-    """
+    """Compute the ice scattering coefficient from structural parameters
+    
 	This function computes the scattering coefficient from structural parameters
 	
-	INPUT
-	si : layer type ice/snow [1/0]
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
-    Ti : temperature in K 
-	sal : salinity in g/kg 
-	freq : frequency in GHz
-	pci : correlation length in mm
+	Parameters
+	----------
+	si: np.array or xarray.DataArray
+		layer type ice/snow [1/0]
+	gbih: np.array or xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: np.array or xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: np.array or xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: np.array or xarray.DataArray
+		2-flux absorption coefficient
+    Ti:	xarray.DataArray
+    	temperature in K 
+	sal: np.array or xarray.DataArray
+		salinity in g/kg 
+	freq: float
+		frequency in GHz
+	pci: np.array or xarray.DataArray
+		correlation length in mm
 	
-	OUTPUT
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
+	Returns
+	-------
+	gbih: np.array or xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: np.array or xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: np.array or xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: np.array or xarray.DataArray
+		2-flux absorption coefficient
+
+	Notes
+	-----
+	This function was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	"""
     
@@ -1158,26 +1250,48 @@ def scice(si,gbih,gbiv,gs6,ga2i,Ti,sal,freq,pci):
 
 def scice_my(si,gbih,gbiv,gs6,ga2i,Ti,dens,freq,pci,sal):
     
-    """
+    """Compute the scattering coefficient of multiyear ice from structural parameters
+	
 	This function computes the scattering coefficient of multiyear ice from structural parameters
 	
-	INPUT
-	si : layer type ice/snow [1/0]
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
-	Ti : temperature in K 
-	dens : density in g/cm3
-	freq : frequency in GHz
-	pci : correlation length in mm
-	sal : salinity in g/kg
+	Parameters
+	----------
+	si: xarray.DataArray
+		layer type ice/snow [1/0]
+	gbih: xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: xarray.DataArray
+		2-flux absorption coefficient
+	Ti: xarray.DataArray
+		temperature in K 
+	dens: xarray.DataArray
+		density in g/cm3
+	freq: float
+		frequency in GHz
+	pci: xarray.DataArray
+		correlation length in mm
+	sal: xarray.DataArray
+		salinity in g/kg
 	
-	OUTPUT
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
+	Returns
+	-------
+	gbih: xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: xarray.DataArray
+		2-flux absorption coefficient
+		
+	Notes
+	-----
+	This function was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	"""
     
@@ -1206,28 +1320,52 @@ def scice_my(si,gbih,gbiv,gs6,ga2i,Ti,dens,freq,pci,sal):
 
 def absorp2f(gbih,gbiv,gs6,ga2i,epsi,epsii,roi,Ti,pci,freq,Wi,gai):
     
-    """
-	This function computes the the scattering coefficient from structural parameters
+    """Compute the absorption and scattering coefficient from structural parameters
 	
-	INPUT
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
-	epsi : permittivity
-	epsii : loss
-	roi : density in g/cm3
-	Ti : temperature in K 
-	pci : correlation length in mm
-	freq : frequency in GHz
-	Wi : wetness between 0 and 1
-	gai : absorption coefficient
+	This function computes the scattering coefficient from structural parameters
 	
-	OUTPUT
-	gbih : 2-flux scattering coefficient at h pol
-	gbiv : 2-flux scattering coefficient at v pol
-	gs6 : 6-flux scattering coefficient
-	ga2i : 2-flux absorption coefficient
+	Parameters
+	----------
+	gbih: xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: xarray.DataArray
+		2-flux absorption coefficient
+	epsi: xarray.DataArray
+		permittivity
+	epsii: xarray.DataArray
+		loss
+	roi: xarray.DataArray
+		density in g/cm3
+	Ti: xarray.DataArray
+		temperature in K 
+	pci: xarray.DataArray
+		correlation length in mm
+	freq: float
+		frequency in GHz
+	Wi: xarray.DataArray
+		wetness between 0 and 1
+	gai: xarray.DataArray
+		absorption coefficient
+	
+	Returns
+	-------
+	gbih: xarray.DataArray
+		2-flux scattering coefficient at h pol
+	gbiv: xarray.DataArray
+		2-flux scattering coefficient at v pol
+	gs6: xarray.DataArray
+		6-flux scattering coefficient
+	ga2i: xarray.DataArray
+		2-flux absorption coefficient
+	
+	Notes
+	-----
+	This function was introduced into the MEMLS code by R.T. Tonboe. 
+	It was translated by C. Burgard to Python to be used in ARC3O.
 	
 	"""
     
@@ -1265,22 +1403,44 @@ def absorp2f(gbih,gbiv,gs6,ga2i,epsi,epsii,roi,Ti,pci,freq,Wi,gai):
 
 def pfadc(teta,di,epsi,gs6):
     
-    """
+    """Compute the effective path length in a layer
+	
 	This function computes the effective path length in a layer
 	
-	INPUT
-	teta : incidence angle at snow-air interface in degrees
-	di : ice thickness in m
-	epsi : permittivity
-	gs6 : 6-flux scattering coefficient
+	Parameters
+	----------
+	teta: float
+		incidence angle at snow-air interface in degrees
+	di: xarray.DataArray
+		ice thickness in m
+	epsi: xarray.DataArray
+		permittivity
+	gs6: xarray.DataArray
+		6-flux scattering coefficient
 	
-	OUTPUT
-	dei : effective path length in m
-	tei : local incidence angle
-	tscat : tau scattering 
+	Returns
+	-------
+	dei: xarray.DataArray
+		effective path length in m
+	tei: xarray.DataArray
+		local incidence angle
+	tscat: xarray.DataArray
+		tau scattering 
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 	
     """
     
@@ -1312,21 +1472,42 @@ def pfadc(teta,di,epsi,gs6):
 
 def polmix(tscat,sih,siv):
     
-    """
+    """Compute the polarization mixing of the interface reflectivities
+	of each layer
+    
 	This function computes the polarization mixing of the interface reflectivities
 	of each layer (taking into account the first order scattering)
 	
-	INPUT
-	tscat : tau scattering 
-	sih:   interface reflectivity at h-pol
-	siv:   interface reflectivity at v-pol
+	Parameters
+	----------
+	tscat: xarray.DataArray
+		tau scattering 
+	sih: xarray.DataArray 
+		interface reflectivity at h-pol
+	siv: xarray.DataArray
+		interface reflectivity at v-pol
 	
-	OUTPUT
-	sih:   interface reflectivity at h-pol
-	siv:   interface reflectivity at v-pol
+	Returns
+	-------
+	sih: xarray.DataArray  
+		interface reflectivity at h-pol
+	siv: xarray.DataArray  
+		interface reflectivity at v-pol
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 	
 	"""
     
@@ -1342,20 +1523,40 @@ def polmix(tscat,sih,siv):
 
 def rt(gai,gbi,dei):
     
-    """
+    """Compute the layer reflectivity and transmissivity
+    
 	This function computes the layer reflectivity and transmissivity
 	
-	INPUT
-    gai : absorption coefficient
-    gbi: scattering coefficient
-	dei: effective path length in m
+	Parameters
+	----------
+    gai: xarray.DataArray
+    	absorption coefficient
+    gbi: xarray.DataArray
+    	scattering coefficient
+	dei: xarray.DataArray
+		effective path length in m
 	
-	OUTPUT
-	ri : reflectivity
-	ti : transmissivity
+	Returns
+	-------
+	ri: xarray.DataArray
+		reflectivity
+	ti: xarray.DataArray
+		transmissivity
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
+	
+	References
+	----------
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+
 	
 	"""
     
@@ -1373,16 +1574,27 @@ def rt(gai,gbi,dei):
 
 def xr_diag(v,k=0):
     
-    """
+    """Create diagonal matrix with values of v on the diagonal
+    
 	This function is more technical, creates diagonal matrix with values of v on the diagonal, 
 	gives out an xr.DataArray
 	
-	INPUT
-	v : xarray with the wished dimensions
-	k : coefficient if diagonal is shifted fro middle
+	Parameters
+	----------
+	v: xarray.DataArray
+		xarray with the wished dimensions
+	k: int
+		coefficient if diagonal is shifted from middle
 	
-	OUTPUT
-	res : resulting diagonal matrix
+	Returns
+	-------
+	res: xarray.DataArray
+		resulting diagonal matrix
+	
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 
 	"""
     
@@ -1419,15 +1631,25 @@ def xr_diag(v,k=0):
 
 def build_xarray(data,temp):
     
-    """
+    """Transform np.array into xarray.DataArray
 	This function is more technical, transforms np.array into xarray
 	
-	INPUT
+	Parameters
+	----------
 	data : np.array
-	temp : other xarray that has the wished dimensions
+		data to be transformed
+	temp: xarray.DataArray
+		other xarray.DataArray that has the wished dimensions
 	
-	OUTPUT
-	res : resulting xarray of same dimensions as temp
+	Returns
+	-------
+	res: xarray.DataArray
+		resulting xarray.DataArray of same dimensions as `temp`
+	
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 	
 	"""
 
@@ -1448,16 +1670,27 @@ def build_xarray(data,temp):
 
 def build_xarray_matrix2D(data,temp):
     
-    """
-	This function is more technical, transforms a np.array into xarray over the 
-	two dimensions layer_nb and matrix_dim for matrix operations
+    """Transform a np.array into xarray.DataArray over the two dimensions `layer_nb` and `matrix_dim` for matrix operations
 	
-	INPUT
-	data : np.array
-	temp : other xarray that has the wished dimensions
+	This function is more technical, transforms a np.array into xarray.DataArray over the 
+	two dimensions `layer_nb` and `matrix_dim` for matrix operations
 	
-	OUTPUT
-	test : resulting xarray with two times dimension layer_nb for matrix operations
+	Parameters
+	----------
+	data: np.array
+		data to be transformed
+	temp: xarray.DataArray
+		other xarray.DataArray that has the wished dimensions
+	
+	Returns
+	-------
+	test: xarray.DataArray
+		resulting xarray with two times dimension layer_nb for matrix operations
+
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 	
 	"""
     
@@ -1471,16 +1704,27 @@ def build_xarray_matrix2D(data,temp):
 
 def xr_eye(v,k=0):
     
-    """
+    """Create diagonal matrix with ones on the diagonal
+    
 	This function is more technical, creates diagonal matrix with ones on the diagonal,
-	gives out an xr.DataArray
+	gives out an xarray.DataArray
 	
-	INPUT
-	v : xarray with the wished dimensions
-    k : coefficient if you want to shift the ones
+	Parameters
+	----------
+	v: xarray.DataArray
+		xarray.DataArray with the wished dimensions
+    k: int
+    	coefficient if you want to shift the ones
 	
-	OUTPUT
-	test : resulting xarray with two times dimension layer_nb for matrix operations
+	Returns
+	-------
+	test: xarray.DataArray
+		resulting xarray with two times dimension layer_nb for matrix operations
+
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 	
 	"""
     
@@ -1491,14 +1735,7 @@ def xr_eye(v,k=0):
     res = aa*bb
     ##########################    
     
-#    #creates diagonal matrix with ones on the diagonal, gives out an xr.DataArray
-#    aa = np.zeros((len(v.time),len(v.lat),len(v.lon),len(v.layer_nb),len(v.layer_nb)))
-#    res = xr.DataArray(aa, coords=[
-#                                    ('time', v.time.values),
-#                                    ('lat',v.lat.values),
-#                                    ('lon',v.lon.values),
-#                                    ('layer_nb',v.layer_nb.values),
-#                                    ('matrix_dim',v.layer_nb.values)])
+
 
     dim0 = v.dims
     if 'layer_nb' in dim0:
@@ -1518,15 +1755,26 @@ def xr_eye(v,k=0):
 
 def xr_matmul(A,B,input_dims,output_dims):
     
-    """
-	This function is more technical, matrix multiplication for xarray, .dot gave weird results
+    """Compute matrix multiplication
+    
+	This function is more technical, matrix multiplication for xarray.DataArray, .dot gave weird results
 	
-	INPUT
-	A : matrix 1
-	B : matrix 2
+	Parameters
+	----------
+	A: xarray.DataArray
+		matrix 1
+	B: xarray.DataArray
+		matrix 2
 	
-	OUTPUT
-	asol : result of matrix multiplications
+	Returns
+	-------
+	asol: xarray.DataArray
+		result of matrix multiplications
+	
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 
 	"""
 
@@ -1536,25 +1784,28 @@ def xr_matmul(A,B,input_dims,output_dims):
                           output_core_dims=output_dims#[['layer_nb', 'matrix_dim']]
                          )    
     
-#    a = np.matmul(A.values,B.values)
-#    asol = xr.DataArray(a, coords=[
-#                                ('time', A.time.values),
-#                                ('lat',A.lat.values),
-#                                ('lon',A.lon.values),
-#                                ('layer_nb',A.layer_nb.values),
-#                                ('matrix_dim',B.matrix_dim.values)])
     return asol
 
 def xr_linalg_inv(A):
     
-    """
-	This function is more technical, equivalent of np.linalg.inv for xarray
+    """Compute the (multiplicative) inverse of a matrix.
+    
+	This function is more technical, equivalent of np.linalg.inv for xarray.DataArray
 	
-	INPUT
-	A : matrix to be inverted
+	Parameters
+	----------
+	A: xarray.DataArray
+		matrix to be inverted
 	
-	OUTPUT
-	res : inverted matrix
+	Returns
+	-------
+	res: xarray.DataArray
+		inverted matrix
+		
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 	
 	"""
     
@@ -1563,13 +1814,6 @@ def xr_linalg_inv(A):
                          input_core_dims=[['layer_nb','matrix_dim']],
                          output_core_dims=[['layer_nb', 'matrix_dim']])
     
-#    aa = np.linalg.inv(A.values)
-#    res = xr.DataArray(aa, coords=[
-#                                    ('time', A.time.values),
-#                                    ('lat',A.lat.values),
-#                                    ('lon',A.lon.values),
-#                                    ('layer_nb',A.layer_nb.values),
-#                                    ('matrix_dim',A.layer_nb.values)])
     return res
 
 
@@ -1578,85 +1822,70 @@ def xr_linalg_inv(A):
 
 def add_matrix_dim(A,name_new_dim):
     
-    """
-	This function is more technical, adds a dummy matrix_dim to enable matrix multiplication
+    """Add a dummy `matrix_dim` to enable matrix multiplication
+	This function is more technical, adds a dummy `matrix_dim` to enable matrix multiplication
 	
-	INPUT
-	A : matrix to be changed
+	Parameters
+	----------
+	A: xarray.DataArray
+		matrix to be changed
 	
-	OUTPUT
-	res : changed matrix
+	Returns
+	-------
+	res: xarray.DataArray
+		changed matrix
+	
+	Notes
+	-----
+	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+	parameters and output.
 	
 	"""
     
     res = A*xr.DataArray(np.ones(1),coords=[(name_new_dim, range(1,2))])
     
-#    aa = np.ones((len(A.time),len(A.lat),len(A.lon),len(A.layer_nb),1))    
-#    res = xr.DataArray(aa, coords=[ 
-#                                    ('time', A.time.values),
-#                                    ('lat',A.lat.values),
-#                                    ('lon',A.lon.values),
-#                                    ('layer_nb',A.layer_nb.values),
-#                                    ('matrix_dim',range(1))])
-#    res['time'] = A['time']
-#    res['lat'] = A['lat']
-#    res['lon'] = A['lon']
-#    res['layer_nb'] = A['layer_nb']
-#    res['matrix_dim'] = range(1,2)
-#    res.loc[dict(matrix_dim=1)] = res.isel(matrix_dim=0)*A
-    
     return res
-
-
-
-#def reduce_dim(A):
-#    
-#    """
-#	This function is more technical, removes a dummy matrix_dim after matrix multiplication
-#	
-#	INPUT
-#	A : matrix to be changed
-#	
-#	OUTPUT
-#	res : changed matrix
-#	
-#	"""
-#   
-#    aa = np.ones((len(A.time),len(A.lat),len(A.lon),len(A.layer_nb)))
-#    res = xr.DataArray(aa, coords=[
-#                                    ('time', A.time.values),
-#                                    ('lat',A.lat.values),
-#                                    ('lon',A.lon.values),
-#                                    ('layer_nb',A.layer_nb.values)])
-#    res['time'] = A['time']
-#    res['lat'] = A['lat']
-#    res['lon'] = A['lon']
-#    res['layer_nb'] = A['layer_nb']
-#    res = A.isel(matrix_dim=0)
-    
-#    return res
-
-
 
 
 def layer(ri,s_i,ti,Ti,Tgnd,Tsky):
     
-    """
-	This function computes the upwelling brightness temperatures D (see Note 6)
+    """Compute the upwelling brightness temperatures
+    
+	This function computes the upwelling brightness temperatures (see Note 6)
 	
-	INPUT
-	ri : reflectivity
-    s_i : interface reflectivity
-    ti : transmissivity
-    Ti : temperature in K
-	Tgnd: brightness temperature of the ocean below the ice in K
-	Tsky: brightness temperature of the sky in K
+	Parameters
+	----------
+	ri: xarray.DataArray
+		reflectivity
+    s_i: xarray.DataArray
+    	interface reflectivity
+    ti: xarray.DataArray
+    	transmissivity
+    Ti: xarray.DataArray
+    	temperature in K
+	Tgnd: float
+		brightness temperature of the ocean below the ice in K
+	Tsky: float
+		brightness temperature of the sky in K
 	
-	OUTPUT
-	D1 : brightness temperatures at each layer
+	Returns
+	-------
+	D1: xarray.DataArray
+		brightness temperatures at each layer
+		
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
+	It was translated by C. Burgard to Python to be used in ARC3O.
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland
+	References
+	----------
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 
 	"""
     
@@ -1709,29 +1938,56 @@ def layer(ri,s_i,ti,Ti,Tgnd,Tsky):
 
 def memls_2D_1freq(freq,DI,TI,WI,ROI,PCI,SAL,SITYPE):
     
-    """
+    """Compute the brightness temperature of a lon-lat-time-depth field
+	at a given frequency
+    
 	This function computes the brightness temperature of a lon-lat-time-depth field
 	at a given frequency
 	
-	INPUT
-	freq : reflectivity
-    DI : ice thickness in m
-    TI : temperature in K
-    WI : wetness between 0 and 1
-	ROI : density in kg/m3
-	PCI : correlation length in mm
-	SAL : salinity in g/kg
-	SITYPE : snow 1 /first year ice 3 /multiyear ice 4
+	Parameters
+	----------
+	freq: float
+		frequency
+    DI: xarray.DataArray
+    	ice thickness in m
+    TI: xarray.DataArray
+    	temperature in K
+    WI: xarray.DataArray
+    	wetness between 0 and 1
+	ROI: xarray.DataArray
+		density in kg/m3
+	PCI: xarray.DataArray
+		correlation length in mm
+	SAL: xarray.DataArray
+		salinity in g/kg
+	SITYPE: xarray.DataArray
+		snow 1 /first year ice 3 /multiyear ice 4
 	
-	OUTPUT
-	Tbh : brightness temperature h-pol
-	Tbv : brightness temperature v-pol
-	eh : emissivity h-pol
-	ev : emissivity v-pol
+	Returns
+	-------
+	Tbh: xarray.DataArray
+		brightness temperature h-pol
+	Tbv: xarray.DataArray
+		brightness temperature v-pol
+	eh: xarray.DataArray
+		emissivity h-pol
+	ev:	xarray.DataArray
+	 	emissivity v-pol
 	
-	Copyright (c) 1997 by the Institute of Applied Physics,
-	University of Bern, Switzerland
+	Notes
+	-----
+	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+	University of Bern, Switzerland. 
+	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
+	It has been slightly modified to accomodate sea-ice layers by R.T. Tonboe.
+	It was translated by C. Burgard to Python to be used in ARC3O.
 	
+	References
+	----------
+	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
+	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
+	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
+	layered snowpacks", Remote Sens. Environ., 70, 307–316.
 	"""
     
     start_time = timeit.default_timer()
