@@ -5,8 +5,10 @@ Created on Tue Aug 14 11:14:31 2018
 
 functions for operational SATSIM
 
-@author: m300411
+@author: Clara Burgard
 """
+
+__version__ = '0.1'
 
 import numpy as np
 #import matplotlib.pyplot as plt
