@@ -1,0 +1,1570 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>arc3o package &#8212; arc3o  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="arc3o-package">
+<h1>arc3o package<a class="headerlink" href="#arc3o-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-to-combine-all-functions-and-create-brightness-temperatures">
+<h2>Module to combine all functions and create brightness temperatures<a class="headerlink" href="#module-to-combine-all-functions-and-create-brightness-temperatures" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-to-build-masks">
+<h2>Module to build masks<a class="headerlink" href="#module-to-build-masks" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-memls_functions_2D">
+<span id="module-containing-memls-functions"></span><h2>Module containing MEMLS functions<a class="headerlink" href="#module-memls_functions_2D" title="Permalink to this headline">¶</a></h2>
+<p>Created on Wed Aug 20 17:39 2018</p>
+<p>Functions for MEMLS for the operational version</p>
+<dl class="simple">
+<dt>&#64;author: Clara Burgard, based on a 1D Matlab version developed by A. Wiesmann and C. Mätzler, and </dt><dd><p>extended for sea ice by R.T. Tonboe, see Wiesmann and Mätzler (1998), Wiesmann and Mätzler (1999)
+and Tonboe (2006)</p>
+</dd>
+</dl>
+<dl class="function">
+<dt id="memls_functions_2D.Nsw">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">Nsw</code><span class="sig-paren">(</span><em class="sig-param">Ssw</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.Nsw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute normality of sea water or brine</p>
+<p>This function computes the normality of sea water or brine</p>
+<dl class="simple">
+<dt>Ssw: np.array or xarray.DataArray</dt><dd><p>salinity of brine or sea water in g/kg</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>N: np.array or xarray.DataArray</dt><dd><p>normality of sea water or brine</p>
+</dd>
+</dl>
+<p>This function is based on Eq. 20 in [Ulaby et al., 1986]_.
+This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
+of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
+Applications, chap. 18, pp. 1412–1521, Artech House, Inc.       
+..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.abscoeff">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">abscoeff</code><span class="sig-paren">(</span><em class="sig-param">epsi</em>, <em class="sig-param">epsii</em>, <em class="sig-param">Ti</em>, <em class="sig-param">freq</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.abscoeff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute absorption coefficient.</p>
+<p>This function computes the absorption coefficient from the dielectric properties
+Background information: [Ulaby et al., 1986]_.</p>
+<dl class="simple">
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>real part dielectric constant</p>
+</dd>
+<dt>epsii: np.array or xarray.DataArray</dt><dd><p>imaginary part dielectric constant</p>
+</dd>
+<dt>Ti: np.array or xarray.DataArray</dt><dd><p>ice temperature in K</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>gai: np.array or xarray.DataArray</dt><dd><p>absorption coefficient</p>
+</dd>
+</dl>
+<p>This function is based on formulas in [Ulaby et al., 1986]_.
+This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
+of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
+Applications, chap. 18, pp. 1412–1521, Artech House, Inc.               
+..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.absorp2f">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">absorp2f</code><span class="sig-paren">(</span><em class="sig-param">gbih</em>, <em class="sig-param">gbiv</em>, <em class="sig-param">gs6</em>, <em class="sig-param">ga2i</em>, <em class="sig-param">epsi</em>, <em class="sig-param">epsii</em>, <em class="sig-param">roi</em>, <em class="sig-param">Ti</em>, <em class="sig-param">pci</em>, <em class="sig-param">freq</em>, <em class="sig-param">Wi</em>, <em class="sig-param">gai</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.absorp2f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the absorption and scattering coefficient from structural parameters</p>
+<p>This function computes the scattering coefficient from structural parameters</p>
+<dl class="simple">
+<dt>gbih: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+<dt>epsi: xarray.DataArray</dt><dd><p>permittivity</p>
+</dd>
+<dt>epsii: xarray.DataArray</dt><dd><p>loss</p>
+</dd>
+<dt>roi: xarray.DataArray</dt><dd><p>density in g/cm3</p>
+</dd>
+<dt>Ti: xarray.DataArray</dt><dd><p>temperature in K</p>
+</dd>
+<dt>pci: xarray.DataArray</dt><dd><p>correlation length in mm</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+<dt>Wi: xarray.DataArray</dt><dd><p>wetness between 0 and 1</p>
+</dd>
+<dt>gai: xarray.DataArray</dt><dd><p>absorption coefficient</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>gbih: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+</dl>
+<p>This function was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.add_matrix_dim">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">add_matrix_dim</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">name_new_dim</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.add_matrix_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a dummy <cite>matrix_dim</cite> to enable matrix multiplication
+This function is more technical, adds a dummy <cite>matrix_dim</cite> to enable matrix multiplication</p>
+<dl class="simple">
+<dt>A: xarray.DataArray</dt><dd><p>matrix to be changed</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>res: xarray.DataArray</dt><dd><p>changed matrix</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.append_laydim_begin">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">append_laydim_begin</code><span class="sig-paren">(</span><em class="sig-param">xrda</em>, <em class="sig-param">const</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.append_laydim_begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a constant at the beginning of the dimension <cite>layer_nb</cite></p>
+<p>This function has practical reasons, it appends a constant at the 
+beginning of a dimension, here layer_nb</p>
+<dl class="simple">
+<dt>xrda: xarray.DataArray</dt><dd><p>variable where it has to be appended</p>
+</dd>
+<dt>const: float</dt><dd><p>constant to be appended at the beginning</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>xrda_app: xarray.DataArray</dt><dd><p>longer array</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.append_laydim_end">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">append_laydim_end</code><span class="sig-paren">(</span><em class="sig-param">xrda</em>, <em class="sig-param">const</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.append_laydim_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a constant at the end of the dimension <cite>layer_nb</cite></p>
+<p>This function has practical reasons, it appends a constant at the 
+end of a dimension, here layer_nb</p>
+<dl class="simple">
+<dt>xrda: xarray.DataArray</dt><dd><p>variable where it has to be appended</p>
+</dd>
+<dt>const: float</dt><dd><p>constant to be appended at the end</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>xrda_app: xarray.DataArray</dt><dd><p>longer array</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.build_xarray">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">build_xarray</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">temp</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.build_xarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform np.array into xarray.DataArray
+This function is more technical, transforms np.array into xarray</p>
+<dl class="simple">
+<dt>data<span class="classifier">np.array</span></dt><dd><p>data to be transformed</p>
+</dd>
+<dt>temp: xarray.DataArray</dt><dd><p>other xarray.DataArray that has the wished dimensions</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>res: xarray.DataArray</dt><dd><p>resulting xarray.DataArray of same dimensions as <cite>temp</cite></p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.build_xarray_matrix2D">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">build_xarray_matrix2D</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">temp</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.build_xarray_matrix2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform a np.array into xarray.DataArray over the two dimensions <cite>layer_nb</cite> and <cite>matrix_dim</cite> for matrix operations</p>
+<p>This function is more technical, transforms a np.array into xarray.DataArray over the 
+two dimensions <cite>layer_nb</cite> and <cite>matrix_dim</cite> for matrix operations</p>
+<dl class="simple">
+<dt>data: np.array</dt><dd><p>data to be transformed</p>
+</dd>
+<dt>temp: xarray.DataArray</dt><dd><p>other xarray.DataArray that has the wished dimensions</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>test: xarray.DataArray</dt><dd><p>resulting xarray with two times dimension layer_nb for matrix operations</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.condbrine">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">condbrine</code><span class="sig-paren">(</span><em class="sig-param">T</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.condbrine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the conductivity of brine</p>
+<p>This function computes the conductivity of brine</p>
+<dl class="simple">
+<dt>T: np.array or xarray.DataArray</dt><dd><p>ice temperature in K or °C</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>condbrine: np.array or xarray.DataArray</dt><dd><p>conductivity of brine</p>
+</dd>
+</dl>
+<p>This function is based on Eq. 7 in [Stogryn and Desargant, 1985]_.
+This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): “The dielectric properties 
+of brine in sea ice at microwave frequencies,” in IEEE Transactions on Antennas and Propagation, 
+vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.    
+..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.ebrine">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">ebrine</code><span class="sig-paren">(</span><em class="sig-param">T</em>, <em class="sig-param">freq</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.ebrine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute brine permittivity</p>
+<blockquote>
+<div><p>This function computes the brine permittivity
+Fit valid up to -25°C</p>
+<dl class="simple">
+<dt>T: np.array or xarray.DataArray</dt><dd><p>ice temperature in K or °C</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+<dl class="simple">
+<dt>ebr.real: np.array or xarray.DataArray</dt><dd><p>real part of brine permittivity</p>
+</dd>
+<dt>ebr.imag: np.array or xarray.DataArray</dt><dd><p>imaginary part of brine permittivity</p>
+</dd>
+</dl>
+<p>This function is based on Eq. 1 in [Stogryn and Desargant, 1985]_.
+It was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): “The dielectric properties 
+of brine in sea ice at microwave frequencies,” in IEEE Transactions on Antennas and Propagation, 
+vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.eice_s2p">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">eice_s2p</code><span class="sig-paren">(</span><em class="sig-param">e1</em>, <em class="sig-param">e2</em>, <em class="sig-param">v</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.eice_s2p" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>Compute effective dielectric constant of medium consisting of e1 and e2</dt><dd><p>This function computes the effective dielectric constant of medium consisting of e1 and e2</p>
+<p>Improved born approximation by [Mätzler, 1998]_.
+Polder/VanSanten mixing formulae for spherical inclusions</p>
+<dl class="simple">
+<dt>e1: np.array or xarray.DataArray</dt><dd><p>dielectric constant of background</p>
+</dd>
+<dt>e2: np.array or xarray.DataArray</dt><dd><p>dielectric constant of sherical inclusions</p>
+</dd>
+<dt>v: np.array or xarray.DataArray</dt><dd><p>fraction of inclusions</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>eeff: np.array or xarray.DataArray</dt><dd><p>effective dielectric constant of medium consisting of e1 and e2</p>
+</dd>
+</dl>
+<p>This function is based on the improved born approximation in [Mätzler, 1998]_.
+It was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Mätzler, 1998] Mätzler, C. (1998): Improved Born approximation for scattering of radiation in a granular medium</p>
+</dd>
+</dl>
+<p>Journal of Applied Physics 83, 6111, doi: 10.1063/1.367496</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.epice">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">epice</code><span class="sig-paren">(</span><em class="sig-param">T</em>, <em class="sig-param">freq</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.epice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the dielectric constant of pure ice.</p>
+<p>This function computes the dielectric constant of pure ice, based on [Mätzler, 1998]_</p>
+<dl class="simple">
+<dt>T: np.array or xarray.DataArray</dt><dd><p>ice temperature in K or °C</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>epui: np.array or xarray.DataArray</dt><dd><p>dielectric constant of pure ice</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Mätzler, 1998] Matzler C. (1998): Microwave Properties of Ice and Snow. 
+In: Schmitt B., De Bergh C., Festou M. (eds) Solar System Ices. Astrophysics and Space 
+Science Library, vol 227. Springer, Dordrecht
+..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.epsib0">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">epsib0</code><span class="sig-paren">(</span><em class="sig-param">T</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.epsib0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute static dielectric constant of brine.</p>
+<p>This function computes the static dielectric constant of brine
+Fit valid up to -25°C</p>
+<dl class="simple">
+<dt>T: np.array or xarray.DataArray</dt><dd><p>ice temperature in K or °C</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>epsib0: np.array or xarray.DataArray</dt><dd><p>static dielectric constant of brine</p>
+</dd>
+</dl>
+<p>This function is based on Eq. 10 in [Stogryn and Desargant, 1985]_.
+It was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): “The dielectric properties 
+of brine in sea ice at microwave frequencies,” in IEEE Transactions on Antennas and Propagation, 
+vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.epsice">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">epsice</code><span class="sig-paren">(</span><em class="sig-param">Ti</em>, <em class="sig-param">freq</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.epsice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute dielectric permittivity of ice</p>
+<p>This function computes the dielectric permittivity of ice
+After Hufford, Mitzima and Matzler</p>
+<dl class="simple">
+<dt>Ti: np.array or xarray.DataArray</dt><dd><p>ice temperature in K</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>eice: np.array or xarray.DataArray</dt><dd><p>dielectric permittivity of ice</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.epsr">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">epsr</code><span class="sig-paren">(</span><em class="sig-param">roi</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.epsr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute real part of dielectric permittivity for dry snow</p>
+<blockquote>
+<div><p>This function computes the real part of dielectric permittivity for dry snow from density</p>
+</div></blockquote>
+<blockquote>
+<div><dl class="simple">
+<dt>roi: np.array or xarray.DataArray</dt><dd><p>snow density in g/cm3</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>real part of dielectric permittivity of dry snow</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.fresnelc0">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">fresnelc0</code><span class="sig-paren">(</span><em class="sig-param">tei</em>, <em class="sig-param">epsi</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.fresnelc0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the fresnel reflection coefficients</p>
+<p>This function computes the fresnel reflection coefficients (assuming eps’’ = 0)
+(layer n+1 is the air above the snowpack)</p>
+<dl class="simple">
+<dt>tei: xarray.DataArray</dt><dd><p>local incidence angle</p>
+</dd>
+<dt>epsi: xarray.DataArray</dt><dd><p>real part of dielectric permittivity</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>sih: xarray.DataArray</dt><dd><p>interface reflectivity at h pol</p>
+</dd>
+<dt>siv: xarray.DataArray</dt><dd><p>interface reflectivity at v pol</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.iborn_s2p">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">iborn_s2p</code><span class="sig-paren">(</span><em class="sig-param">e1</em>, <em class="sig-param">e2</em>, <em class="sig-param">eeff</em>, <em class="sig-param">v</em>, <em class="sig-param">k</em>, <em class="sig-param">pcc</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.iborn_s2p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the scattering coefficient with improved born approximation</p>
+<p>This function computes the scattering coefficient of a collection of spherical inclusions
+articles with correlation length pcc using improved born approximation</p>
+<dl class="simple">
+<dt>e1: np.array or xarray.DataArray</dt><dd><p>dielectric constant of background</p>
+</dd>
+<dt>e2: np.array or xarray.DataArray</dt><dd><p>dielectric constant of sherical inclusions</p>
+</dd>
+<dt>eeff: np.array or xarray.DataArray</dt><dd><p>effective dielectric constant of medium consisting of e1 and e2</p>
+</dd>
+<dt>v: np.array or xarray.DataArray</dt><dd><p>brine volume fraction</p>
+</dd>
+<dt>k: float</dt><dd><p>given constant (f(freq))</p>
+</dd>
+<dt>pcc: np.array or xarray.DataArray</dt><dd><p>correlation length in mm</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>ss:     np.array or xarray.DataArray</dt><dd><p>6-flux scattering coefficient for ice (?)</p>
+</dd>
+</dl>
+<p>This function is based on the improved born approximation in [Mätzler, 1998]_.
+It was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Mätzler, 1998] Mätzler, C. (1998): Improved Born approximation for scattering of radiation in a granular medium
+Journal of Applied Physics 83, 6111, doi: 10.1063/1.367496</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.layer">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">layer</code><span class="sig-paren">(</span><em class="sig-param">ri</em>, <em class="sig-param">s_i</em>, <em class="sig-param">ti</em>, <em class="sig-param">Ti</em>, <em class="sig-param">Tgnd</em>, <em class="sig-param">Tsky</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the upwelling brightness temperatures</p>
+<blockquote>
+<div><p>This function computes the upwelling brightness temperatures (see Note 6)</p>
+<dl class="simple">
+<dt>ri: xarray.DataArray</dt><dd><p>reflectivity</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>s_i: xarray.DataArray</dt><dd><p>interface reflectivity</p>
+</dd>
+<dt>ti: xarray.DataArray</dt><dd><p>transmissivity</p>
+</dd>
+<dt>Ti: xarray.DataArray</dt><dd><p>temperature in K
+Tgnd: float</p>
+<blockquote>
+<div><p>brightness temperature of the ocean below the ice in K</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Tsky: float</dt><dd><p>brightness temperature of the sky in K</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>D1: xarray.DataArray</dt><dd><p>brightness temperatures at each layer</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.memls_2D_1freq">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">memls_2D_1freq</code><span class="sig-paren">(</span><em class="sig-param">freq</em>, <em class="sig-param">DI</em>, <em class="sig-param">TI</em>, <em class="sig-param">WI</em>, <em class="sig-param">ROI</em>, <em class="sig-param">PCI</em>, <em class="sig-param">SAL</em>, <em class="sig-param">SITYPE</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.memls_2D_1freq" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>Compute the brightness temperature of a lon-lat-time-depth field</dt><dd><p>at a given frequency</p>
+<p>This function computes the brightness temperature of a lon-lat-time-depth field
+at a given frequency</p>
+<dl class="simple">
+<dt>freq: float</dt><dd><p>frequency</p>
+</dd>
+</dl>
+</dd>
+<dt>DI: xarray.DataArray</dt><dd><p>ice thickness in m</p>
+</dd>
+<dt>TI: xarray.DataArray</dt><dd><p>temperature in K</p>
+</dd>
+<dt>WI: xarray.DataArray</dt><dd><p>wetness between 0 and 1
+ROI: xarray.DataArray</p>
+<blockquote>
+<div><p>density in kg/m3</p>
+</div></blockquote>
+<dl class="simple">
+<dt>PCI: xarray.DataArray</dt><dd><p>correlation length in mm</p>
+</dd>
+<dt>SAL: xarray.DataArray</dt><dd><p>salinity in g/kg</p>
+</dd>
+<dt>SITYPE: xarray.DataArray</dt><dd><p>snow 1 /first year ice 3 /multiyear ice 4</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Tbh: xarray.DataArray</dt><dd><p>brightness temperature h-pol</p>
+</dd>
+<dt>Tbv: xarray.DataArray</dt><dd><p>brightness temperature v-pol</p>
+</dd>
+<dt>eh: xarray.DataArray</dt><dd><p>emissivity h-pol</p>
+</dd>
+<dt>ev:     xarray.DataArray</dt><dd><p>emissivity v-pol</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It has been slightly modified to accomodate sea-ice layers by R.T. Tonboe.
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpacks”, Remote Sens. Environ., 70, 307–316.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.meteo_sc">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">meteo_sc</code><span class="sig-paren">(</span><em class="sig-param">si</em>, <em class="sig-param">rroi</em>, <em class="sig-param">rTi</em>, <em class="sig-param">rpci</em>, <em class="sig-param">freq</em>, <em class="sig-param">rWi</em>, <em class="sig-param">rgai</em>, <em class="sig-param">gbih</em>, <em class="sig-param">gbiv</em>, <em class="sig-param">gs6</em>, <em class="sig-param">ga2i</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.meteo_sc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the scattering coefficient of fresh snow</p>
+<p>This function computes the scattering coefficient of only partly 
+recrystallized snow, linear combination of iborn, wahl==6</p>
+<dl class="simple">
+<dt>si: xarray.DataArray</dt><dd><p>layer type ice/snow [1/0]</p>
+</dd>
+<dt>rroi: xarray.DataArray</dt><dd><p>density in g/cm3</p>
+</dd>
+<dt>rTi: xarray.DataArray</dt><dd><p>temperature in K or °C</p>
+</dd>
+<dt>rpci: xarray.DataArray</dt><dd><p>correlation length in mm</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+<dt>rgai: xarray.DataArray</dt><dd><p>absorption coefficient</p>
+</dd>
+<dt>gbih: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>gbih: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+</dl>
+<p>This function was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.mixmod">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">mixmod</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">Ti</em>, <em class="sig-param">Wi</em>, <em class="sig-param">epsi</em>, <em class="sig-param">epsii</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.mixmod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute permittivity for snow wetness above 0</p>
+<blockquote>
+<div><p>This function computes the permittivity for Wetness &gt; 0
+Physical Mixing Model Weise 97 after Matzler 1987 (corrected)</p>
+</div></blockquote>
+<p>The water temperature is assumed constant at 273.15 K</p>
+<blockquote>
+<div><dl class="simple">
+<dt>f: float</dt><dd><p>frequency in GHz</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>Ti: np.array or xarray.DataArray</dt><dd><p>snow/ice temperature in K
+Wi: np.array or xarray.DataArray</p>
+<blockquote>
+<div><p>snow/ice wetness between 0 and 1</p>
+</div></blockquote>
+<dl class="simple">
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>real part of dielectric permittivity of dry snow</p>
+</dd>
+<dt>epsii: np.array or xarray.DataArray</dt><dd><p>imaginary part of dielectric permittivity</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>real part of dielectric permittivity of wet snow</p>
+</dd>
+<dt>epsii: np.array or xarray.DataArray</dt><dd><p>imaginary part of dielectric permittivity of wet snow</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.mysie">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">mysie</code><span class="sig-paren">(</span><em class="sig-param">si</em>, <em class="sig-param">rho</em>, <em class="sig-param">Ti</em>, <em class="sig-param">sal</em>, <em class="sig-param">freq</em>, <em class="sig-param">epsi</em>, <em class="sig-param">epsii</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.mysie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute dielectric constant of ice if it is a mutliyear ice layer</p>
+<p>This function computes the dielectric constant of ice if it is a multiyear ice layer
+Background information: [Ulaby et al., 1986]_.</p>
+<dl class="simple">
+<dt>si: np.array or xarray.DataArray</dt><dd><p>sea ice/snow layer 1 or 0</p>
+</dd>
+<dt>rho: np.array or xarray.DataArray</dt><dd><p>density of ice layer in g/cm3</p>
+</dd>
+<dt>Ti: np.array or xarray.DataArray</dt><dd><p>ice temperature in K</p>
+</dd>
+<dt>sal: np.array or xarray.DataArray</dt><dd><p>salinity in g/kg</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>initial permittivity (of snow)</p>
+</dd>
+<dt>epsii: np.array or xarray.DataArray</dt><dd><p>initial loss (of snow)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>permittivity of ice</p>
+</dd>
+<dt>epsii: np.array or xarray.DataArray</dt><dd><p>loss of ice</p>
+</dd>
+</dl>
+<p>This function is based on formulas in [Ulaby et al., 1986]_.
+It was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
+of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
+Applications, chap. 18, pp. 1412–1521, Artech House, Inc.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.pfadc">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">pfadc</code><span class="sig-paren">(</span><em class="sig-param">teta</em>, <em class="sig-param">di</em>, <em class="sig-param">epsi</em>, <em class="sig-param">gs6</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.pfadc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the effective path length in a layer</p>
+<p>This function computes the effective path length in a layer</p>
+<dl class="simple">
+<dt>teta: float</dt><dd><p>incidence angle at snow-air interface in degrees</p>
+</dd>
+<dt>di: xarray.DataArray</dt><dd><p>ice thickness in m</p>
+</dd>
+<dt>epsi: xarray.DataArray</dt><dd><p>permittivity</p>
+</dd>
+<dt>gs6: xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>dei: xarray.DataArray</dt><dd><p>effective path length in m</p>
+</dd>
+<dt>tei: xarray.DataArray</dt><dd><p>local incidence angle</p>
+</dd>
+<dt>tscat: xarray.DataArray</dt><dd><p>tau scattering</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.pfadi">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">pfadi</code><span class="sig-paren">(</span><em class="sig-param">tei</em>, <em class="sig-param">di</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.pfadi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute effective path length in a layer</p>
+<p>This function computes the effective path length in a layer</p>
+<dl class="simple">
+<dt>tei: xarray.DataArray</dt><dd><p>local incidence angle</p>
+</dd>
+<dt>di: xarray.DataArray</dt><dd><p>ice thickness of layer in m</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>dei: xarray.DataArray</dt><dd><p>effective path length in m</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.polmix">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">polmix</code><span class="sig-paren">(</span><em class="sig-param">tscat</em>, <em class="sig-param">sih</em>, <em class="sig-param">siv</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.polmix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the polarization mixing of the interface reflectivities
+of each layer</p>
+<p>This function computes the polarization mixing of the interface reflectivities
+of each layer (taking into account the first order scattering)</p>
+<dl class="simple">
+<dt>tscat: xarray.DataArray</dt><dd><p>tau scattering</p>
+</dd>
+<dt>sih: xarray.DataArray </dt><dd><p>interface reflectivity at h-pol</p>
+</dd>
+<dt>siv: xarray.DataArray</dt><dd><p>interface reflectivity at v-pol</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>sih: xarray.DataArray  </dt><dd><p>interface reflectivity at h-pol</p>
+</dd>
+<dt>siv: xarray.DataArray  </dt><dd><p>interface reflectivity at v-pol</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.relaxt">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">relaxt</code><span class="sig-paren">(</span><em class="sig-param">T</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.relaxt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute relaxation time</p>
+<p>This function computes the relaxation time
+Fit valid up to -25°C</p>
+<dl class="simple">
+<dt>T: np.array or xarray.DataArray</dt><dd><p>ice temperature in K or °C</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>relax: np.array or xarray.DataArray</dt><dd><p>relaxation time in nanoseconds</p>
+</dd>
+</dl>
+<p>This function is based on Eq. 12 in [Stogryn and Desargant, 1985]_.
+It was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Stogryn and Desargant, 1985] A. Stogryn and G. Desargant (1985): “The dielectric properties 
+of brine in sea ice at microwave frequencies,” in IEEE Transactions on Antennas and Propagation, 
+vol. 33, no. 5, pp. 523-532,  doi: 10.1109/TAP.1985.1143610.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.ro2epsd">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">ro2epsd</code><span class="sig-paren">(</span><em class="sig-param">roi</em>, <em class="sig-param">Ti</em>, <em class="sig-param">freq</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.ro2epsd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute real part of dielectric permittivity for dry snow</p>
+<p>This function computes the dielectric permittivity for dry snow from density</p>
+<dl class="simple">
+<dt>roi: np.array or xarray.DataArray</dt><dd><p>snow density in g/cm3</p>
+</dd>
+<dt>Ti: np.array or xarray.DataArray</dt><dd><p>snow temperature in K</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>real part of dielectric permittivity of dry snow</p>
+</dd>
+<dt>epsii: np.array or xarray.DataArray</dt><dd><p>imaginary part of dielectric permittivity of dry snow</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.rt">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">rt</code><span class="sig-paren">(</span><em class="sig-param">gai</em>, <em class="sig-param">gbi</em>, <em class="sig-param">dei</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.rt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the layer reflectivity and transmissivity</p>
+<blockquote>
+<div><p>This function computes the layer reflectivity and transmissivity</p>
+</div></blockquote>
+<dl>
+<dt>gai: xarray.DataArray</dt><dd><p>absorption coefficient</p>
+</dd>
+<dt>gbi: xarray.DataArray</dt><dd><p>scattering coefficient
+dei: xarray.DataArray</p>
+<blockquote>
+<div><p>effective path length in m</p>
+</div></blockquote>
+<dl class="simple">
+<dt>ri: xarray.DataArray</dt><dd><p>reflectivity</p>
+</dd>
+<dt>ti: xarray.DataArray</dt><dd><p>transmissivity</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.sccoeff">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">sccoeff</code><span class="sig-paren">(</span><em class="sig-param">roi</em>, <em class="sig-param">Ti</em>, <em class="sig-param">pci</em>, <em class="sig-param">freq</em>, <em class="sig-param">Wi</em>, <em class="sig-param">gai</em>, <em class="sig-param">sccho</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.sccoeff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the the scattering coefficient</p>
+<p>This function computes the the scattering coefficient from structural parameters
+different algorithms can be chosen, by changing “sccho”</p>
+<dl class="simple">
+<dt>roi: np.array or xarray.DataArray</dt><dd><p>density in g/cm3</p>
+</dd>
+<dt>Ti: np.array or xarray.DataArray</dt><dd><p>temperature in K</p>
+</dd>
+<dt>pci: np.array or xarray.DataArray</dt><dd><p>correlation length in mm</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+<dt>Wi: np.array or xarray.DataArray</dt><dd><p>wetness between 0 and 1</p>
+</dd>
+<dt>gai: np.array or xarray.DataArray</dt><dd><p>absorption coefficient</p>
+</dd>
+<dt>sccho: int</dt><dd><p>scattering coefficient algorithm chosen</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>gbih: np.array or xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: np.array or xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: np.array or xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: np.array or xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+</dl>
+<p>This function is part of the original MEMLS developed by the Institute of Applied Physics, 
+University of Bern, Switzerland. 
+A description of that model version can be found in [Wiesmann &amp; Mätzler, 1998]_ and [Wiesmann &amp; Mätzler, 1999]_
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Wiesmann &amp; Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). “Documentation for MEMLS 98.1.” Research Report No. 98. 
+<a class="reference external" href="http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf">http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf</a>.
+..[Wiesmann &amp; Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): “Microwave emission model of 
+layered snowpack”s, Remote Sens. Environ., 70, 307–316.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.scice">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">scice</code><span class="sig-paren">(</span><em class="sig-param">si</em>, <em class="sig-param">gbih</em>, <em class="sig-param">gbiv</em>, <em class="sig-param">gs6</em>, <em class="sig-param">ga2i</em>, <em class="sig-param">Ti</em>, <em class="sig-param">sal</em>, <em class="sig-param">freq</em>, <em class="sig-param">pci</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.scice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the ice scattering coefficient from structural parameters</p>
+<blockquote>
+<div><p>This function computes the scattering coefficient from structural parameters</p>
+<dl class="simple">
+<dt>si: np.array or xarray.DataArray</dt><dd><p>layer type ice/snow [1/0]</p>
+</dd>
+<dt>gbih: np.array or xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: np.array or xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: np.array or xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: np.array or xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>Ti: xarray.DataArray</dt><dd><p>temperature in K 
+sal: np.array or xarray.DataArray</p>
+<blockquote>
+<div><p>salinity in g/kg</p>
+</div></blockquote>
+<dl class="simple">
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+<dt>pci: np.array or xarray.DataArray</dt><dd><p>correlation length in mm</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>gbih: np.array or xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: np.array or xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: np.array or xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: np.array or xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+</dl>
+<p>This function was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.scice_my">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">scice_my</code><span class="sig-paren">(</span><em class="sig-param">si</em>, <em class="sig-param">gbih</em>, <em class="sig-param">gbiv</em>, <em class="sig-param">gs6</em>, <em class="sig-param">ga2i</em>, <em class="sig-param">Ti</em>, <em class="sig-param">dens</em>, <em class="sig-param">freq</em>, <em class="sig-param">pci</em>, <em class="sig-param">sal</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.scice_my" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the scattering coefficient of multiyear ice from structural parameters</p>
+<p>This function computes the scattering coefficient of multiyear ice from structural parameters</p>
+<dl class="simple">
+<dt>si: xarray.DataArray</dt><dd><p>layer type ice/snow [1/0]</p>
+</dd>
+<dt>gbih: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+<dt>Ti: xarray.DataArray</dt><dd><p>temperature in K</p>
+</dd>
+<dt>dens: xarray.DataArray</dt><dd><p>density in g/cm3</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+<dt>pci: xarray.DataArray</dt><dd><p>correlation length in mm</p>
+</dd>
+<dt>sal: xarray.DataArray</dt><dd><p>salinity in g/kg</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>gbih: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at h pol</p>
+</dd>
+<dt>gbiv: xarray.DataArray</dt><dd><p>2-flux scattering coefficient at v pol</p>
+</dd>
+<dt>gs6: xarray.DataArray</dt><dd><p>6-flux scattering coefficient</p>
+</dd>
+<dt>ga2i: xarray.DataArray</dt><dd><p>2-flux absorption coefficient</p>
+</dd>
+</dl>
+<p>This function was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.sie">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">sie</code><span class="sig-paren">(</span><em class="sig-param">si</em>, <em class="sig-param">sal</em>, <em class="sig-param">Ti</em>, <em class="sig-param">freq</em>, <em class="sig-param">epsi</em>, <em class="sig-param">epsii</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.sie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute dielectric constant of ice if it is an ice layer</p>
+<p>This function computes the dielectric constant of ice if it is a sea-ice layer
+Background information: [Ulaby et al., 1986]_.</p>
+<dl class="simple">
+<dt>si: np.array or xarray.DataArray</dt><dd><p>sea ice/snow layer 1 or 0</p>
+</dd>
+<dt>sal: np.array or xarray.DataArray</dt><dd><p>salinity in g/kg</p>
+</dd>
+<dt>Ti: np.array or xarray.DataArray</dt><dd><p>ice temperature in K</p>
+</dd>
+<dt>freq: float</dt><dd><p>frequency in GHz</p>
+</dd>
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>initial permittivity (of snow)</p>
+</dd>
+<dt>epsii: np.array or xarray.DataArray</dt><dd><p>initial loss (of snow)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>epsi: np.array or xarray.DataArray</dt><dd><p>permittivity of ice</p>
+</dd>
+<dt>epsii: np.array or xarray.DataArray</dt><dd><p>loss of ice</p>
+</dd>
+</dl>
+<p>This function is based on formulas in [Ulaby et al., 1986]_.
+It was introduced into the MEMLS code by R.T. Tonboe. 
+It was translated by C. Burgard to Python to be used in ARC3O.</p>
+<p>..[Ulaby et al., 1986] Ulaby, F., Moore, R., and Fung, A. (1986): Passive microwave sensing
+of the ocean, in: Microwave Remote Sensing, Active and Passive Volume III, From Theory to 
+Applications, chap. 18, pp. 1412–1521, Artech House, Inc.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.tei_ndim">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">tei_ndim</code><span class="sig-paren">(</span><em class="sig-param">teta</em>, <em class="sig-param">ns</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.tei_ndim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append teta at the end of the dimension <cite>layer_nb</cite></p>
+<p>This function has practical reasons, it appends teta at the 
+end of ns over dimension layer_nb</p>
+<dl class="simple">
+<dt>teta: float</dt><dd><p>incidence angle in degrees</p>
+</dd>
+<dt>ns: xarray.DataArray</dt><dd><p>real part of the refractive index of the slab</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>tei_ndim: xarray.DataArray</dt><dd><p>local incidence angle</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.xr_diag">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">xr_diag</code><span class="sig-paren">(</span><em class="sig-param">v</em>, <em class="sig-param">k=0</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.xr_diag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create diagonal matrix with values of v on the diagonal</p>
+<p>This function is more technical, creates diagonal matrix with values of v on the diagonal, 
+gives out an xr.DataArray</p>
+<dl class="simple">
+<dt>v: xarray.DataArray</dt><dd><p>xarray with the wished dimensions</p>
+</dd>
+<dt>k: int</dt><dd><p>coefficient if diagonal is shifted from middle</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>res: xarray.DataArray</dt><dd><p>resulting diagonal matrix</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.xr_eye">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">xr_eye</code><span class="sig-paren">(</span><em class="sig-param">v</em>, <em class="sig-param">k=0</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.xr_eye" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create diagonal matrix with ones on the diagonal</p>
+<blockquote>
+<div><p>This function is more technical, creates diagonal matrix with ones on the diagonal,
+gives out an xarray.DataArray</p>
+<dl class="simple">
+<dt>v: xarray.DataArray</dt><dd><p>xarray.DataArray with the wished dimensions</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>k: int</dt><dd><p>coefficient if you want to shift the ones</p>
+<dl class="simple">
+<dt>test: xarray.DataArray</dt><dd><p>resulting xarray with two times dimension layer_nb for matrix operations</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.xr_linalg_inv">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">xr_linalg_inv</code><span class="sig-paren">(</span><em class="sig-param">A</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.xr_linalg_inv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the (multiplicative) inverse of a matrix.</p>
+<p>This function is more technical, equivalent of np.linalg.inv for xarray.DataArray</p>
+<dl class="simple">
+<dt>A: xarray.DataArray</dt><dd><p>matrix to be inverted</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>res: xarray.DataArray</dt><dd><p>inverted matrix</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="memls_functions_2D.xr_matmul">
+<code class="sig-prename descclassname">memls_functions_2D.</code><code class="sig-name descname">xr_matmul</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">B</em>, <em class="sig-param">input_dims</em>, <em class="sig-param">output_dims</em><span class="sig-paren">)</span><a class="headerlink" href="#memls_functions_2D.xr_matmul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute matrix multiplication</p>
+<p>This function is more technical, matrix multiplication for xarray.DataArray, .dot gave weird results</p>
+<dl class="simple">
+<dt>A: xarray.DataArray</dt><dd><p>matrix 1</p>
+</dd>
+<dt>B: xarray.DataArray</dt><dd><p>matrix 2</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>asol: xarray.DataArray</dt><dd><p>result of matrix multiplications</p>
+</dd>
+</dl>
+<p>This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
+parameters and output.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-profile_functions">
+<span id="module-to-build-profiles"></span><h2>Module to build profiles<a class="headerlink" href="#module-profile_functions" title="Permalink to this headline">¶</a></h2>
+<p>Created on Tue Aug 14 11:21:31 2018</p>
+<p>create property profiles from surface data given along 
+time, latitude and longitude by MPI-ESM</p>
+<p>&#64;author: Clara Burgard</p>
+<dl class="function">
+<dt id="profile_functions.Sb">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">Sb</code><span class="sig-paren">(</span><em class="sig-param">T</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.Sb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute brine salinity.</p>
+<p>This function computes the brine salinity</p>
+<dl class="simple">
+<dt>T: xarray.DataArray</dt><dd><p>temperature in K or °C</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>tot_Sb: xarray.DataArray</dt><dd><p>Brine Salinity in g/kg</p>
+</dd>
+</dl>
+<p>The formulas are based on Eq. 39 in [Vant et al., 1978]_ and Eq. 3.4 and 3.5 in [Notz, 2005]_</p>
+<p>..[Vant et al., 1978] Vant, M., Ramseier, R., and Makios, V. (1978): The complex-dielectric constant 
+of sea ice at frequencies in the range 0.1-40 GHz, Journal of Applied Physics, 49, 
+1264–1280, doi: 10.1063/1.325018.
+..[Notz, 2005] Notz, D. (2005): Thermodynamic and Fluid-Dynamical Processes in Sea Ice, 
+Ph.D. thesis, University of Cambridge.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.Vb">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">Vb</code><span class="sig-paren">(</span><em class="sig-param">S</em>, <em class="sig-param">Sbr</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.Vb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute brine volume fraction</p>
+<p>This function computes the brine volume fraction.</p>
+<dl class="simple">
+<dt>S: xarray.DataArray</dt><dd><p>bulk salinity in g/kg</p>
+</dd>
+<dt>Sbr: xarray.DataArray</dt><dd><p>Brine salinity in g/kg</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>bvf: xarray.DataArray</dt><dd><p>brine volume fraction (between 0 and 1)</p>
+</dd>
+</dl>
+<p>The formula is based on Eq. 1.5 in [Notz, 2005]_</p>
+<p>..[Notz, 2005] Notz, D. (2005): Thermodynamic and Fluid-Dynamical Processes in Sea Ice, 
+Ph.D. thesis, University of Cambridge.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.build_corrlen_profile">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">build_corrlen_profile</code><span class="sig-paren">(</span><em class="sig-param">empty_corrlen_prof</em>, <em class="sig-param">prof_thick</em>, <em class="sig-param">fyi_mask</em>, <em class="sig-param">winter_mask</em>, <em class="sig-param">layer_amount</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.build_corrlen_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build correlation length profiles.</p>
+<p>This function builds correlation length profiles</p>
+<dl class="simple">
+<dt>empty_corrlen_prof: xarray.DataArray</dt><dd><p>empty xarray with the expected dimensions of the output</p>
+</dd>
+<dt>prof_thick: xarray.DataArray</dt><dd><p>thickness profile in m</p>
+</dd>
+<dt>fyi_mask: xarray.DataArray</dt><dd><p>mask telling where there is first-year ice</p>
+</dd>
+<dt>winter_mask: xarray.DataArray</dt><dd><p>mask telling us which points are in “winter”</p>
+</dd>
+<dt>layer_amount: int</dt><dd><p>number of layers the profile should have</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>corrlen: xarray.DataArray</dt><dd><p>correlation length over layer_amount in mm</p>
+</dd>
+</dl>
+<p>The correlation lengths are defined as such:
+- First-year ice upper 20 cm: 0.25 mm
+- First-year ice lower 20 cm: 0.35 mm
+- Multiyear ice: 1.5 mm
+based on experiments by R.T.Tonboe</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.build_density_profile">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">build_density_profile</code><span class="sig-paren">(</span><em class="sig-param">empty_dens_prof</em>, <em class="sig-param">temperature</em>, <em class="sig-param">salinity</em>, <em class="sig-param">winter_mask</em>, <em class="sig-param">layer_amount</em>, <em class="sig-param">snow_dens</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.build_density_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build density profiles.</p>
+<p>This function builds sea-ice and snow density profiles</p>
+<dl class="simple">
+<dt>empty_dens_prof: xarray.DataArray</dt><dd><p>empty xarray with the expected dimensions of the output</p>
+</dd>
+<dt>temperature: xarray.DataArray</dt><dd><p>temperature profile in K</p>
+</dd>
+<dt>salinity: xarray.DaraArray</dt><dd><p>salinity profile in g/kg</p>
+</dd>
+<dt>winter_mask: xarray.DataArray</dt><dd><p>mask telling us which points are in “winter”</p>
+</dd>
+<dt>layer_amount: int</dt><dd><p>number of layers the profile should have</p>
+</dd>
+<dt>snow_dens: float</dt><dd><p>constant snow density we want to assign to the snow (usually 300 or 330 kg/m3)</p>
+</dd>
+</dl>
+<blockquote>
+<div><dl class="simple">
+<dt>dens: xarray.DataArray </dt><dd><p>density profiles over <cite>layer_amount</cite> taking into account ice and snow</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.build_salinity_profile">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">build_salinity_profile</code><span class="sig-paren">(</span><em class="sig-param">empty_sal_prof</em>, <em class="sig-param">fyi_mask</em>, <em class="sig-param">myi_mask</em>, <em class="sig-param">winter_mask</em>, <em class="sig-param">layer_amount</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.build_salinity_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine FYI and MYI salinity profiles</p>
+<p>This function builds salinity profiles according to the ice type and 
+formulas from [Griewank and Notz, 2015]_</p>
+<dl class="simple">
+<dt>empty_sal_prof: xarray.DataArray</dt><dd><p>empty xarray with the expected dimensions of the output</p>
+</dd>
+<dt>fyi_mask: xarray.DataArray</dt><dd><p>mask telling where there is first-year ice</p>
+</dd>
+<dt>myi_mask: xarray.DataArray</dt><dd><p>mask telling where there is multiyear ice</p>
+</dd>
+<dt>winter_mask: xarray.DataArray</dt><dd><p>mask telling us which points are in “winter”</p>
+</dd>
+<dt>layer_amount: int</dt><dd><p>number of layers the profile should have</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>tot_sal: xarray.DataArray</dt><dd><p>salinity profiles over layer_amount and for different ice types in g/kg</p>
+</dd>
+</dl>
+<p>This formula is based on Eq. 19 in [Griewank &amp; Notz, 2015]_</p>
+<p>of Arctic sea-ice salinity, The Cryosphere, 9, 305–329, <a class="reference external" href="https://doi.org/10.5194/tc-9-305-2015">https://doi.org/10.5194/tc-9-305-2015</a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.build_sisn_prof">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">build_sisn_prof</code><span class="sig-paren">(</span><em class="sig-param">empty_def_prof</em>, <em class="sig-param">myi_mask</em>, <em class="sig-param">fyi_mask</em>, <em class="sig-param">winter_mask</em>, <em class="sig-param">layer_amount</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.build_sisn_prof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build snow/FYI/MYI information profiles</p>
+<p>This function builds layer type profiles</p>
+<dl class="simple">
+<dt>empty_def_prof: xarray.DataArray</dt><dd><p>empty xarray with the expected dimensions of the output</p>
+</dd>
+<dt>myi_mask: xarray.DataArray</dt><dd><p>mask telling where there is multiyear ice</p>
+</dd>
+<dt>fyi_mask: xarray.DataArray</dt><dd><p>mask telling where there is first-year ice</p>
+</dd>
+<dt>winter_mask: xarray.DataArray</dt><dd><p>mask telling us which points are in “winter”</p>
+</dd>
+<dt>layer_amount: int</dt><dd><p>number of layers the profile should have</p>
+</dd>
+</dl>
+<dl>
+<dt>sisn: xarray.DataArray</dt><dd><blockquote>
+<div><p>profiles defining layer type, where</p>
+</div></blockquote>
+<p>1 = snow, 3 = first-year ice, 4 = multiyear ice</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.build_temp_profile">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">build_temp_profile</code><span class="sig-paren">(</span><em class="sig-param">surf_temp_ice</em>, <em class="sig-param">empty_temp_prof</em>, <em class="sig-param">winter_mask</em>, <em class="sig-param">fyi_mask</em>, <em class="sig-param">myi_mask</em>, <em class="sig-param">layer_amount</em>, <em class="sig-param">snow_opt</em>, <em class="sig-param">snd</em>, <em class="sig-param">sit</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.build_temp_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the temperature profile.</p>
+<blockquote>
+<div><p>This function builds linear temperature profiles over depth
+between the snow surface temperature and ice surface temperature
+and between  ice surface temperature and freezing temperature (-1.8°C)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>surf_temp_ice: xarray.DataArray</dt><dd><p>sea-ice (or snow) surface temperature in K</p>
+</dd>
+<dt>empty_temp_prof: xarray.DataArray</dt><dd><p>empty xarray with the expected dimensions of the output</p>
+</dd>
+<dt>winter_mask: xarray.DataArray</dt><dd><p>mask telling us which points are in “winter”</p>
+</dd>
+<dt>layer_amount: int</dt><dd><p>number of layers the profile should have</p>
+</dd>
+<dt>snow_opt: str </dt><dd><p><code class="docutils literal notranslate"><span class="pre">'yes'</span></code> if there is snow on top, <code class="docutils literal notranslate"><span class="pre">'no'</span></code> if there is no snow on top</p>
+</dd>
+<dt>snd: xarray.DataArray</dt><dd><p>snow thickness in m</p>
+</dd>
+<dt>sit: xarray.DataArray</dt><dd><p>sea-ice thickness in m</p>
+</dd>
+<dt>e_bias_fyi: xarray.DataArray</dt><dd><p>tuning parameter to correct for MEMLS bias in emissivity for first-year ice</p>
+</dd>
+<dt>e_bias_myi: xarray.DataArray</dt><dd><p>tuning parameter to correct for MEMLS bias in emissivity for multiyear ice</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>shorter_prof: xarray.DataArray</dt><dd><p>tuned temperature profile over layer_amount in K</p>
+</dd>
+</dl>
+<p>All input data arrays must be broadcastable towards each other!</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.build_thickness_profile">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">build_thickness_profile</code><span class="sig-paren">(</span><em class="sig-param">sit</em>, <em class="sig-param">snd</em>, <em class="sig-param">empty_thick_prof</em>, <em class="sig-param">winter_mask</em>, <em class="sig-param">layer_amount</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.build_thickness_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the thickness profile.</p>
+<p>This function builds thickness profiles with equidistant layers over total ice thickness.</p>
+<dl class="simple">
+<dt>sit: xarray.DataArray</dt><dd><p>sea-ice thickness in m</p>
+</dd>
+<dt>snd: xarray.DataArray</dt><dd><p>snow thickness in m</p>
+</dd>
+<dt>empty_thick_prof: xarray.DataArray</dt><dd><p>empty xarray with the expected dimensions of the output</p>
+</dd>
+<dt>winter_mask: xarray.DataArray</dt><dd><p>mask telling us which points are in “winter”</p>
+</dd>
+<dt>layer_amount: int</dt><dd><p>number of layers the profile should have</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>empty_thick_prof: xarray.DataArray</dt><dd><p>thickness profile over layer_amount in m</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.build_wetness_profile">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">build_wetness_profile</code><span class="sig-paren">(</span><em class="sig-param">empty_wet_prof</em>, <em class="sig-param">winter_mask</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.build_wetness_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build wetness profiles</p>
+<p>This function builds wetness profiles
+currently everything is set to 0 as the ice brine volume fraction is computed in 
+<a class="reference internal" href="#profile_functions.Vb" title="profile_functions.Vb"><code class="xref py py-func docutils literal notranslate"><span class="pre">Vb()</span></code></a>.</p>
+<dl class="simple">
+<dt>empty_wet_prof: xarray.DataArray</dt><dd><p>empty xarray with the expected dimensions of the output</p>
+</dd>
+<dt>winter_mask: xarray.DataArray</dt><dd><p>mask telling us which points are in “winter”</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>wet: xarray.DataArray</dt><dd><p>wetness profiles (everything set to zero)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.compute_ice_snow_int_temp">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">compute_ice_snow_int_temp</code><span class="sig-paren">(</span><em class="sig-param">sit</em>, <em class="sig-param">snd</em>, <em class="sig-param">tsi</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.compute_ice_snow_int_temp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the snow/ice interface temperature</p>
+<dl>
+<dt>This function computes the temperature at the snow-ice interface</dt><dd><p>inspired from Semtner, 1976</p>
+<dl class="simple">
+<dt>sit: xarray.DataArray</dt><dd><p>sea-ice thickness in m</p>
+</dd>
+<dt>snd: xarray.DataArray</dt><dd><p>snow thickness in m</p>
+</dd>
+<dt>tsi: xarray.DataArray</dt><dd><p>sea-ice (or snow) surface temperature in K</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>T_i: xarray.DataArray</dt><dd><p>temperature at snow-ice interface in K</p>
+</dd>
+</dl>
+<p>This function is inspired from [Semtner, 1976]_</p>
+<p>in Numerical Investigations of Climate. J. Phys. Oceanogr., 6, 379–389, 
+<a class="reference external" href="https://doi.org/10.1175/1520-0485(1976">https://doi.org/10.1175/1520-0485(1976</a>)006&lt;0379:AMFTTG&gt;2.0.CO;2.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.create_profiles">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">create_profiles</code><span class="sig-paren">(</span><em class="sig-param">surf_temp_ice</em>, <em class="sig-param">sit</em>, <em class="sig-param">snow</em>, <em class="sig-param">layer_amount</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">snow_dens</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.create_profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine all profile informations.</p>
+<p>This function summarizes all profiles to write them out, for both snow-covered and
+snow-free profiles</p>
+<dl class="simple">
+<dt>surf_temp_ice: xarray.DataArray</dt><dd><p>sea ice (or snow) surface temperature</p>
+</dd>
+<dt>sit: xarray.DataArray</dt><dd><p>sea-ice thickness in m</p>
+</dd>
+<dt>snow: xarray.DataArray</dt><dd><p>snow thickness in m</p>
+</dd>
+<dt>layer_amount: int</dt><dd><p>number of layers the profile should have</p>
+</dd>
+<dt>info_ds: xarray.Dataset</dt><dd><p>dataset containing the mask information</p>
+</dd>
+<dt>e_bias_fyi: float</dt><dd><p>tuning coefficient for first-year ice</p>
+</dd>
+<dt>e_bias_myi: float</dt><dd><p>tuning coefficient for multiyear ice</p>
+</dd>
+<dt>snow_dens: float</dt><dd><p>snow density (constant)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>profiles1: xarray.Dataset</dt><dd><p>profiles of all properties if covered by snow</p>
+</dd>
+<dt>profiles2: xarray.Dataset</dt><dd><p>profiles of all properties if bare ice</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.icerho">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">icerho</code><span class="sig-paren">(</span><em class="sig-param">T</em>, <em class="sig-param">S</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.icerho" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute sea-ice density.</p>
+<p>This function computes the sea-ice density.</p>
+<dl class="simple">
+<dt>T: xarray.DataArray</dt><dd><p>temperature in K</p>
+</dd>
+<dt>S: xarray.DataArray</dt><dd><p>bulk salinity in g/kg</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>rho_tot: xarray.DataArray</dt><dd><p>sea-ice density in kg/m3</p>
+</dd>
+</dl>
+<p>The formulas are based on [Pounder, 1965]_ and Eq. 3.8 in [Notz, 2005]_</p>
+<p>..[Pounder, 1965] Pounder, E. (1965): The Physics of Ice, Elsevier, 1st ed edn.
+..[Notz, 2005] Notz, D. (2005): Thermodynamic and Fluid-Dynamical Processes in Sea Ice, 
+Ph.D. thesis, University of Cambridge.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.sal_approx_fy">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">sal_approx_fy</code><span class="sig-paren">(</span><em class="sig-param">norm_z</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.sal_approx_fy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build salinity profile f(depth) for first-year ice.</p>
+<p>This function builds a salinity profile as a function of depth
+for first-year ice.</p>
+<dl class="simple">
+<dt>norm_z: xarray.DataArray</dt><dd><p>normalized depth, 1 is bottom and 0 is top</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>sal_fy: xarray.DataArray</dt><dd><p>salinity profile for first-year ice in g/kg</p>
+</dd>
+</dl>
+<p>This formula is based on Eq. 17 in [Griewank &amp; Notz, 2015]_</p>
+<p>of Arctic sea-ice salinity, The Cryosphere, 9, 305–329, <a class="reference external" href="https://doi.org/10.5194/tc-9-305-2015">https://doi.org/10.5194/tc-9-305-2015</a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="profile_functions.sal_approx_my">
+<code class="sig-prename descclassname">profile_functions.</code><code class="sig-name descname">sal_approx_my</code><span class="sig-paren">(</span><em class="sig-param">norm_z</em><span class="sig-paren">)</span><a class="headerlink" href="#profile_functions.sal_approx_my" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build salinity profile f(depth) for first-year ice.</p>
+<p>This function builds a salinity profile as a function of depth
+for multiyear ice.</p>
+<dl class="simple">
+<dt>norm_z: xarray.DataArray</dt><dd><p>normalized depth, 1 is bottom and 0 is top</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>sal_my: xarray.DataArray</dt><dd><p>salinity profile for multiyear ice in g/kg</p>
+</dd>
+</dl>
+<p>This formula is based on Eq. 18 in [Griewank &amp; Notz, 2015]_</p>
+<p>of Arctic sea-ice salinity, The Cryosphere, 9, 305–329, <a class="reference external" href="https://doi.org/10.5194/tc-9-305-2015">https://doi.org/10.5194/tc-9-305-2015</a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="package-contents">
+<h2>Package contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">arc3o</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Clara Burgard.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/source/arc3o.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

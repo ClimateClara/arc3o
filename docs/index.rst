@@ -1,0 +1,41 @@
+.. arc3o documentation master file, created by
+   sphinx-quickstart on Mon Aug 10 11:47:09 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to the documentation about the Arctic Observation Operator!
+===================================================================
+
+The Arctic Ocean Observation Operator (ARC3O) computes brightness temperatures at 6.9 GHz, 
+vertical polarization, based on climate model output. More information about the motivation, 
+structure and evaluation can be found in [Burgard et al., 2020a]_ and [Burgard et al., 2020b]_. 
+
+Currently, it is customized for output of the Max Planck Institute Earth System Model but can be 
+used for other models if the variable names are changed accordingly in the ARC3O functions.
+
+Documentation
+-------------
+
+.. toctree::
+   :maxdepth: 2
+   
+	about.rst
+    installing.rst
+    arc3o.rst
+    
+
+How to cite ARC3O
+-----------------
+
+The detailed description and evaluation of ARC30 is found in 
+
+.. _[Burgard et al., 2020a]: https://tc.copernicus.org/articles/14/2369/2020/
+.. _[Burgard et al., 2020b]: https://tc.copernicus.org/articles/14/2387/2020/
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
