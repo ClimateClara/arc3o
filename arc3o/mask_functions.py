@@ -21,17 +21,17 @@ import time
 ##################################################
 	
 def is_summer(month):
-	"""Filters warm conditions months
-	
-	Parameters
-	----------
-	month: integer
-		month of the year, January is 1, December is 12
-		
-	Returns
-	-------
-	part of the array, where month is between April (4) and September (9)
-	"""
+    """Filters warm conditions months
+    
+    Parameters
+    ----------
+    month: integer
+        month of the year, January is 1, December is 12
+    
+    Returns
+    -------
+    part of the array, where month is between April (4) and September (9)"""
+    
     return (month >= 4) & (month <= 9)
 
 def ice_type_wholeArctic(sit,timestep):

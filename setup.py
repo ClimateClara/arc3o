@@ -17,15 +17,13 @@ Based on: https://github.com/pypa/sampleproject
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
 import setuptools
 import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
 
 # Get the long description from the README file
-long_description = (here / 'README.md').read_text(encoding='utf-8')
-
+long_description = open(path.join(here, 'README.rst'), encoding='utf-8').read()
 
 setuptools.setup(
 	
@@ -47,7 +45,7 @@ setuptools.setup(
     #The project's license
     license='GPL-3.0',
     
-    packages=find_packages(exclude=['docs', 'tests*', 'examples']),
+    packages=setuptools.find_packages(exclude=['docs', 'tests*', 'examples']),
     
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -56,19 +54,6 @@ setuptools.setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
     ],
-    
-    install_requires=[
-          'numpy',
-          'xarray',
-          'pandas',
-          'datetime',
-          'time',
-          'timeit',
-          'itertools',
-          'tqdm',
-          'subprocess',
-          'pathos.multiprocessing'
-      ],
       
     project_urls={
     	'Bug Reports': 'https://github.com/ClimateClara/arc3o/issues',

@@ -929,10 +929,10 @@ def satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,
     outputpath: str
     	path where files should be written
     write_profiles: str
-    	..`yes` if you want to compute the property profiles and write them to files,
+        	..`yes` if you want to compute the property profiles and write them to files,
 		..`no` if you have already written them out and nothing has changed
     compute_memls: str
-    	..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
+        	..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
 		..`no` if you have already written them out and nothing has changed
     snow_emis: float
     	assign the snow emissivity to `1` or `np.nan` for melting snow periods
@@ -943,12 +943,10 @@ def satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,
    	Returns
    	-------
     ds_TB: xarray.Dataset
-    	brightness temperatures at both polarizations at top of the atmosphere in K
-
-    """   
+        	brightness temperatures at both polarizations at top of the atmosphere in K"""   
 	
-	if freq_of_int != 6.9:
-		return print('ARC3O has currently only been evaluated for 6.9 GHz, vertical polarization! You need to tweak the code if you want to apply it to other frequencies ;)') 
+    if freq_of_int != 6.9:
+        return print('ARC3O has currently only been evaluated for 6.9 GHz, vertical polarization! You need to tweak the code if you want to apply it to other frequencies ;)') 
 	
     #function inside the loop for the timesteps
     year_data = xr.open_dataset(file)
