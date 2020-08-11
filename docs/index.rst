@@ -15,12 +15,32 @@ used for other models if the variable names are changed accordingly in the ARC3O
 
 Documentation
 -------------
+.. toctree::
+   :maxdepth: 2
+   :caption: Getting started:
+   
+   start/about
+   start/installation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Getting Started:
+   :caption: User's Guide:
+   
+   guide/input
+   guide/workflow
+   guide/step1
+   guide/step2
+   guide/step3
+   guide/step4
+   guide/step5
+   
+.. toctree::
+   :maxdepth: 2
+   :caption: Help & References:   
    
    api/arc3o
+   literature/references
+   literature/publications
     
 
 How to cite ARC3O

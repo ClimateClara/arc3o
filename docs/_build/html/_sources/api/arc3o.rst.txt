@@ -1,38 +1,6 @@
 arc3o package
 =============
 
-Module to combine all functions and create brightness temperatures
-------------------------------------------------------------------
-
-.. automodule:: arc3o.__init__
-	:members:
-	:undoc-members:
-	:show-inheritance:
-
-Module to build masks
----------------------
-
-.. automodule:: arc3o.mask_functions
-	:members:
-   	:undoc-members:
-   	:show-inheritance:
-
-Module containing MEMLS functions
----------------------------------
-
-.. automodule:: arc3o.memls_functions_2D
-   	:members:
-   	:undoc-members:
-   	:show-inheritance:
-
-Module to build profiles
-------------------------
-
-.. automodule:: arc3o.profile_functions
-   	:members:
-   	:undoc-members:
-   	:show-inheritance:
-
 Package contents
 ----------------
 
@@ -40,3 +8,36 @@ Package contents
    	:members:
    	:undoc-members:
    	:show-inheritance:
+
+core_functions
+--------------
+
+.. automodule:: arc3o.core_functions
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
+mask_functions
+--------------
+
+.. automodule:: arc3o.mask_functions
+	:members:
+   	:undoc-members:
+   	:show-inheritance:
+
+memls_functions_2D
+------------------
+
+.. automodule:: arc3o.memls_functions_2D
+   	:members:
+   	:undoc-members:
+
+profile_functions
+-----------------
+
+.. automodule:: arc3o.profile_functions
+   	:members:
+   	:undoc-members:
+   	:show-inheritance:
+
+

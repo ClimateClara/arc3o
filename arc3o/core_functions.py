@@ -1,17 +1,29 @@
 # -*- coding: utf-8 -*-
 
-"""
-Created on Tue Aug 14 11:14:31 2018
-
-Main functions for the "operational" ARC3O
-
-@author: Clara Burgard
-"""
+# Created on Tue Aug 14 11:14:31 2018
+#
+# Created for the arc3o package
+# Main functions for the "operational" ARC3O
+#
+# @author: Clara Burgard, github.com/ClimateClara
+#
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
 import xarray as xr
 import datetime 
-import time
 import profile_functions as pf
 import mask_functions as mf
 import memls_functions_2D as mf2
@@ -23,20 +35,19 @@ from pathos.multiprocessing import ProcessingPool as Pool
 
 def prep_time(input_data):
     
-    """Transform the date format given by MPI-ESM into a "proper" date format
-    
+    """
     This function transforms the date format given by MPI-ESM into a proper
     date format for xarray
     
     Parameters
     ----------
     input_data: xarray.Dataset
-    	the MPI-ESM xarray.Dataset with the original date format
+        	the MPI-ESM xarray.Dataset with the original date format
     
     Returns
     -------
     input_data: xarray.Dataset
-    	the MPI-ESM xarray.Dataset with the new date format
+        the MPI-ESM xarray.Dataset with the new date format
     """
     
     timelength = input_data['time']
@@ -911,21 +922,21 @@ def satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,
     Parameters
     ----------
     file: str
-    	path to file containing MPI-ESM data 
+        	path to file containing MPI-ESM data 
     yy: int
-    	year (format yyyy)
+        	year (format yyyy)
     mm: int
-    	month (format mm)
+        	month (format mm)
     info_ds: xarray.Dataset
-    	dataset of mask for seasons and ice types 
+        	dataset of mask for seasons and ice types 
     freq_of_int: float
-    	freguency in GHz
+        	freguency in GHz
     e_bias_fyi: float
-    	tuning parameter for the first-year ice temperature profile to influence the MEMLS result
+        	tuning parameter for the first-year ice temperature profile to influence the MEMLS result
     e_bias_myi: float
-    	tuning parameter for the multiyear ice temperature profile to influence the MEMLS result
+        	tuning parameter for the multiyear ice temperature profile to influence the MEMLS result
     outputpath: str
-    	path where files should be written
+        	path where files should be written
     write_profiles: str
         	..`yes` if you want to compute the property profiles and write them to files,
 		..`no` if you have already written them out and nothing has changed
@@ -933,15 +944,15 @@ def satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,
         	..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
 		..`no` if you have already written them out and nothing has changed
     snow_emis: float
-    	assign the snow emissivity to `1` or `np.nan` for melting snow periods
+        	assign the snow emissivity to `1` or `np.nan` for melting snow periods
     snow_dens: float
-    	constant snow density to use
+        	constant snow density to use
 
-    
    	Returns
    	-------
     ds_TB: xarray.Dataset
-        	brightness temperatures at both polarizations at top of the atmosphere in K"""   
+        	brightness temperatures at both polarizations at top of the atmosphere in K
+    """   
 	
     if freq_of_int != 6.9:
         return print('ARC3O has currently only been evaluated for 6.9 GHz, vertical polarization! You need to tweak the code if you want to apply it to other frequencies ;)') 

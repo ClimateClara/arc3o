@@ -81,9 +81,26 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+              <p class="caption"><span class="caption-text">Getting started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="start/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start/installation.html">How to install</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User's Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guide/input.html">Input data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/workflow.html">Workflow overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/step1.html">Step 1: Prepare masks for season and ice types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/step2.html">Step 2: Prepare sea-ice profiles for cold conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/step3.html">Step 3: Compute sea-ice surface brightness temperature for cold conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/step4.html">Step 4: Compute sea-ice surface brightness temperature for all conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/step5.html">Step 5: Add sea-ice concentration and atmospheric effect</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Help &amp; References:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/arc3o.html">arc3o package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="literature/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="literature/publications.html">Publications</a></li>
 </ul>
 
             
@@ -178,12 +195,8 @@
 </li>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.add_matrix_dim">add_matrix_dim() (in module arc3o.memls_functions_2D)</a>
 </li>
-      <li><a href="api/arc3o.html#arc3o.amsr">amsr() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.amsr">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.amsr">amsr() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.append_laydim_begin">append_laydim_begin() (in module arc3o.memls_functions_2D)</a>
 </li>
   </ul></td>
@@ -192,7 +205,7 @@
 </li>
       <li><a href="api/arc3o.html#module-arc3o">arc3o (module)</a>
 </li>
-      <li><a href="api/arc3o.html#module-arc3o.__init__">arc3o.__init__ (module)</a>
+      <li><a href="api/arc3o.html#module-arc3o.core_functions">arc3o.core_functions (module)</a>
 </li>
       <li><a href="api/arc3o.html#module-arc3o.mask_functions">arc3o.mask_functions (module)</a>
 </li>
@@ -232,34 +245,18 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/arc3o.html#arc3o.comp_F">comp_F() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.comp_F">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.comp_F">comp_F() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
-      <li><a href="api/arc3o.html#arc3o.compute_emisV">compute_emisV() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.compute_emisV">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.compute_emisV">compute_emisV() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
       <li><a href="api/arc3o.html#arc3o.profile_functions.compute_ice_snow_int_temp">compute_ice_snow_int_temp() (in module arc3o.profile_functions)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/arc3o.html#arc3o.compute_parallel">compute_parallel() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.compute_parallel">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.compute_parallel">compute_parallel() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
-      <li><a href="api/arc3o.html#arc3o.compute_TBVice">compute_TBVice() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.compute_TBVice">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.compute_TBVice">compute_TBVice() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.condbrine">condbrine() (in module arc3o.memls_functions_2D)</a>
 </li>
       <li><a href="api/arc3o.html#arc3o.profile_functions.create_profiles">create_profiles() (in module arc3o.profile_functions)</a>
@@ -332,12 +329,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.memls_2D_1freq">memls_2D_1freq() (in module arc3o.memls_functions_2D)</a>
 </li>
-      <li><a href="api/arc3o.html#arc3o.memls_module_general">memls_module_general() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.memls_module_general">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.memls_module_general">memls_module_general() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.meteo_sc">meteo_sc() (in module arc3o.memls_functions_2D)</a>
@@ -352,12 +345,8 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/arc3o.html#arc3o.new_outputpath">new_outputpath() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.new_outputpath">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.new_outputpath">new_outputpath() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.Nsw">Nsw() (in module arc3o.memls_functions_2D)</a>
@@ -374,26 +363,14 @@
 </li>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.polmix">polmix() (in module arc3o.memls_functions_2D)</a>
 </li>
-      <li><a href="api/arc3o.html#arc3o.prep_mask">prep_mask() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.prep_mask">(in module arc3o.__init__)</a>
-</li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/arc3o.html#arc3o.prep_prof">prep_prof() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.prep_prof">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.prep_mask">prep_mask() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
-      <li><a href="api/arc3o.html#arc3o.prep_time">prep_time() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.prep_time">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.prep_prof">prep_prof() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
+      <li><a href="api/arc3o.html#arc3o.core_functions.prep_time">prep_time() (in module arc3o.core_functions)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -408,12 +385,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.rt">rt() (in module arc3o.memls_functions_2D)</a>
 </li>
-      <li><a href="api/arc3o.html#arc3o.run_memls_2D">run_memls_2D() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.run_memls_2D">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.run_memls_2D">run_memls_2D() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -427,21 +400,17 @@
       <li><a href="api/arc3o.html#arc3o.satsim_complete_1month">satsim_complete_1month() (in module arc3o)</a>
 
       <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.satsim_complete_1month">(in module arc3o.__init__)</a>
+        <li><a href="api/arc3o.html#arc3o.core_functions.satsim_complete_1month">(in module arc3o.core_functions)</a>
 </li>
       </ul></li>
       <li><a href="api/arc3o.html#arc3o.satsim_complete_parallel">satsim_complete_parallel() (in module arc3o)</a>
 
       <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.satsim_complete_parallel">(in module arc3o.__init__)</a>
+        <li><a href="api/arc3o.html#arc3o.core_functions.satsim_complete_parallel">(in module arc3o.core_functions)</a>
 </li>
       </ul></li>
-      <li><a href="api/arc3o.html#arc3o.satsim_loop">satsim_loop() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.satsim_loop">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.satsim_loop">satsim_loop() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/arc3o.html#arc3o.profile_functions.Sb">Sb() (in module arc3o.profile_functions)</a>
@@ -464,12 +433,8 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/arc3o.html#arc3o.TB_tot">TB_tot() (in module arc3o)</a>
-
-      <ul>
-        <li><a href="api/arc3o.html#arc3o.__init__.TB_tot">(in module arc3o.__init__)</a>
+      <li><a href="api/arc3o.html#arc3o.core_functions.TB_tot">TB_tot() (in module arc3o.core_functions)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/arc3o.html#arc3o.memls_functions_2D.tei_ndim">tei_ndim() (in module arc3o.memls_functions_2D)</a>

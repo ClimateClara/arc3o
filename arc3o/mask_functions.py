@@ -1,22 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Created on Tue Aug 14 11:14:31 2018
 
-These functions go through the whole timeseries of data
-and define two masks:
-1. for the different ice types: open water (OW,1), first-year ice (FYI,2), multiyear ice (MYI,3)
-2. for the different seasons: open water (0), winter (1), melting snow (2), bare summer ice (3)
-"""
+# Created on Tue Aug 14 11:14:31 2018
+#
+# Created for the arc3o package
+# These functions go through the whole timeseries of data
+# and define two masks:
+# 1. for the different ice types: open water (OW,1), first-year ice (FYI,2), multiyear ice (MYI,3)
+# 2. for the different seasons: open water (0), winter (1), melting snow (2), bare summer ice (3)
+#
+# @author: Clara Burgard, github.com/ClimateClara
+#
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ##################################################
 
 import numpy as np
 import xarray as xr
-import datetime 
-import itertools
-import time
 
 ##################################################
 	

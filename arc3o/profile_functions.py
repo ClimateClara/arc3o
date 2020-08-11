@@ -1,60 +1,57 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Created on Tue Aug 14 11:21:31 2018
 
-create property profiles from surface data given along 
-time, latitude and longitude by MPI-ESM 
-
-@author: Clara Burgard
-"""
+# Created on Tue Aug 14 11:21:31 2018
+#
+# Created for the arc3o package
+# These functions create property profiles from surface data given along 
+# time, latitude and longitude by MPI-ESM 
+#
+# @author: Clara Burgard, github.com/ClimateClara
+#
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ################################################################
 
 import numpy as np
-#import matplotlib.pyplot as plt
 import xarray as xr
-import datetime 
-from multiprocessing import Pool, TimeoutError
-import itertools
-from dask.diagnostics import ProgressBar
 import time
 from tqdm import tqdm
-import os
 
 ################################################################
 
 def compute_ice_snow_int_temp(sit,snd,tsi): 
+    """
+    Compute the snow/ice interface temperature.
     
-    """Compute the snow/ice interface temperature
+    This function computes the temperature at the snow-ice interface, inspired from :cite:`semtner76`. 
     
-    This function computes the temperature at the snow-ice interface
-	inspired from Semtner, 1976 
-	
-	Parameters
-	----------
-	sit: xarray.DataArray
+    Parameters
+    ----------
+	sit : xarray.DataArray
 		sea-ice thickness in m
-	snd: xarray.DataArray
+	snd : xarray.DataArray
 		snow thickness in m
-	tsi: xarray.DataArray
+	tsi : xarray.DataArray
 		sea-ice (or snow) surface temperature in K
-	
+        
 	Returns
 	-------
-	T_i: xarray.DataArray
+	T_i : xarray.DataArray
 		temperature at snow-ice interface in K	
-		
-	Notes
-	-----
-	This function is inspired from [Semtner, 1976]_
-	
-	References
-	----------
-	.. [Semtner, 1976] Semtner, A. J. (1976): A Model for the Thermodynamic Growth of Sea Ice 
-	in Numerical Investigations of Climate. J. Phys. Oceanogr., 6, 379–389, 
-	https://doi.org/10.1175/1520-0485(1976)006<0379:AMFTTG>2.0.CO;2.
     """	
     
     k_s  = 0.31      # thermal conductivity of snow in W/K/m #from MPIOM paper

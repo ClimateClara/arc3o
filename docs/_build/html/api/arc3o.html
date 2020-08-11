@@ -36,7 +36,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Welcome to the documentation about the Arctic Observation Operator!" href="../index.html" /> 
+    <link rel="next" title="References" href="../literature/references.html" />
+    <link rel="prev" title="Step 5: Add sea-ice concentration and atmospheric effect" href="../guide/step5.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,16 +82,33 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started:</span></p>
+              <p class="caption"><span class="caption-text">Getting started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../start/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../start/installation.html">How to install</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User's Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guide/input.html">Input data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/workflow.html">Workflow overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/step1.html">Step 1: Prepare masks for season and ice types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/step2.html">Step 2: Prepare sea-ice profiles for cold conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/step3.html">Step 3: Compute sea-ice surface brightness temperature for cold conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/step4.html">Step 4: Compute sea-ice surface brightness temperature for all conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/step5.html">Step 5: Add sea-ice concentration and atmospheric effect</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Help &amp; References:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">arc3o package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-arc3o.__init__">Module to combine all functions and create brightness temperatures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-arc3o.mask_functions">Module to build masks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-arc3o.memls_functions_2D">Module containing MEMLS functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-arc3o.profile_functions">Module to build profiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-arc3o">Package contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-arc3o.core_functions">core_functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-arc3o.mask_functions">mask_functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-arc3o.memls_functions_2D">memls_functions_2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-arc3o.profile_functions">profile_functions</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../literature/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../literature/publications.html">Publications</a></li>
 </ul>
 
             
@@ -158,415 +176,11 @@
             
   <div class="section" id="arc3o-package">
 <h1>arc3o package<a class="headerlink" href="#arc3o-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-arc3o.__init__">
-<span id="module-to-combine-all-functions-and-create-brightness-temperatures"></span><h2>Module to combine all functions and create brightness temperatures<a class="headerlink" href="#module-arc3o.__init__" title="Permalink to this headline">¶</a></h2>
-<p>Created on Tue Aug 14 11:14:31 2018</p>
-<p>functions for operational ARC3O</p>
-<p>&#64;author: Clara Burgard</p>
+<div class="section" id="module-arc3o">
+<span id="package-contents"></span><h2>Package contents<a class="headerlink" href="#module-arc3o" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="arc3o.__init__.TB_tot">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">TB_tot</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">memls_output</em>, <em class="sig-param">freq</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">surf_temp</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.TB_tot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the brightness temperature at top of the atmosphere</p>
-<p>This function computes the brightness temperature at top of the atmosphere</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – MPI-ESM data for period of interest (yyyymm)</p></li>
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset of mask for seasons and ice types for period of interest (yyyymm)</p></li>
-<li><p><strong>memls_output</strong> (<em>xarray.Dataset</em>) – dataset with MEMLS output</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – freguency in GHz</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>surf_temp</strong> (<em>xarray.DataArray</em>) – snow surface temperature to use for the brightness temperature if snow emissivity is 1</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p><strong>ds</strong> –</p>
-<dl class="simple">
-<dt>dataset containing brightness temperatures at both polarizations</dt><dd><p>at top of the atmosphere in K</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.amsr">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">amsr</code><span class="sig-paren">(</span><em class="sig-param">V</em>, <em class="sig-param">W</em>, <em class="sig-param">L</em>, <em class="sig-param">Ta</em>, <em class="sig-param">Ts</em>, <em class="sig-param">TBV_ice</em>, <em class="sig-param">TBH_ice</em>, <em class="sig-param">e_icev</em>, <em class="sig-param">e_iceh</em>, <em class="sig-param">c_ice</em>, <em class="sig-param">freq</em>, <em class="sig-param">slm</em>, <em class="sig-param">mpf</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.amsr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the atmospheric and ocean contribution to the brightness temperature</p>
-<p>This function computes the atmospheric and ocean contribution to the brightness temperature.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>V</strong> (<em>xarray.DataArray</em>) – columnar water vapor in mm</p></li>
-<li><p><strong>W</strong> (<em>xarray.DataArray</em>) – windspeed over water in m/s</p></li>
-<li><p><strong>L</strong> (<em>xarray.DataArray</em>) – columnar cloud liquid water in mm</p></li>
-<li><p><strong>Ta</strong> (<em>xarray.DataArray</em>) – ice surface temperature in K</p></li>
-<li><p><strong>Ts</strong> (<em>xarray.DataArray</em>) – sea surface temperature in K</p></li>
-<li><p><strong>TBV_ice</strong> (<em>xarray.DataArray</em>) – brightness temperature ice surface vertical polarization in K</p></li>
-<li><p><strong>TBH_ice</strong> (<em>xarray.DataArray</em>) – brightness temperature ice surface horizontal polarization in K</p></li>
-<li><p><strong>e_icev</strong> (<em>xarray.DataArray</em>) – ice emissivity vertical polarization</p></li>
-<li><p><strong>e_iceh</strong> (<em>xarray.DataArray</em>) – ice emissivity horizontal polarization</p></li>
-<li><p><strong>c_ice</strong> (<em>xarray.DataArray</em>) – ice concentration between 0 and 1</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – AMSR frequency of interest in GHz [6.9, 10.7, 18.7, 23.8, 36.5, 50.3, 52.8, 89.0]</p></li>
-<li><p><strong>slm</strong> (<em>xarray.DataArray</em>) – sea-land mask (0 for ocean, 1 for land)</p></li>
-<li><p><strong>mpf</strong> (<em>xarray.DataArray</em>) – melt pond fraction between 0 and 1</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul>
-<li><p><strong>TBH</strong> (<em>xarray.DataArray</em>) –</p>
-<dl class="simple">
-<dt>brightness temperature, horizontal polarization,</dt><dd><p>at top of the atmosphere in K</p>
-</dd>
-</dl>
-</li>
-<li><p><strong>TBV</strong> (<em>xarray.DataArray</em>) –</p>
-<dl class="simple">
-<dt>brightness temperature, vertical polarization,</dt><dd><p>at top of the atmosphere in K</p>
-</dd>
-</dl>
-</li>
-</ul>
-</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>This function is based on equations given in [Wentz &amp; Meissner, 2000]_ and is tailored to AMSR2 frequencies.
-It was extended by C. Burgard to include melt ponds for the use in ARC3O.</p>
-<p class="rubric">References</p>
-<p>..[Wentz &amp; Meissner, 2000] Wentz, F.J. and T. Meissner (2000). Algorithm theoretical basis document (atbd),
-version 2. Tech. rep. AMSR Ocean Algorithm, RSS Tech. Proposal 121599A-1. Remote Sensing Systems, Santa Rosa, CA.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.comp_F">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">comp_F</code><span class="sig-paren">(</span><em class="sig-param">m1</em>, <em class="sig-param">m2</em>, <em class="sig-param">W</em>, <em class="sig-param">pol</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.comp_F" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the empirical term for any residual non-linear wind variations</p>
-<p>This function is necessary for the atmospheric and ocean contribution. It computes
-the empirical term for any residual non-linear wind variations</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>m1</strong> (<em>xarray.DataArray</em>) – coefficients given by [Wentz &amp; Meissner, 2000]_</p></li>
-<li><p><strong>m2</strong> (<em>xarray.DataArray</em>) – coefficients given by [Wentz &amp; Meissner, 2000]_</p></li>
-<li><p><strong>W</strong> (<em>xarray.DataArray</em>) – wind speed in m/s</p></li>
-<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>F</strong> – empirical term for any residual non-linear wind variations</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.DataArray</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>This function is based Eq. 60 of [Wentz &amp; Meissner, 2000]_
-Data for 6.9 GHz was not available so we use the same values as for 10.7 GHz</p>
-<p class="rubric">References</p>
-<p>..[Wentz &amp; Meissner, 2000] Wentz, F.J. and T. Meissner (2000). Algorithm theoretical basis document (atbd),
-version 2. Tech. rep. AMSR Ocean Algorithm, RSS Tech. Proposal 121599A-1. Remote Sensing Systems, Santa Rosa, CA.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.compute_TBVice">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">compute_TBVice</code><span class="sig-paren">(</span><em class="sig-param">info_ds</em>, <em class="sig-param">TB</em>, <em class="sig-param">pol</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">surf_temp</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.compute_TBVice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine the brightness temperature computed through MEMLS with other
-brightness temperatures from other seasons</p>
-<p>This function combines the brightness temperature computed through MEMLS with other
-brightness temperatures from other seasons</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset containing masks about seasons and ice types</p></li>
-<li><p><strong>TB</strong> (<em>xarray.DataArray</em>) – array of brightness temperatures in one polarization computed by MEMLS</p></li>
-<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>surf_temp</strong> (<em>xarray.DataArray</em>) – snow surface temperature to use for the brightness temperature if snow emissivity is 1</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>TBice</strong> – array of ice surface brightness temperature in the given polarization</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.DataArray</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>!At the moment this is only valid for 6.9 GHz! and was evaluated more thouroughly for vertical
-polarization than horizontal polarization</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.compute_emisV">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">compute_emisV</code><span class="sig-paren">(</span><em class="sig-param">info_ds</em>, <em class="sig-param">eice</em>, <em class="sig-param">pol</em>, <em class="sig-param">snow_emis</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.compute_emisV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine the emissivity computed through MEMLS with other
-emissivities from other seasons</p>
-<p>This function combines the emissivity computed through MEMLS with other
-emissivities from other seasons</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset containing masks about seasons and ice types</p></li>
-<li><p><strong>eice</strong> (<em>xarray.DataArray</em>) – array of emissivity in one polarization computed by MEMLS</p></li>
-<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>e_ice</strong> – array of ice emissivities in the given polarization</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.DataArray</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>!At the moment this is only valid for 6.9 GHz! and was evaluated more thouroughly for vertical
-polarization than horizontal polarization</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.compute_parallel">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">compute_parallel</code><span class="sig-paren">(</span><em class="sig-param">start_year</em>, <em class="sig-param">end_year</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">snow_dens</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">compute_memls</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.compute_parallel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parallelize the brightness temperature simulation</p>
-<p>This function parallelizes the brightness temperature simulation for the different months
-of a given year</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>start_year</strong> (<em>int</em>) – first year of interest (format yyyy)</p></li>
-<li><p><strong>end_year</strong> (<em>int</em>) – last year of interest (format yyyy)</p></li>
-<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
-<li><p><strong>e_bias_fyi</strong> (<em>float</em>) – tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>e_bias_myi</strong> (<em>float</em>) – tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>snow_emis</strong> – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>snow_dens</strong> (<em>float</em>) – constant snow density to use</p></li>
-<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in month</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
-<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
-<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset of mask for seasons and ice types</p></li>
-<li><p><strong>write_profiles</strong> (<em>str</em>) – ..`yes` if you want to compute the property profiles and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>compute_memls</strong> (<em>str</em>) – ..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>Writes out profiles, ice brightness temperatures and brightness temperatures at the top of atmosphere</em></p></li>
-<li><p><em>to netcdf-file called “TBtot_assim_yyyymm_f.nc”</em></p></li>
-<li><p><cite>f</cite> is rounded <cite>freq_of_int</cite></p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.memls_module_general">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">memls_module_general</code><span class="sig-paren">(</span><em class="sig-param">yy</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">profiles_yes</em>, <em class="sig-param">profiles_no</em>, <em class="sig-param">snifrac</em>, <em class="sig-param">barefrac</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">compute_memls</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.memls_module_general" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine the brightness temperatures of bare and snow-covered ice</p>
-<p>This function wraps around MEMLS to combine the brightness temperatures of bare and snow-covered ice</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>yy</strong> (<em>int</em>) – actually stands for yyyymm, defines the year and month we are looking at</p></li>
-<li><p><strong>freq_of_int</strong> (<em>float</em>) – frequency in GHz</p></li>
-<li><p><strong>profiles_yes</strong> (<em>xarray.Dataset</em>) – Dataset containing property profiles for snow-covered ice</p></li>
-<li><p><strong>profiles_no</strong> (<em>xarray.Dataset</em>) – Dataset containing property profiles for bare ice</p></li>
-<li><p><strong>snifrac</strong> (<em>xarray.DataArray</em>) – snow fraction given by MPI-ESM data, already month of interest selected</p></li>
-<li><p><strong>barefrac</strong> (<em>xarray.DataArray</em>) – bare ice fraction given by MPI-ESM data, already month of interest selected</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
-<li><p><strong>compute_memls</strong> (<em>str</em>) – ..`yes` if you want to feed profiles to MEMLS and write the result out
-..`no` if you don’t want anything to happen</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>if the compute_memls option is set to `yes`</strong> (<em>netcdf-file containing the weighted ice</em>)</p></li>
-<li><p><em>brightness temperatures and emissivities (TBH, TBV, eh, ev), called “TB_assim_yyyymm_f.nc”</em></p></li>
-<li><p><cite>f</cite> is rounded <cite>freq_of_int</cite></p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.new_outputpath">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">new_outputpath</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">existing</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.new_outputpath" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create new folders to organize experiments</p>
-<p>This function helps to organize different experiments</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>log</strong> (<em>str</em>) – ..`yes` if you are starting a new experiment and want a new folder for it
-..`no` if you want to continue an experiment and want to work in an existing folder</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the folder to be/the folder is</p></li>
-<li><p><strong>existing</strong> (<em>str</em>) – if your folder exists already, just write the name here, if not you can write ‘default’</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>new_dir</strong> – prints the directory you are working in now, if new it will have created the directory</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.prep_mask">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">prep_mask</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">write_mask</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">timestep</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.prep_mask" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare or read out the mask for the seasons and ice types
-This function prepares or reads out the mask for the seasons and ice types</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM data over the whole time period of interest</p></li>
-<li><p><strong>write_mask</strong> (<em>str</em>) – <cite>yes</cite> if you want to write to a file, <cite>no</cite> if you already have written it to a file before</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
-<li><p><strong>timestep</strong> (<em>int</em>) – timestep of data [in hours]</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>info_ds</strong> – dataset with masks for seasons and ice types, also written in “period_masks_assim.nc”
-in <cite>outputpath</cite></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.prep_prof">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">prep_prof</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">yy</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">snow_dens</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.prep_prof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare or read out the property profiles for use in MEMLS</p>
-<p>This function prepares or reads out the property profiles for use in MEMLS</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM data over the whole time period of interest</p></li>
-<li><p><strong>write_profiles</strong> (<em>str</em>) – <cite>yes</cite> if you want to write to a file, <cite>no</cite> if you already have written it to a file before</p></li>
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset with masks for seasons and ice types over whole time period of interest</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
-<li><p><strong>yy</strong> (<em>int</em>) – actually stands for yyyymm, defines the year and month we are looking at</p></li>
-<li><p><strong>e_bias_fyi</strong> (<em>float</em>) – tuning parameters for the first-year ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>e_bias_myi</strong> (<em>float</em>) – tuning parameters for the multiyear ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>snow_dens</strong> (<em>float</em>) – snow density (constant)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>profiles1</strong> (<em>xarray.Dataset</em>) – profiles assuming snow-covered ice</p></li>
-<li><p><strong>profiles2</strong> (<em>xarray.Dataset</em>) – profiles assuming bare ice</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Both outputs are written to files (“profiles_for_memls_snowno_yyyymm.nc” and
-“profiles_for_memls_snowyes_yyyymm.nc”) in <cite>outputpath</cite></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.prep_time">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">prep_time</code><span class="sig-paren">(</span><em class="sig-param">input_data</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.prep_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform the date format given by MPI-ESM into a “proper” date format</p>
-<p>This function transforms the date format given by MPI-ESM into a proper
-date format for xarray</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM xarray.Dataset with the original date format</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>input_data</strong> – the MPI-ESM xarray.Dataset with the new date format</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.run_memls_2D">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">run_memls_2D</code><span class="sig-paren">(</span><em class="sig-param">profiles</em>, <em class="sig-param">freq</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.run_memls_2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run MEMLS</p>
-<p>This function calls MEMLS.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>profiles</strong> (<em>xarray.Dataset</em>) – either the snow covered or bare ice property profiles</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – frequency in GHz</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>ds</strong> – Dataset containing TBH, TBV, emissivity H, emissivity V</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.satsim_complete_1month">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">satsim_complete_1month</code><span class="sig-paren">(</span><em class="sig-param">orig_data</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">yy</em>, <em class="sig-param">mm</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">timestep=6</em>, <em class="sig-param">write_mask='yes'</em>, <em class="sig-param">write_profiles='yes'</em>, <em class="sig-param">compute_memls='yes'</em>, <em class="sig-param">e_bias_fyi=0.963</em>, <em class="sig-param">e_bias_myi=0.963</em>, <em class="sig-param">snow_emis=1</em>, <em class="sig-param">snow_dens=300.0</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.satsim_complete_1month" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute top-of-atmosphere brightness temperature for one single month</p>
-<p>This function is the full observation operator that can be run on a single month</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>orig_data</strong> – MPI-ESM data all years merged together</p></li>
-<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
-<li><p><strong>yy</strong> (<em>int</em>) – year of interest (format yyyy)</p></li>
-<li><p><strong>mm</strong> (<em>int</em>) – month of interest (format mm)</p></li>
-<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in months</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
-<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
-<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
-<li><p><strong>timestep</strong> (<em>int</em><em>, </em><em>optional</em>) – default is 6
-timestep of data [in hours]</p></li>
-<li><p><strong>write_mask</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to write the masks to a file
-..`no` if you already have written them to a file before</p></li>
-<li><p><strong>write_profiles</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to compute the property profiles and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>compute_memls</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>e_bias_fyi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
-tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>e_bias_myi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
-tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 1
-assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>snow_dens</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 300.
-constant snow density to use</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>writes out the file containing masks (“period_masks_assim.nc”), and the files for the given month,</em></p></li>
-<li><p><em>containing profiles (“profiles_for_memls_snowno_yyyymm.nc” and “profiles_for_memls_snowyes_yyyymm.nc”),</em></p></li>
-<li><p><em>ice brightness temperatures (“TB_assim_yyyymm_f.nc”) and brightness temperatures at top of atmosphere</em></p></li>
-<li><p>(“TBtot_assim_yyyymm_f.nc”) to files, <cite>f</cite> is the rounded <cite>freq_of_int</cite></p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.__init__.satsim_complete_parallel">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">satsim_complete_parallel</code><span class="sig-paren">(</span><em class="sig-param">orig_data</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">start_year</em>, <em class="sig-param">end_year</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">timestep=6</em>, <em class="sig-param">write_mask='yes'</em>, <em class="sig-param">write_profiles='yes'</em>, <em class="sig-param">compute_memls='yes'</em>, <em class="sig-param">e_bias_fyi=0.963</em>, <em class="sig-param">e_bias_myi=0.963</em>, <em class="sig-param">snow_emis=1</em>, <em class="sig-param">snow_dens=300.0</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.satsim_complete_parallel" title="Permalink to this definition">¶</a></dt>
+<dt id="arc3o.satsim_complete_parallel">
+<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">satsim_complete_parallel</code><span class="sig-paren">(</span><em class="sig-param">orig_data</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">start_year</em>, <em class="sig-param">end_year</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">timestep=6</em>, <em class="sig-param">write_mask='yes'</em>, <em class="sig-param">write_profiles='yes'</em>, <em class="sig-param">compute_memls='yes'</em>, <em class="sig-param">e_bias_fyi=0.963</em>, <em class="sig-param">e_bias_myi=0.963</em>, <em class="sig-param">snow_emis=1</em>, <em class="sig-param">snow_dens=300.0</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.satsim_complete_parallel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute top-of-atmosphere brightness temperature over a long time period</p>
 <p>This function is the full observation operator and is enough to run it</p>
 <dl class="field-list simple">
@@ -614,8 +228,509 @@ constant snow density to use</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="arc3o.__init__.satsim_loop">
-<code class="sig-prename descclassname">arc3o.__init__.</code><code class="sig-name descname">satsim_loop</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">yy</em>, <em class="sig-param">mm</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">compute_memls</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">snow_dens</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.__init__.satsim_loop" title="Permalink to this definition">¶</a></dt>
+<dt id="arc3o.satsim_complete_1month">
+<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">satsim_complete_1month</code><span class="sig-paren">(</span><em class="sig-param">orig_data</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">yy</em>, <em class="sig-param">mm</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">timestep=6</em>, <em class="sig-param">write_mask='yes'</em>, <em class="sig-param">write_profiles='yes'</em>, <em class="sig-param">compute_memls='yes'</em>, <em class="sig-param">e_bias_fyi=0.963</em>, <em class="sig-param">e_bias_myi=0.963</em>, <em class="sig-param">snow_emis=1</em>, <em class="sig-param">snow_dens=300.0</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.satsim_complete_1month" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute top-of-atmosphere brightness temperature for one single month</p>
+<p>This function is the full observation operator that can be run on a single month</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>orig_data</strong> – MPI-ESM data all years merged together</p></li>
+<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
+<li><p><strong>yy</strong> (<em>int</em>) – year of interest (format yyyy)</p></li>
+<li><p><strong>mm</strong> (<em>int</em>) – month of interest (format mm)</p></li>
+<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in months</p></li>
+<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
+<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
+<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
+<li><p><strong>timestep</strong> (<em>int</em><em>, </em><em>optional</em>) – default is 6
+timestep of data [in hours]</p></li>
+<li><p><strong>write_mask</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to write the masks to a file
+..`no` if you already have written them to a file before</p></li>
+<li><p><strong>write_profiles</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to compute the property profiles and write them to files,
+..`no` if you have already written them out and nothing has changed</p></li>
+<li><p><strong>compute_memls</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
+..`no` if you have already written them out and nothing has changed</p></li>
+<li><p><strong>e_bias_fyi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
+tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>e_bias_myi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
+tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>snow_emis</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 1
+assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
+<li><p><strong>snow_dens</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 300.
+constant snow density to use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>writes out the file containing masks (“period_masks_assim.nc”), and the files for the given month,</em></p></li>
+<li><p><em>containing profiles (“profiles_for_memls_snowno_yyyymm.nc” and “profiles_for_memls_snowyes_yyyymm.nc”),</em></p></li>
+<li><p><em>ice brightness temperatures (“TB_assim_yyyymm_f.nc”) and brightness temperatures at top of atmosphere</em></p></li>
+<li><p>(“TBtot_assim_yyyymm_f.nc”) to files, <cite>f</cite> is the rounded <cite>freq_of_int</cite></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-arc3o.core_functions">
+<span id="core-functions"></span><h2>core_functions<a class="headerlink" href="#module-arc3o.core_functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="arc3o.core_functions.TB_tot">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">TB_tot</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">memls_output</em>, <em class="sig-param">freq</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">surf_temp</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.TB_tot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the brightness temperature at top of the atmosphere</p>
+<p>This function computes the brightness temperature at top of the atmosphere</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – MPI-ESM data for period of interest (yyyymm)</p></li>
+<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset of mask for seasons and ice types for period of interest (yyyymm)</p></li>
+<li><p><strong>memls_output</strong> (<em>xarray.Dataset</em>) – dataset with MEMLS output</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – freguency in GHz</p></li>
+<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
+<li><p><strong>surf_temp</strong> (<em>xarray.DataArray</em>) – snow surface temperature to use for the brightness temperature if snow emissivity is 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>ds</strong> –</p>
+<dl class="simple">
+<dt>dataset containing brightness temperatures at both polarizations</dt><dd><p>at top of the atmosphere in K</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.amsr">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">amsr</code><span class="sig-paren">(</span><em class="sig-param">V</em>, <em class="sig-param">W</em>, <em class="sig-param">L</em>, <em class="sig-param">Ta</em>, <em class="sig-param">Ts</em>, <em class="sig-param">TBV_ice</em>, <em class="sig-param">TBH_ice</em>, <em class="sig-param">e_icev</em>, <em class="sig-param">e_iceh</em>, <em class="sig-param">c_ice</em>, <em class="sig-param">freq</em>, <em class="sig-param">slm</em>, <em class="sig-param">mpf</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.amsr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the atmospheric and ocean contribution to the brightness temperature</p>
+<p>This function computes the atmospheric and ocean contribution to the brightness temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>V</strong> (<em>xarray.DataArray</em>) – columnar water vapor in mm</p></li>
+<li><p><strong>W</strong> (<em>xarray.DataArray</em>) – windspeed over water in m/s</p></li>
+<li><p><strong>L</strong> (<em>xarray.DataArray</em>) – columnar cloud liquid water in mm</p></li>
+<li><p><strong>Ta</strong> (<em>xarray.DataArray</em>) – ice surface temperature in K</p></li>
+<li><p><strong>Ts</strong> (<em>xarray.DataArray</em>) – sea surface temperature in K</p></li>
+<li><p><strong>TBV_ice</strong> (<em>xarray.DataArray</em>) – brightness temperature ice surface vertical polarization in K</p></li>
+<li><p><strong>TBH_ice</strong> (<em>xarray.DataArray</em>) – brightness temperature ice surface horizontal polarization in K</p></li>
+<li><p><strong>e_icev</strong> (<em>xarray.DataArray</em>) – ice emissivity vertical polarization</p></li>
+<li><p><strong>e_iceh</strong> (<em>xarray.DataArray</em>) – ice emissivity horizontal polarization</p></li>
+<li><p><strong>c_ice</strong> (<em>xarray.DataArray</em>) – ice concentration between 0 and 1</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – AMSR frequency of interest in GHz [6.9, 10.7, 18.7, 23.8, 36.5, 50.3, 52.8, 89.0]</p></li>
+<li><p><strong>slm</strong> (<em>xarray.DataArray</em>) – sea-land mask (0 for ocean, 1 for land)</p></li>
+<li><p><strong>mpf</strong> (<em>xarray.DataArray</em>) – melt pond fraction between 0 and 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>TBH</strong> (<em>xarray.DataArray</em>) –</p>
+<dl class="simple">
+<dt>brightness temperature, horizontal polarization,</dt><dd><p>at top of the atmosphere in K</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>TBV</strong> (<em>xarray.DataArray</em>) –</p>
+<dl class="simple">
+<dt>brightness temperature, vertical polarization,</dt><dd><p>at top of the atmosphere in K</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function is based on equations given in [Wentz &amp; Meissner, 2000]_ and is tailored to AMSR2 frequencies.
+It was extended by C. Burgard to include melt ponds for the use in ARC3O.</p>
+<p class="rubric">References</p>
+<p>..[Wentz &amp; Meissner, 2000] Wentz, F.J. and T. Meissner (2000). Algorithm theoretical basis document (atbd),
+version 2. Tech. rep. AMSR Ocean Algorithm, RSS Tech. Proposal 121599A-1. Remote Sensing Systems, Santa Rosa, CA.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.comp_F">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">comp_F</code><span class="sig-paren">(</span><em class="sig-param">m1</em>, <em class="sig-param">m2</em>, <em class="sig-param">W</em>, <em class="sig-param">pol</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.comp_F" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the empirical term for any residual non-linear wind variations</p>
+<p>This function is necessary for the atmospheric and ocean contribution. It computes
+the empirical term for any residual non-linear wind variations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m1</strong> (<em>xarray.DataArray</em>) – coefficients given by [Wentz &amp; Meissner, 2000]_</p></li>
+<li><p><strong>m2</strong> (<em>xarray.DataArray</em>) – coefficients given by [Wentz &amp; Meissner, 2000]_</p></li>
+<li><p><strong>W</strong> (<em>xarray.DataArray</em>) – wind speed in m/s</p></li>
+<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>F</strong> – empirical term for any residual non-linear wind variations</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.DataArray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function is based Eq. 60 of [Wentz &amp; Meissner, 2000]_
+Data for 6.9 GHz was not available so we use the same values as for 10.7 GHz</p>
+<p class="rubric">References</p>
+<p>..[Wentz &amp; Meissner, 2000] Wentz, F.J. and T. Meissner (2000). Algorithm theoretical basis document (atbd),
+version 2. Tech. rep. AMSR Ocean Algorithm, RSS Tech. Proposal 121599A-1. Remote Sensing Systems, Santa Rosa, CA.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.compute_TBVice">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">compute_TBVice</code><span class="sig-paren">(</span><em class="sig-param">info_ds</em>, <em class="sig-param">TB</em>, <em class="sig-param">pol</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">surf_temp</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.compute_TBVice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine the brightness temperature computed through MEMLS with other
+brightness temperatures from other seasons</p>
+<p>This function combines the brightness temperature computed through MEMLS with other
+brightness temperatures from other seasons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset containing masks about seasons and ice types</p></li>
+<li><p><strong>TB</strong> (<em>xarray.DataArray</em>) – array of brightness temperatures in one polarization computed by MEMLS</p></li>
+<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
+<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
+<li><p><strong>surf_temp</strong> (<em>xarray.DataArray</em>) – snow surface temperature to use for the brightness temperature if snow emissivity is 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>TBice</strong> – array of ice surface brightness temperature in the given polarization</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.DataArray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>!At the moment this is only valid for 6.9 GHz! and was evaluated more thouroughly for vertical
+polarization than horizontal polarization</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.compute_emisV">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">compute_emisV</code><span class="sig-paren">(</span><em class="sig-param">info_ds</em>, <em class="sig-param">eice</em>, <em class="sig-param">pol</em>, <em class="sig-param">snow_emis</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.compute_emisV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine the emissivity computed through MEMLS with other
+emissivities from other seasons</p>
+<p>This function combines the emissivity computed through MEMLS with other
+emissivities from other seasons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset containing masks about seasons and ice types</p></li>
+<li><p><strong>eice</strong> (<em>xarray.DataArray</em>) – array of emissivity in one polarization computed by MEMLS</p></li>
+<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
+<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>e_ice</strong> – array of ice emissivities in the given polarization</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.DataArray</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>!At the moment this is only valid for 6.9 GHz! and was evaluated more thouroughly for vertical
+polarization than horizontal polarization</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.compute_parallel">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">compute_parallel</code><span class="sig-paren">(</span><em class="sig-param">start_year</em>, <em class="sig-param">end_year</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">snow_dens</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">compute_memls</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.compute_parallel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parallelize the brightness temperature simulation</p>
+<p>This function parallelizes the brightness temperature simulation for the different months
+of a given year</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_year</strong> (<em>int</em>) – first year of interest (format yyyy)</p></li>
+<li><p><strong>end_year</strong> (<em>int</em>) – last year of interest (format yyyy)</p></li>
+<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
+<li><p><strong>e_bias_fyi</strong> (<em>float</em>) – tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>e_bias_myi</strong> (<em>float</em>) – tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>snow_emis</strong> – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
+<li><p><strong>snow_dens</strong> (<em>float</em>) – constant snow density to use</p></li>
+<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in month</p></li>
+<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
+<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
+<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
+<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset of mask for seasons and ice types</p></li>
+<li><p><strong>write_profiles</strong> (<em>str</em>) – ..`yes` if you want to compute the property profiles and write them to files,
+..`no` if you have already written them out and nothing has changed</p></li>
+<li><p><strong>compute_memls</strong> (<em>str</em>) – ..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
+..`no` if you have already written them out and nothing has changed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Writes out profiles, ice brightness temperatures and brightness temperatures at the top of atmosphere</em></p></li>
+<li><p><em>to netcdf-file called “TBtot_assim_yyyymm_f.nc”</em></p></li>
+<li><p><cite>f</cite> is rounded <cite>freq_of_int</cite></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.memls_module_general">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">memls_module_general</code><span class="sig-paren">(</span><em class="sig-param">yy</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">profiles_yes</em>, <em class="sig-param">profiles_no</em>, <em class="sig-param">snifrac</em>, <em class="sig-param">barefrac</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">compute_memls</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.memls_module_general" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine the brightness temperatures of bare and snow-covered ice</p>
+<p>This function wraps around MEMLS to combine the brightness temperatures of bare and snow-covered ice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yy</strong> (<em>int</em>) – actually stands for yyyymm, defines the year and month we are looking at</p></li>
+<li><p><strong>freq_of_int</strong> (<em>float</em>) – frequency in GHz</p></li>
+<li><p><strong>profiles_yes</strong> (<em>xarray.Dataset</em>) – Dataset containing property profiles for snow-covered ice</p></li>
+<li><p><strong>profiles_no</strong> (<em>xarray.Dataset</em>) – Dataset containing property profiles for bare ice</p></li>
+<li><p><strong>snifrac</strong> (<em>xarray.DataArray</em>) – snow fraction given by MPI-ESM data, already month of interest selected</p></li>
+<li><p><strong>barefrac</strong> (<em>xarray.DataArray</em>) – bare ice fraction given by MPI-ESM data, already month of interest selected</p></li>
+<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
+<li><p><strong>compute_memls</strong> (<em>str</em>) – ..`yes` if you want to feed profiles to MEMLS and write the result out
+..`no` if you don’t want anything to happen</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>if the compute_memls option is set to `yes`</strong> (<em>netcdf-file containing the weighted ice</em>)</p></li>
+<li><p><em>brightness temperatures and emissivities (TBH, TBV, eh, ev), called “TB_assim_yyyymm_f.nc”</em></p></li>
+<li><p><cite>f</cite> is rounded <cite>freq_of_int</cite></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.new_outputpath">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">new_outputpath</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">existing</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.new_outputpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new folders to organize experiments</p>
+<p>This function helps to organize different experiments</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<em>str</em>) – ..`yes` if you are starting a new experiment and want a new folder for it
+..`no` if you want to continue an experiment and want to work in an existing folder</p></li>
+<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the folder to be/the folder is</p></li>
+<li><p><strong>existing</strong> (<em>str</em>) – if your folder exists already, just write the name here, if not you can write ‘default’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>new_dir</strong> – prints the directory you are working in now, if new it will have created the directory</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.prep_mask">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">prep_mask</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">write_mask</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">timestep</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.prep_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare or read out the mask for the seasons and ice types
+This function prepares or reads out the mask for the seasons and ice types</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM data over the whole time period of interest</p></li>
+<li><p><strong>write_mask</strong> (<em>str</em>) – <cite>yes</cite> if you want to write to a file, <cite>no</cite> if you already have written it to a file before</p></li>
+<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
+<li><p><strong>timestep</strong> (<em>int</em>) – timestep of data [in hours]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>info_ds</strong> – dataset with masks for seasons and ice types, also written in “period_masks_assim.nc”
+in <cite>outputpath</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.prep_prof">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">prep_prof</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">yy</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">snow_dens</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.prep_prof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare or read out the property profiles for use in MEMLS</p>
+<p>This function prepares or reads out the property profiles for use in MEMLS</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM data over the whole time period of interest</p></li>
+<li><p><strong>write_profiles</strong> (<em>str</em>) – <cite>yes</cite> if you want to write to a file, <cite>no</cite> if you already have written it to a file before</p></li>
+<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset with masks for seasons and ice types over whole time period of interest</p></li>
+<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
+<li><p><strong>yy</strong> (<em>int</em>) – actually stands for yyyymm, defines the year and month we are looking at</p></li>
+<li><p><strong>e_bias_fyi</strong> (<em>float</em>) – tuning parameters for the first-year ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>e_bias_myi</strong> (<em>float</em>) – tuning parameters for the multiyear ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>snow_dens</strong> (<em>float</em>) – snow density (constant)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>profiles1</strong> (<em>xarray.Dataset</em>) – profiles assuming snow-covered ice</p></li>
+<li><p><strong>profiles2</strong> (<em>xarray.Dataset</em>) – profiles assuming bare ice</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Both outputs are written to files (“profiles_for_memls_snowno_yyyymm.nc” and
+“profiles_for_memls_snowyes_yyyymm.nc”) in <cite>outputpath</cite></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.prep_time">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">prep_time</code><span class="sig-paren">(</span><em class="sig-param">input_data</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.prep_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function transforms the date format given by MPI-ESM into a proper
+date format for xarray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM xarray.Dataset with the original date format</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>input_data</strong> – the MPI-ESM xarray.Dataset with the new date format</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.run_memls_2D">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">run_memls_2D</code><span class="sig-paren">(</span><em class="sig-param">profiles</em>, <em class="sig-param">freq</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.run_memls_2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run MEMLS</p>
+<p>This function calls MEMLS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profiles</strong> (<em>xarray.Dataset</em>) – either the snow covered or bare ice property profiles</p></li>
+<li><p><strong>freq</strong> (<em>float</em>) – frequency in GHz</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ds</strong> – Dataset containing TBH, TBV, emissivity H, emissivity V</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.satsim_complete_1month">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">satsim_complete_1month</code><span class="sig-paren">(</span><em class="sig-param">orig_data</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">yy</em>, <em class="sig-param">mm</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">timestep=6</em>, <em class="sig-param">write_mask='yes'</em>, <em class="sig-param">write_profiles='yes'</em>, <em class="sig-param">compute_memls='yes'</em>, <em class="sig-param">e_bias_fyi=0.963</em>, <em class="sig-param">e_bias_myi=0.963</em>, <em class="sig-param">snow_emis=1</em>, <em class="sig-param">snow_dens=300.0</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.satsim_complete_1month" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute top-of-atmosphere brightness temperature for one single month</p>
+<p>This function is the full observation operator that can be run on a single month</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>orig_data</strong> – MPI-ESM data all years merged together</p></li>
+<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
+<li><p><strong>yy</strong> (<em>int</em>) – year of interest (format yyyy)</p></li>
+<li><p><strong>mm</strong> (<em>int</em>) – month of interest (format mm)</p></li>
+<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in months</p></li>
+<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
+<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
+<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
+<li><p><strong>timestep</strong> (<em>int</em><em>, </em><em>optional</em>) – default is 6
+timestep of data [in hours]</p></li>
+<li><p><strong>write_mask</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to write the masks to a file
+..`no` if you already have written them to a file before</p></li>
+<li><p><strong>write_profiles</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to compute the property profiles and write them to files,
+..`no` if you have already written them out and nothing has changed</p></li>
+<li><p><strong>compute_memls</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
+..`no` if you have already written them out and nothing has changed</p></li>
+<li><p><strong>e_bias_fyi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
+tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>e_bias_myi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
+tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>snow_emis</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 1
+assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
+<li><p><strong>snow_dens</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 300.
+constant snow density to use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>writes out the file containing masks (“period_masks_assim.nc”), and the files for the given month,</em></p></li>
+<li><p><em>containing profiles (“profiles_for_memls_snowno_yyyymm.nc” and “profiles_for_memls_snowyes_yyyymm.nc”),</em></p></li>
+<li><p><em>ice brightness temperatures (“TB_assim_yyyymm_f.nc”) and brightness temperatures at top of atmosphere</em></p></li>
+<li><p>(“TBtot_assim_yyyymm_f.nc”) to files, <cite>f</cite> is the rounded <cite>freq_of_int</cite></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.satsim_complete_parallel">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">satsim_complete_parallel</code><span class="sig-paren">(</span><em class="sig-param">orig_data</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">start_year</em>, <em class="sig-param">end_year</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">timestep=6</em>, <em class="sig-param">write_mask='yes'</em>, <em class="sig-param">write_profiles='yes'</em>, <em class="sig-param">compute_memls='yes'</em>, <em class="sig-param">e_bias_fyi=0.963</em>, <em class="sig-param">e_bias_myi=0.963</em>, <em class="sig-param">snow_emis=1</em>, <em class="sig-param">snow_dens=300.0</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.satsim_complete_parallel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute top-of-atmosphere brightness temperature over a long time period</p>
+<p>This function is the full observation operator and is enough to run it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>orig_data</strong> (<em>xarray.Dataset</em>) – MPI-ESM data all years merged together</p></li>
+<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
+<li><p><strong>start_year</strong> (<em>int</em>) – first year of interest (format yyyy)</p></li>
+<li><p><strong>end_year</strong> (<em>int</em>) – last year of interest (format yyyy)</p></li>
+<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in months</p></li>
+<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
+<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
+<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
+<li><p><strong>timestep</strong> (<em>int</em><em>, </em><em>optional</em>) – default is 6
+timestep of data [in hours]</p></li>
+<li><p><strong>write_mask</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to write the masks to a file
+..`no` if you already have written them to a file before</p></li>
+<li><p><strong>write_profiles</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to compute the property profiles and write them to files,
+..`no` if you have already written them out and nothing has changed</p></li>
+<li><p><strong>compute_memls</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
+..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
+..`no` if you have already written them out and nothing has changed</p></li>
+<li><p><strong>e_bias_fyi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
+tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>e_bias_myi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
+tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
+<li><p><strong>snow_emis</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 1
+assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
+<li><p><strong>snow_dens</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 300.
+constant snow density to use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>writes out the netcdf-file containing masks (“period_masks_assim.nc”), and the netcdf-files, chunked by months,</em></p></li>
+<li><p><em>containing profiles (“profiles_for_memls_snowno_yyyymm.nc” and “profiles_for_memls_snowyes_yyyymm.nc”),</em></p></li>
+<li><p><em>ice brightness temperatures (“TB_assim_yyyymm_f.nc”) and brightness temperatures at top of atmosphere</em></p></li>
+<li><p>(“TBtot_assim_yyyymm_f.nc”) to files, <cite>f</cite> is the rounded <cite>freq_of_int</cite></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arc3o.core_functions.satsim_loop">
+<code class="sig-prename descclassname">arc3o.core_functions.</code><code class="sig-name descname">satsim_loop</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">yy</em>, <em class="sig-param">mm</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">compute_memls</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">snow_dens</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.core_functions.satsim_loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simulate brightness temperature</p>
 <p>This function is where the actual brightness temperature simulation takes place</p>
 <dl class="field-list simple">
@@ -635,23 +750,15 @@ constant snow density to use</p></li>
 ..`no` if you have already written them out and nothing has changed</p></li>
 <li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
 <li><p><strong>snow_dens</strong> (<em>float</em>) – constant snow density to use</p></li>
+<li><p><strong>ds_TB</strong> (<em>xarray.Dataset</em>) – brightness temperatures at both polarizations at top of the atmosphere in K</p></li>
 </ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt>ds_TB: xarray.Dataset</dt><dd><p>brightness temperatures at both polarizations at top of the atmosphere in K</p>
 </dd>
 </dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-arc3o.mask_functions">
-<span id="module-to-build-masks"></span><h2>Module to build masks<a class="headerlink" href="#module-arc3o.mask_functions" title="Permalink to this headline">¶</a></h2>
-<p>Created on Tue Aug 14 11:14:31 2018</p>
-<p>These functions go through the whole timeseries of data
-and define two masks:
-1. for the different ice types: open water (OW,1), first-year ice (FYI,2), multiyear ice (MYI,3)
-2. for the different seasons: open water (0), winter (1), melting snow (2), bare summer ice (3)</p>
+<span id="mask-functions"></span><h2>mask_functions<a class="headerlink" href="#module-arc3o.mask_functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="arc3o.mask_functions.define_periods">
 <code class="sig-prename descclassname">arc3o.mask_functions.</code><code class="sig-name descname">define_periods</code><span class="sig-paren">(</span><em class="sig-param">sit</em>, <em class="sig-param">snow</em>, <em class="sig-param">tsi</em>, <em class="sig-param">timestep</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.mask_functions.define_periods" title="Permalink to this definition">¶</a></dt>
@@ -766,14 +873,7 @@ and snow melt</p>
 
 </div>
 <div class="section" id="module-arc3o.memls_functions_2D">
-<span id="module-containing-memls-functions"></span><h2>Module containing MEMLS functions<a class="headerlink" href="#module-arc3o.memls_functions_2D" title="Permalink to this headline">¶</a></h2>
-<p>Created on Wed Aug 20 17:39 2018</p>
-<p>Functions for MEMLS for the operational version</p>
-<dl class="simple">
-<dt>&#64;author: Clara Burgard, based on a 1D Matlab version developed by A. Wiesmann and C. Mätzler, and</dt><dd><p>extended for sea ice by R.T. Tonboe, see Wiesmann and Mätzler (1998), Wiesmann and Mätzler (1999)
-and Tonboe (2006)</p>
-</dd>
-</dl>
+<span id="memls-functions-2d"></span><h2>memls_functions_2D<a class="headerlink" href="#module-arc3o.memls_functions_2D" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="arc3o.memls_functions_2D.Nsw">
 <code class="sig-prename descclassname">arc3o.memls_functions_2D.</code><code class="sig-name descname">Nsw</code><span class="sig-paren">(</span><em class="sig-param">Ssw</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.memls_functions_2D.Nsw" title="Permalink to this definition">¶</a></dt>
@@ -1966,11 +2066,7 @@ parameters and output.</p>
 
 </div>
 <div class="section" id="module-arc3o.profile_functions">
-<span id="module-to-build-profiles"></span><h2>Module to build profiles<a class="headerlink" href="#module-arc3o.profile_functions" title="Permalink to this headline">¶</a></h2>
-<p>Created on Tue Aug 14 11:21:31 2018</p>
-<p>create property profiles from surface data given along
-time, latitude and longitude by MPI-ESM</p>
-<p>&#64;author: Clara Burgard</p>
+<span id="profile-functions"></span><h2>profile_functions<a class="headerlink" href="#module-arc3o.profile_functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="arc3o.profile_functions.Sb">
 <code class="sig-prename descclassname">arc3o.profile_functions.</code><code class="sig-name descname">Sb</code><span class="sig-paren">(</span><em class="sig-param">T</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.profile_functions.Sb" title="Permalink to this definition">¶</a></dt>
@@ -2216,24 +2312,18 @@ currently everything is set to 0 as the ice brine volume fraction is computed in
 <dl class="function">
 <dt id="arc3o.profile_functions.compute_ice_snow_int_temp">
 <code class="sig-prename descclassname">arc3o.profile_functions.</code><code class="sig-name descname">compute_ice_snow_int_temp</code><span class="sig-paren">(</span><em class="sig-param">sit</em>, <em class="sig-param">snd</em>, <em class="sig-param">tsi</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.profile_functions.compute_ice_snow_int_temp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the snow/ice interface temperature</p>
-<dl>
-<dt>This function computes the temperature at the snow-ice interface</dt><dd><p>inspired from Semtner, 1976</p>
-<dl class="simple">
-<dt>sit: xarray.DataArray</dt><dd><p>sea-ice thickness in m</p>
-</dd>
-<dt>snd: xarray.DataArray</dt><dd><p>snow thickness in m</p>
-</dd>
-<dt>tsi: xarray.DataArray</dt><dd><p>sea-ice (or snow) surface temperature in K</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>T_i: xarray.DataArray</dt><dd><p>temperature at snow-ice interface in K</p>
-</dd>
-</dl>
-<p>This function is inspired from [Semtner, 1976]_</p>
-<p>in Numerical Investigations of Climate. J. Phys. Oceanogr., 6, 379–389,
-<a class="reference external" href="https://doi.org/10.1175/1520-0485(1976">https://doi.org/10.1175/1520-0485(1976</a>)006&lt;0379:AMFTTG&gt;2.0.CO;2.</p>
+<dd><p>Compute the snow/ice interface temperature.</p>
+<p>This function computes the temperature at the snow-ice interface, inspired from <a class="bibtex reference internal" href="../literature/references.html#semtner76" id="id1">[Semtner, 1976]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sit</strong> (<em>xarray.DataArray</em>) – sea-ice thickness in m</p></li>
+<li><p><strong>snd</strong> (<em>xarray.DataArray</em>) – snow thickness in m</p></li>
+<li><p><strong>tsi</strong> (<em>xarray.DataArray</em>) – sea-ice (or snow) surface temperature in K</p></li>
+<li><p><strong>Returns</strong> – </p></li>
+<li><p><strong>-------</strong> – </p></li>
+<li><p><strong>T_i</strong> (<em>xarray.DataArray</em>) – temperature at snow-ice interface in K</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -2341,493 +2431,6 @@ for multiyear ice.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-arc3o">
-<span id="package-contents"></span><h2>Package contents<a class="headerlink" href="#module-arc3o" title="Permalink to this headline">¶</a></h2>
-<p>Created on Tue Aug 14 11:14:31 2018</p>
-<p>functions for operational ARC3O</p>
-<p>&#64;author: Clara Burgard</p>
-<dl class="function">
-<dt id="arc3o.TB_tot">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">TB_tot</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">memls_output</em>, <em class="sig-param">freq</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">surf_temp</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.TB_tot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the brightness temperature at top of the atmosphere</p>
-<p>This function computes the brightness temperature at top of the atmosphere</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – MPI-ESM data for period of interest (yyyymm)</p></li>
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset of mask for seasons and ice types for period of interest (yyyymm)</p></li>
-<li><p><strong>memls_output</strong> (<em>xarray.Dataset</em>) – dataset with MEMLS output</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – freguency in GHz</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>surf_temp</strong> (<em>xarray.DataArray</em>) – snow surface temperature to use for the brightness temperature if snow emissivity is 1</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p><strong>ds</strong> –</p>
-<dl class="simple">
-<dt>dataset containing brightness temperatures at both polarizations</dt><dd><p>at top of the atmosphere in K</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.amsr">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">amsr</code><span class="sig-paren">(</span><em class="sig-param">V</em>, <em class="sig-param">W</em>, <em class="sig-param">L</em>, <em class="sig-param">Ta</em>, <em class="sig-param">Ts</em>, <em class="sig-param">TBV_ice</em>, <em class="sig-param">TBH_ice</em>, <em class="sig-param">e_icev</em>, <em class="sig-param">e_iceh</em>, <em class="sig-param">c_ice</em>, <em class="sig-param">freq</em>, <em class="sig-param">slm</em>, <em class="sig-param">mpf</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.amsr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the atmospheric and ocean contribution to the brightness temperature</p>
-<p>This function computes the atmospheric and ocean contribution to the brightness temperature.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>V</strong> (<em>xarray.DataArray</em>) – columnar water vapor in mm</p></li>
-<li><p><strong>W</strong> (<em>xarray.DataArray</em>) – windspeed over water in m/s</p></li>
-<li><p><strong>L</strong> (<em>xarray.DataArray</em>) – columnar cloud liquid water in mm</p></li>
-<li><p><strong>Ta</strong> (<em>xarray.DataArray</em>) – ice surface temperature in K</p></li>
-<li><p><strong>Ts</strong> (<em>xarray.DataArray</em>) – sea surface temperature in K</p></li>
-<li><p><strong>TBV_ice</strong> (<em>xarray.DataArray</em>) – brightness temperature ice surface vertical polarization in K</p></li>
-<li><p><strong>TBH_ice</strong> (<em>xarray.DataArray</em>) – brightness temperature ice surface horizontal polarization in K</p></li>
-<li><p><strong>e_icev</strong> (<em>xarray.DataArray</em>) – ice emissivity vertical polarization</p></li>
-<li><p><strong>e_iceh</strong> (<em>xarray.DataArray</em>) – ice emissivity horizontal polarization</p></li>
-<li><p><strong>c_ice</strong> (<em>xarray.DataArray</em>) – ice concentration between 0 and 1</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – AMSR frequency of interest in GHz [6.9, 10.7, 18.7, 23.8, 36.5, 50.3, 52.8, 89.0]</p></li>
-<li><p><strong>slm</strong> (<em>xarray.DataArray</em>) – sea-land mask (0 for ocean, 1 for land)</p></li>
-<li><p><strong>mpf</strong> (<em>xarray.DataArray</em>) – melt pond fraction between 0 and 1</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul>
-<li><p><strong>TBH</strong> (<em>xarray.DataArray</em>) –</p>
-<dl class="simple">
-<dt>brightness temperature, horizontal polarization,</dt><dd><p>at top of the atmosphere in K</p>
-</dd>
-</dl>
-</li>
-<li><p><strong>TBV</strong> (<em>xarray.DataArray</em>) –</p>
-<dl class="simple">
-<dt>brightness temperature, vertical polarization,</dt><dd><p>at top of the atmosphere in K</p>
-</dd>
-</dl>
-</li>
-</ul>
-</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>This function is based on equations given in [Wentz &amp; Meissner, 2000]_ and is tailored to AMSR2 frequencies.
-It was extended by C. Burgard to include melt ponds for the use in ARC3O.</p>
-<p class="rubric">References</p>
-<p>..[Wentz &amp; Meissner, 2000] Wentz, F.J. and T. Meissner (2000). Algorithm theoretical basis document (atbd),
-version 2. Tech. rep. AMSR Ocean Algorithm, RSS Tech. Proposal 121599A-1. Remote Sensing Systems, Santa Rosa, CA.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.comp_F">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">comp_F</code><span class="sig-paren">(</span><em class="sig-param">m1</em>, <em class="sig-param">m2</em>, <em class="sig-param">W</em>, <em class="sig-param">pol</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.comp_F" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the empirical term for any residual non-linear wind variations</p>
-<p>This function is necessary for the atmospheric and ocean contribution. It computes
-the empirical term for any residual non-linear wind variations</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>m1</strong> (<em>xarray.DataArray</em>) – coefficients given by [Wentz &amp; Meissner, 2000]_</p></li>
-<li><p><strong>m2</strong> (<em>xarray.DataArray</em>) – coefficients given by [Wentz &amp; Meissner, 2000]_</p></li>
-<li><p><strong>W</strong> (<em>xarray.DataArray</em>) – wind speed in m/s</p></li>
-<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>F</strong> – empirical term for any residual non-linear wind variations</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.DataArray</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>This function is based Eq. 60 of [Wentz &amp; Meissner, 2000]_
-Data for 6.9 GHz was not available so we use the same values as for 10.7 GHz</p>
-<p class="rubric">References</p>
-<p>..[Wentz &amp; Meissner, 2000] Wentz, F.J. and T. Meissner (2000). Algorithm theoretical basis document (atbd),
-version 2. Tech. rep. AMSR Ocean Algorithm, RSS Tech. Proposal 121599A-1. Remote Sensing Systems, Santa Rosa, CA.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.compute_TBVice">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">compute_TBVice</code><span class="sig-paren">(</span><em class="sig-param">info_ds</em>, <em class="sig-param">TB</em>, <em class="sig-param">pol</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">surf_temp</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.compute_TBVice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine the brightness temperature computed through MEMLS with other
-brightness temperatures from other seasons</p>
-<p>This function combines the brightness temperature computed through MEMLS with other
-brightness temperatures from other seasons</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset containing masks about seasons and ice types</p></li>
-<li><p><strong>TB</strong> (<em>xarray.DataArray</em>) – array of brightness temperatures in one polarization computed by MEMLS</p></li>
-<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>surf_temp</strong> (<em>xarray.DataArray</em>) – snow surface temperature to use for the brightness temperature if snow emissivity is 1</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>TBice</strong> – array of ice surface brightness temperature in the given polarization</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.DataArray</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>!At the moment this is only valid for 6.9 GHz! and was evaluated more thouroughly for vertical
-polarization than horizontal polarization</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.compute_emisV">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">compute_emisV</code><span class="sig-paren">(</span><em class="sig-param">info_ds</em>, <em class="sig-param">eice</em>, <em class="sig-param">pol</em>, <em class="sig-param">snow_emis</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.compute_emisV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine the emissivity computed through MEMLS with other
-emissivities from other seasons</p>
-<p>This function combines the emissivity computed through MEMLS with other
-emissivities from other seasons</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset containing masks about seasons and ice types</p></li>
-<li><p><strong>eice</strong> (<em>xarray.DataArray</em>) – array of emissivity in one polarization computed by MEMLS</p></li>
-<li><p><strong>pol</strong> (<em>str</em>) – <cite>V</cite> for vertical polarization, <cite>H</cite> for horizontal polarization</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>e_ice</strong> – array of ice emissivities in the given polarization</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.DataArray</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>!At the moment this is only valid for 6.9 GHz! and was evaluated more thouroughly for vertical
-polarization than horizontal polarization</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.compute_parallel">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">compute_parallel</code><span class="sig-paren">(</span><em class="sig-param">start_year</em>, <em class="sig-param">end_year</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">snow_dens</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">compute_memls</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.compute_parallel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parallelize the brightness temperature simulation</p>
-<p>This function parallelizes the brightness temperature simulation for the different months
-of a given year</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>start_year</strong> (<em>int</em>) – first year of interest (format yyyy)</p></li>
-<li><p><strong>end_year</strong> (<em>int</em>) – last year of interest (format yyyy)</p></li>
-<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
-<li><p><strong>e_bias_fyi</strong> (<em>float</em>) – tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>e_bias_myi</strong> (<em>float</em>) – tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>snow_emis</strong> – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>snow_dens</strong> (<em>float</em>) – constant snow density to use</p></li>
-<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in month</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
-<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
-<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset of mask for seasons and ice types</p></li>
-<li><p><strong>write_profiles</strong> (<em>str</em>) – ..`yes` if you want to compute the property profiles and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>compute_memls</strong> (<em>str</em>) – ..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>Writes out profiles, ice brightness temperatures and brightness temperatures at the top of atmosphere</em></p></li>
-<li><p><em>to netcdf-file called “TBtot_assim_yyyymm_f.nc”</em></p></li>
-<li><p><cite>f</cite> is rounded <cite>freq_of_int</cite></p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.memls_module_general">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">memls_module_general</code><span class="sig-paren">(</span><em class="sig-param">yy</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">profiles_yes</em>, <em class="sig-param">profiles_no</em>, <em class="sig-param">snifrac</em>, <em class="sig-param">barefrac</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">compute_memls</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.memls_module_general" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine the brightness temperatures of bare and snow-covered ice</p>
-<p>This function wraps around MEMLS to combine the brightness temperatures of bare and snow-covered ice</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>yy</strong> (<em>int</em>) – actually stands for yyyymm, defines the year and month we are looking at</p></li>
-<li><p><strong>freq_of_int</strong> (<em>float</em>) – frequency in GHz</p></li>
-<li><p><strong>profiles_yes</strong> (<em>xarray.Dataset</em>) – Dataset containing property profiles for snow-covered ice</p></li>
-<li><p><strong>profiles_no</strong> (<em>xarray.Dataset</em>) – Dataset containing property profiles for bare ice</p></li>
-<li><p><strong>snifrac</strong> (<em>xarray.DataArray</em>) – snow fraction given by MPI-ESM data, already month of interest selected</p></li>
-<li><p><strong>barefrac</strong> (<em>xarray.DataArray</em>) – bare ice fraction given by MPI-ESM data, already month of interest selected</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
-<li><p><strong>compute_memls</strong> (<em>str</em>) – ..`yes` if you want to feed profiles to MEMLS and write the result out
-..`no` if you don’t want anything to happen</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>if the compute_memls option is set to `yes`</strong> (<em>netcdf-file containing the weighted ice</em>)</p></li>
-<li><p><em>brightness temperatures and emissivities (TBH, TBV, eh, ev), called “TB_assim_yyyymm_f.nc”</em></p></li>
-<li><p><cite>f</cite> is rounded <cite>freq_of_int</cite></p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.new_outputpath">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">new_outputpath</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">existing</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.new_outputpath" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create new folders to organize experiments</p>
-<p>This function helps to organize different experiments</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>log</strong> (<em>str</em>) – ..`yes` if you are starting a new experiment and want a new folder for it
-..`no` if you want to continue an experiment and want to work in an existing folder</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the folder to be/the folder is</p></li>
-<li><p><strong>existing</strong> (<em>str</em>) – if your folder exists already, just write the name here, if not you can write ‘default’</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>new_dir</strong> – prints the directory you are working in now, if new it will have created the directory</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.prep_mask">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">prep_mask</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">write_mask</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">timestep</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.prep_mask" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare or read out the mask for the seasons and ice types
-This function prepares or reads out the mask for the seasons and ice types</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM data over the whole time period of interest</p></li>
-<li><p><strong>write_mask</strong> (<em>str</em>) – <cite>yes</cite> if you want to write to a file, <cite>no</cite> if you already have written it to a file before</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
-<li><p><strong>timestep</strong> (<em>int</em>) – timestep of data [in hours]</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>info_ds</strong> – dataset with masks for seasons and ice types, also written in “period_masks_assim.nc”
-in <cite>outputpath</cite></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.prep_prof">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">prep_prof</code><span class="sig-paren">(</span><em class="sig-param">input_data</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">yy</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">snow_dens</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.prep_prof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare or read out the property profiles for use in MEMLS</p>
-<p>This function prepares or reads out the property profiles for use in MEMLS</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM data over the whole time period of interest</p></li>
-<li><p><strong>write_profiles</strong> (<em>str</em>) – <cite>yes</cite> if you want to write to a file, <cite>no</cite> if you already have written it to a file before</p></li>
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset with masks for seasons and ice types over whole time period of interest</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where you want the file to be written</p></li>
-<li><p><strong>yy</strong> (<em>int</em>) – actually stands for yyyymm, defines the year and month we are looking at</p></li>
-<li><p><strong>e_bias_fyi</strong> (<em>float</em>) – tuning parameters for the first-year ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>e_bias_myi</strong> (<em>float</em>) – tuning parameters for the multiyear ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>snow_dens</strong> (<em>float</em>) – snow density (constant)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>profiles1</strong> (<em>xarray.Dataset</em>) – profiles assuming snow-covered ice</p></li>
-<li><p><strong>profiles2</strong> (<em>xarray.Dataset</em>) – profiles assuming bare ice</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Both outputs are written to files (“profiles_for_memls_snowno_yyyymm.nc” and
-“profiles_for_memls_snowyes_yyyymm.nc”) in <cite>outputpath</cite></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.prep_time">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">prep_time</code><span class="sig-paren">(</span><em class="sig-param">input_data</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.prep_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform the date format given by MPI-ESM into a “proper” date format</p>
-<p>This function transforms the date format given by MPI-ESM into a proper
-date format for xarray</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>input_data</strong> (<em>xarray.Dataset</em>) – the MPI-ESM xarray.Dataset with the original date format</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>input_data</strong> – the MPI-ESM xarray.Dataset with the new date format</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.run_memls_2D">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">run_memls_2D</code><span class="sig-paren">(</span><em class="sig-param">profiles</em>, <em class="sig-param">freq</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.run_memls_2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run MEMLS</p>
-<p>This function calls MEMLS.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>profiles</strong> (<em>xarray.Dataset</em>) – either the snow covered or bare ice property profiles</p></li>
-<li><p><strong>freq</strong> (<em>float</em>) – frequency in GHz</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>ds</strong> – Dataset containing TBH, TBV, emissivity H, emissivity V</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>xarray.Dataset</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.satsim_complete_1month">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">satsim_complete_1month</code><span class="sig-paren">(</span><em class="sig-param">orig_data</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">yy</em>, <em class="sig-param">mm</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">timestep=6</em>, <em class="sig-param">write_mask='yes'</em>, <em class="sig-param">write_profiles='yes'</em>, <em class="sig-param">compute_memls='yes'</em>, <em class="sig-param">e_bias_fyi=0.963</em>, <em class="sig-param">e_bias_myi=0.963</em>, <em class="sig-param">snow_emis=1</em>, <em class="sig-param">snow_dens=300.0</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.satsim_complete_1month" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute top-of-atmosphere brightness temperature for one single month</p>
-<p>This function is the full observation operator that can be run on a single month</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>orig_data</strong> – MPI-ESM data all years merged together</p></li>
-<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
-<li><p><strong>yy</strong> (<em>int</em>) – year of interest (format yyyy)</p></li>
-<li><p><strong>mm</strong> (<em>int</em>) – month of interest (format mm)</p></li>
-<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in months</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
-<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
-<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
-<li><p><strong>timestep</strong> (<em>int</em><em>, </em><em>optional</em>) – default is 6
-timestep of data [in hours]</p></li>
-<li><p><strong>write_mask</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to write the masks to a file
-..`no` if you already have written them to a file before</p></li>
-<li><p><strong>write_profiles</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to compute the property profiles and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>compute_memls</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>e_bias_fyi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
-tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>e_bias_myi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
-tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 1
-assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>snow_dens</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 300.
-constant snow density to use</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>writes out the file containing masks (“period_masks_assim.nc”), and the files for the given month,</em></p></li>
-<li><p><em>containing profiles (“profiles_for_memls_snowno_yyyymm.nc” and “profiles_for_memls_snowyes_yyyymm.nc”),</em></p></li>
-<li><p><em>ice brightness temperatures (“TB_assim_yyyymm_f.nc”) and brightness temperatures at top of atmosphere</em></p></li>
-<li><p>(“TBtot_assim_yyyymm_f.nc”) to files, <cite>f</cite> is the rounded <cite>freq_of_int</cite></p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.satsim_complete_parallel">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">satsim_complete_parallel</code><span class="sig-paren">(</span><em class="sig-param">orig_data</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">start_year</em>, <em class="sig-param">end_year</em>, <em class="sig-param">inputpath</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">file_begin</em>, <em class="sig-param">file_end</em>, <em class="sig-param">timestep=6</em>, <em class="sig-param">write_mask='yes'</em>, <em class="sig-param">write_profiles='yes'</em>, <em class="sig-param">compute_memls='yes'</em>, <em class="sig-param">e_bias_fyi=0.963</em>, <em class="sig-param">e_bias_myi=0.963</em>, <em class="sig-param">snow_emis=1</em>, <em class="sig-param">snow_dens=300.0</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.satsim_complete_parallel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute top-of-atmosphere brightness temperature over a long time period</p>
-<p>This function is the full observation operator and is enough to run it</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>orig_data</strong> (<em>xarray.Dataset</em>) – MPI-ESM data all years merged together</p></li>
-<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
-<li><p><strong>start_year</strong> (<em>int</em>) – first year of interest (format yyyy)</p></li>
-<li><p><strong>end_year</strong> (<em>int</em>) – last year of interest (format yyyy)</p></li>
-<li><p><strong>inputpath</strong> (<em>str</em>) – path where to find the MPI-ESM data chunked in months</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
-<li><p><strong>file_begin</strong> (<em>str</em>) – how the MPI-ESM data filename starts (before date)</p></li>
-<li><p><strong>file_end</strong> (<em>str</em>) – how the MPI-ESM data filename ends (after date)</p></li>
-<li><p><strong>timestep</strong> (<em>int</em><em>, </em><em>optional</em>) – default is 6
-timestep of data [in hours]</p></li>
-<li><p><strong>write_mask</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to write the masks to a file
-..`no` if you already have written them to a file before</p></li>
-<li><p><strong>write_profiles</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to compute the property profiles and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>compute_memls</strong> (<em>str</em><em>, </em><em>optional</em>) – default is <cite>yes</cite>
-..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>e_bias_fyi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
-tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>e_bias_myi</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 0.963
-tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 1
-assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>snow_dens</strong> (<em>float</em><em>, </em><em>optional</em>) – default is 300.
-constant snow density to use</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>writes out the netcdf-file containing masks (“period_masks_assim.nc”), and the netcdf-files, chunked by months,</em></p></li>
-<li><p><em>containing profiles (“profiles_for_memls_snowno_yyyymm.nc” and “profiles_for_memls_snowyes_yyyymm.nc”),</em></p></li>
-<li><p><em>ice brightness temperatures (“TB_assim_yyyymm_f.nc”) and brightness temperatures at top of atmosphere</em></p></li>
-<li><p>(“TBtot_assim_yyyymm_f.nc”) to files, <cite>f</cite> is the rounded <cite>freq_of_int</cite></p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="arc3o.satsim_loop">
-<code class="sig-prename descclassname">arc3o.</code><code class="sig-name descname">satsim_loop</code><span class="sig-paren">(</span><em class="sig-param">file</em>, <em class="sig-param">yy</em>, <em class="sig-param">mm</em>, <em class="sig-param">info_ds</em>, <em class="sig-param">freq_of_int</em>, <em class="sig-param">e_bias_fyi</em>, <em class="sig-param">e_bias_myi</em>, <em class="sig-param">outputpath</em>, <em class="sig-param">write_profiles</em>, <em class="sig-param">compute_memls</em>, <em class="sig-param">snow_emis</em>, <em class="sig-param">snow_dens</em><span class="sig-paren">)</span><a class="headerlink" href="#arc3o.satsim_loop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simulate brightness temperature</p>
-<p>This function is where the actual brightness temperature simulation takes place</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>str</em>) – path to file containing MPI-ESM data</p></li>
-<li><p><strong>yy</strong> (<em>int</em>) – year (format yyyy)</p></li>
-<li><p><strong>mm</strong> (<em>int</em>) – month (format mm)</p></li>
-<li><p><strong>info_ds</strong> (<em>xarray.Dataset</em>) – dataset of mask for seasons and ice types</p></li>
-<li><p><strong>freq_of_int</strong> (<em>float</em>) – freguency in GHz</p></li>
-<li><p><strong>e_bias_fyi</strong> (<em>float</em>) – tuning parameter for the first-year ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>e_bias_myi</strong> (<em>float</em>) – tuning parameter for the multiyear ice temperature profile to influence the MEMLS result</p></li>
-<li><p><strong>outputpath</strong> (<em>str</em>) – path where files should be written</p></li>
-<li><p><strong>write_profiles</strong> (<em>str</em>) – ..`yes` if you want to compute the property profiles and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>compute_memls</strong> (<em>str</em>) – ..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-..`no` if you have already written them out and nothing has changed</p></li>
-<li><p><strong>snow_emis</strong> (<em>float</em>) – assign the snow emissivity to <cite>1</cite> or <cite>np.nan</cite> for melting snow periods</p></li>
-<li><p><strong>snow_dens</strong> (<em>float</em>) – constant snow density to use</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt>ds_TB: xarray.Dataset</dt><dd><p>brightness temperatures at both polarizations at top of the atmosphere in K</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 </div>
 
 
@@ -2838,8 +2441,10 @@ constant snow density to use</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../literature/references.html" class="btn btn-neutral float-right" title="References" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to the documentation about the Arctic Observation Operator!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="../guide/step5.html" class="btn btn-neutral float-left" title="Step 5: Add sea-ice concentration and atmospheric effect" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
