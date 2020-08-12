@@ -29,9 +29,9 @@ memls_functions_2D
 ------------------
 
 .. automodule:: arc3o.memls_functions_2D
-   	:members:
+	:members:
    	:undoc-members:
-
+   	:show-inheritance:
 profile_functions
 -----------------
 

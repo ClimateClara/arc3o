@@ -19,11 +19,12 @@ Based on: https://github.com/pypa/sampleproject
 """
 import setuptools
 import pathlib
+import os
 
 here = pathlib.Path(__file__).parent.resolve()
 
 # Get the long description from the README file
-long_description = open(path.join(here, 'README.rst'), encoding='utf-8').read()
+long_description = open(os.path.join(here, 'README.rst'), encoding='utf-8').read()
 
 setuptools.setup(
 	

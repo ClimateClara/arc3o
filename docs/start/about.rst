@@ -10,7 +10,7 @@ Authors
 -------
 
 | Based on MATLAB code by C. Mätzler, A. Wiesmann, and R.T. Tonboe
-| Moved to Python and extended by Clara Burgard - `ClimateClara <github.com/ClimateClara>`_
+| Moved to Python and extended by Clara Burgard - `ClimateClara <http://www.github.com/ClimateClara>`_
 
 
 License
