@@ -42,7 +42,7 @@ def prep_time(input_data):
     Parameters
     ----------
     input_data: xarray.Dataset
-        	the MPI-ESM xarray.Dataset with the original date format
+        the MPI-ESM xarray.Dataset with the original date format
     
     Returns
     -------
@@ -77,17 +77,17 @@ def new_outputpath(log,outputpath,existing):
     Parameters
     ----------
     log: str 
-        ..`yes` if you are starting a new experiment and want a new folder for it
-        ..`no` if you want to continue an experiment and want to work in an existing folder
+        ``'yes'`` if you are starting a new experiment and want a new folder for it, ``'no'`` if you want to continue an
+        experiment and want to work in an existing folder
     outputpath: str
-    	path where you want the folder to be/the folder is
+        path where you want the folder to be/the folder is
     existing: str
-    	if your folder exists already, just write the name here, if not you can write 'default'
+        if your folder exists already, just write the name here, if not you can write ``'default'``
     
     Returns
     -------
     new_dir: str
-    	prints the directory you are working in now, if new it will have created the directory
+        prints the directory you are working in now, if new it will have created the directory
     """
     
     if log=='yes':
@@ -111,19 +111,18 @@ def prep_mask(input_data,write_mask,outputpath,timestep):
     Parameters
     ----------
     input_data: xarray.Dataset
-    	the MPI-ESM data over the whole time period of interest
+        the MPI-ESM data over the whole time period of interest
     write_mask: str
-    	`yes` if you want to write to a file, `no` if you already have written it to a file before
+        ``'yes'`` if you want to write to a file, ``'no'`` if you already have written it to a file before
     outputpath: str
-    	path where you want the file to be written
+        path where you want the file to be written
     timestep: int
-    	timestep of data [in hours]
+        timestep of data in hours
     
     Returns
     -------
     info_ds: xarray.Dataset
-    	dataset with masks for seasons and ice types, also written in "period_masks_assim.nc"
-    	in `outputpath`
+        dataset with masks for seasons and ice types, also written in ``period_masks_assim.nc`` in ``outputpath``
     
     """
         
@@ -165,38 +164,38 @@ def prep_prof(input_data,write_profiles,info_ds,outputpath,yy,e_bias_fyi,e_bias_
 
     """Prepare or read out the property profiles for use in MEMLS
     
-    This function prepares or reads out the property profiles for use in MEMLS
+    This function prepares or reads out the property profiles for use in MEMLS.
     
     Parameters
     ----------
     input_data: xarray.Dataset
-    	the MPI-ESM data over the whole time period of interest
+        the MPI-ESM data over the whole time period of interest
     write_profiles: str
-    	`yes` if you want to write to a file, `no` if you already have written it to a file before
+        ``'yes'`` if you want to write to a file, ``'no'`` if you already have written it to a file before
     info_ds: xarray.Dataset
-    	dataset with masks for seasons and ice types over whole time period of interest
+        dataset with masks for seasons and ice types over whole time period of interest
     outputpath: str
-    	path where you want the file to be written
-    yy: int	
-    	actually stands for yyyymm, defines the year and month we are looking at
+        path where you want the file to be written
+    yy: int
+        actually stands for yyyymm, defines the year and month we are looking at
     e_bias_fyi: float
-    	tuning parameters for the first-year ice temperature profile to influence the MEMLS result
+        tuning parameters for the first-year ice temperature profile to influence the MEMLS result
     e_bias_myi: float
-    	tuning parameters for the multiyear ice temperature profile to influence the MEMLS result
+        tuning parameters for the multiyear ice temperature profile to influence the MEMLS result
     snow_dens: float
-    	snow density (constant)
+        snow density (constant)
     
     Returns
     -------
     profiles1: xarray.Dataset
-    	profiles assuming snow-covered ice
+        profiles assuming snow-covered ice
     profiles2: xarray.Dataset
-    	profiles assuming bare ice
+        profiles assuming bare ice
     
     Notes
     -----
-    Both outputs are written to files ("profiles_for_memls_snowno_yyyymm.nc" and 
-    "profiles_for_memls_snowyes_yyyymm.nc") in `outputpath`
+    Both outputs are written to files (``profiles_for_memls_snowno_yyyymm.nc`` and
+    ``profiles_for_memls_snowyes_yyyymm.nc``) in ``outputpath``
     
     """
 

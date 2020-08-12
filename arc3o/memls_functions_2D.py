@@ -1224,44 +1224,34 @@ def absorp2f(gbih,gbiv,gs6,ga2i,epsi,epsii,roi,Ti,pci,freq,Wi,gai):
 def pfadc(teta,di,epsi,gs6):
 
     """Compute the effective path length in a layer
-	
-	This function computes the effective path length in a layer
-	
-	Parameters
-	----------
-	teta: float
-		incidence angle at snow-air interface in degrees
-	di: xarray.DataArray
-		ice thickness in m
-	epsi: xarray.DataArray
-		permittivity
-	gs6: xarray.DataArray
-		6-flux scattering coefficient
-	
-	Returns
-	-------
-	dei: xarray.DataArray
-		effective path length in m
-	tei: xarray.DataArray
-		local incidence angle
-	tscat: xarray.DataArray
-		tau scattering 
-	
-	Notes
-	-----
-	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
-	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
-	It was translated by C. Burgard to Python to be used in ARC3O.
-	
-	References
-	----------
-	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
-	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
-	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 
-	
+    This function computes the effective path length in a layer.
+
+    Parameters
+    ----------
+    teta: float
+        incidence angle at snow-air interface in degrees
+    di: xarray.DataArray
+        ice thickness in m
+    epsi: xarray.DataArray
+        permittivity
+    gs6: xarray.DataArray
+        6-flux scattering coefficient
+
+    Returns
+    -------
+    dei: xarray.DataArray
+        effective path length in m
+    tei: xarray.DataArray
+        local incidence angle
+    tscat: xarray.DataArray
+        tau scattering
+
+    Notes
+    -----
+    This function is part of the original MEMLS developed by the Institute of Applied Physics,
+    University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
+    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
     """
 
     N = len(epsi.layer_nb)
@@ -1291,45 +1281,33 @@ def pfadc(teta,di,epsi,gs6):
 
 
 def polmix(tscat,sih,siv):
+    """Compute the polarization mixing of the interface reflectivities of each layer
 
-    """Compute the polarization mixing of the interface reflectivities
-	of each layer
-    
-	This function computes the polarization mixing of the interface reflectivities
-	of each layer (taking into account the first order scattering)
-	
-	Parameters
-	----------
-	tscat: xarray.DataArray
-		tau scattering 
-	sih: xarray.DataArray 
-		interface reflectivity at h-pol
-	siv: xarray.DataArray
-		interface reflectivity at v-pol
-	
-	Returns
-	-------
-	sih: xarray.DataArray  
-		interface reflectivity at h-pol
-	siv: xarray.DataArray  
-		interface reflectivity at v-pol
-	
-	Notes
-	-----
-	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
-	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
-	It was translated by C. Burgard to Python to be used in ARC3O.
-	
-	References
-	----------
-	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
-	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
-	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
+    This function computes the polarization mixing of the interface reflectivities of each layer (taking into
+    account the first order scattering)
 
-	
-	"""
+    Parameters
+    ----------
+    tscat: xarray.DataArray
+        tau scattering
+    sih: xarray.DataArray
+        interface reflectivity at h-pol
+    siv: xarray.DataArray
+        interface reflectivity at v-pol
+
+    Returns
+    -------
+    sih: xarray.DataArray
+        interface reflectivity at h-pol
+    siv: xarray.DataArray
+        interface reflectivity at v-pol
+
+    Notes
+    -----
+    This function is part of the original MEMLS developed by the Institute of Applied Physics,
+    University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
+    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    """
 
     tscat = append_laydim_end(tscat,1)
 
@@ -1342,43 +1320,32 @@ def polmix(tscat,sih,siv):
 
 
 def rt(gai,gbi,dei):
-
     """Compute the layer reflectivity and transmissivity
-    
-	This function computes the layer reflectivity and transmissivity
-	
-	Parameters
-	----------
-    gai: xarray.DataArray
-    	absorption coefficient
-    gbi: xarray.DataArray
-    	scattering coefficient
-	dei: xarray.DataArray
-		effective path length in m
-	
-	Returns
-	-------
-	ri: xarray.DataArray
-		reflectivity
-	ti: xarray.DataArray
-		transmissivity
-	
-	Notes
-	-----
-	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
-	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
-	It was translated by C. Burgard to Python to be used in ARC3O.
-	
-	References
-	----------
-	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
-	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
-	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 
-	
-	"""
+    This function computes the layer reflectivity and transmissivity.
+
+    Parameters
+    ----------
+    gai: xarray.DataArray
+        absorption coefficient
+    gbi: xarray.DataArray
+        scattering coefficient
+    dei: xarray.DataArray
+        effective path length in m
+
+    Returns
+    -------
+    ri: xarray.DataArray
+        reflectivity
+    ti: xarray.DataArray
+        transmissivity
+
+    Notes
+    -----
+    This function is part of the original MEMLS developed by the Institute of Applied Physics,
+    University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
+    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    """
 
     gamma = np.sqrt(gai * (gai + 2 * gbi))
     t0i = np.exp(gamma * dei * (-1))
@@ -1393,30 +1360,27 @@ def rt(gai,gbi,dei):
 
 
 def xr_diag(v,k=0):
-
     """Create diagonal matrix with values of v on the diagonal
-    
-	This function is more technical, creates diagonal matrix with values of v on the diagonal, 
-	gives out an xr.DataArray
-	
-	Parameters
-	----------
-	v: xarray.DataArray
-		xarray with the wished dimensions
-	k: int
-		coefficient if diagonal is shifted from middle
-	
-	Returns
-	-------
-	res: xarray.DataArray
-		resulting diagonal matrix
-	
-	Notes
-	-----
-	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
-	parameters and output.
 
-	"""
+    This function is more technical, creates diagonal matrix with values of v on the diagonal
+
+    Parameters
+    ----------
+    v: xarray.DataArray
+        xarray with the wished dimensions
+    k: int
+        coefficient if diagonal is shifted from middle
+
+    Returns
+    -------
+    res: xarray.DataArray
+        resulting diagonal matrix
+
+    Notes
+    -----
+    This function was introduced by `C. Burgard <http://www.github.com/ClimateClara>`_ to adapt the python functions to
+    :py:class:`xarray.DataArray` parameters and output.
+    """
 
     ##########################
     ### new approach
@@ -1450,28 +1414,27 @@ def xr_diag(v,k=0):
 
 
 def build_xarray(data,temp):
+    """Transform :py:class:`np.array` into :py:class:`xarray.DataArray`
 
-    """Transform np.array into xarray.DataArray
-	This function is more technical, transforms np.array into xarray
-	
-	Parameters
-	----------
-	data : np.array
-		data to be transformed
-	temp: xarray.DataArray
-		other xarray.DataArray that has the wished dimensions
-	
-	Returns
-	-------
-	res: xarray.DataArray
-		resulting xarray.DataArray of same dimensions as `temp`
-	
-	Notes
-	-----
-	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
-	parameters and output.
-	
-	"""
+    This function is more technical, transforms :py:class:`np.array` into :py:class:`xarray.DataArray`.
+
+    Parameters
+    ----------
+    data : np.array
+        data to be transformed
+    temp: xarray.DataArray
+        other xarray.DataArray that has the wished output dimensions
+
+    Returns
+    -------
+    res: xarray.DataArray
+        resulting xarray.DataArray of same dimensions as `temp`
+
+    Notes
+    -----
+    This function was introduced by `C. Burgard <http://www.github.com/ClimateClara>`_ to adapt the python functions to
+    :py:class:`xarray.DataArray` parameters and output.
+    """
 
     ####################################################
     #### new approach
@@ -1489,30 +1452,29 @@ def build_xarray(data,temp):
 
 
 def build_xarray_matrix2D(data,temp):
+    """Transform a :py:class:`np.array` into :py:class:`xarray.DataArray` over the two dimensions ``layer_nb`` and
+    ``matrix_dim`` for matrix operations
 
-    """Transform a np.array into xarray.DataArray over the two dimensions `layer_nb` and `matrix_dim` for matrix operations
-	
-	This function is more technical, transforms a np.array into xarray.DataArray over the 
-	two dimensions `layer_nb` and `matrix_dim` for matrix operations
-	
-	Parameters
-	----------
-	data: np.array
-		data to be transformed
-	temp: xarray.DataArray
-		other xarray.DataArray that has the wished dimensions
-	
-	Returns
-	-------
-	test: xarray.DataArray
-		resulting xarray with two times dimension layer_nb for matrix operations
+    This function is more technical, transforms a :py:class:`np.array` into :py:class:`xarray.DataArray` over the two dimensions
+    ``layer_nb`` and ``matrix_dim`` for matrix operations.
 
-	Notes
-	-----
-	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
-	parameters and output.
-	
-	"""
+    Parameters
+    ----------
+    data: np.array
+        data to be transformed
+    temp: xarray.DataArray
+        other xarray.DataArray that has the wished dimensions
+
+    Returns
+    -------
+    test: xarray.DataArray
+        resulting xarray with two times dimension layer_nb for matrix operations
+
+    Notes
+    -----
+    This function was introduced by `C. Burgard <http://www.github.com/ClimateClara>`_ to adapt the python functions to
+    :py:class:`xarray.DataArray` parameters and output.
+    """
 
     test = xr.DataArray(data, coords=[
                                 ('layer_nb',temp.layer_nb.values),
@@ -1523,30 +1485,27 @@ def build_xarray_matrix2D(data,temp):
 
 
 def xr_eye(v,k=0):
-
     """Create diagonal matrix with ones on the diagonal
-    
-	This function is more technical, creates diagonal matrix with ones on the diagonal,
-	gives out an xarray.DataArray
-	
-	Parameters
-	----------
-	v: xarray.DataArray
-		xarray.DataArray with the wished dimensions
-    k: int
-    	coefficient if you want to shift the ones
-	
-	Returns
-	-------
-	test: xarray.DataArray
-		resulting xarray with two times dimension layer_nb for matrix operations
 
-	Notes
-	-----
-	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
-	parameters and output.
-	
-	"""
+    This function is more technical, creates diagonal matrix with ones on the diagonal, gives out an :py:class:`xarray.DataArray`.
+
+    Parameters
+    ----------
+    v: xarray.DataArray
+        xarray.DataArray with the wished dimensions
+    k: int
+        coefficient if you want to shift the ones
+
+    Returns
+    -------
+    test: xarray.DataArray
+        resulting xarray with two times dimension layer_nb for matrix operations
+
+    Notes
+    -----
+    This function was introduced by `C. Burgard <http://www.github.com/ClimateClara>`_ to adapt the python functions to
+    :py:class:`xarray.DataArray` parameters and output.
+    """
 
     ##########################
     ### new approach
@@ -1574,29 +1533,27 @@ def xr_eye(v,k=0):
 
 
 def xr_matmul(A,B,input_dims,output_dims):
-
     """Compute matrix multiplication
-    
-	This function is more technical, matrix multiplication for xarray.DataArray, .dot gave weird results
-	
-	Parameters
-	----------
-	A: xarray.DataArray
-		matrix 1
-	B: xarray.DataArray
-		matrix 2
-	
-	Returns
-	-------
-	asol: xarray.DataArray
-		result of matrix multiplications
-	
-	Notes
-	-----
-	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
-	parameters and output.
 
-	"""
+    This function is more technical, matrix multiplication for :py:class:`xarray.DataArray`, :py:func:`xarray.dot` gave weird results
+
+    Parameters
+    ----------
+    A: xarray.DataArray
+        matrix 1
+    B: xarray.DataArray
+        matrix 2
+
+    Returns
+    -------
+    asol: xarray.DataArray
+        result of matrix multiplications
+
+    Notes
+    -----
+    This function was introduced by `C. Burgard <http://www.github.com/ClimateClara>`_ to adapt the python functions to
+    :py:class:`xarray.DataArray` parameters and output.
+    """
 
     asol = xr.apply_ufunc(np.matmul,
                           A, B,
@@ -1609,25 +1566,24 @@ def xr_matmul(A,B,input_dims,output_dims):
 def xr_linalg_inv(A):
 
     """Compute the (multiplicative) inverse of a matrix.
-    
-	This function is more technical, equivalent of np.linalg.inv for xarray.DataArray
-	
-	Parameters
-	----------
-	A: xarray.DataArray
-		matrix to be inverted
-	
-	Returns
-	-------
-	res: xarray.DataArray
-		inverted matrix
-		
-	Notes
-	-----
-	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
-	parameters and output.
-	
-	"""
+
+    This function is more technical, equivalent of :py:func:`numpy.linalg.inv` for :py:class:`xarray.DataArray`
+
+    Parameters
+    ----------
+    A: xarray.DataArray
+        matrix to be inverted
+
+    Returns
+    -------
+    res: xarray.DataArray
+        inverted matrix
+
+    Notes
+    -----
+    This function was introduced by `C. Burgard <http://www.github.com/ClimateClara>`_ to adapt the python functions to
+    :py:class:`xarray.DataArray` parameters and output.
+    """
 
     res = xr.apply_ufunc(np.linalg.inv,
                          A,
@@ -1641,26 +1597,25 @@ def xr_linalg_inv(A):
 
 
 def add_matrix_dim(A,name_new_dim):
+    """Add a dummy ``matrix_dim`` to enable matrix multiplication
 
-    """Add a dummy `matrix_dim` to enable matrix multiplication
-	This function is more technical, adds a dummy `matrix_dim` to enable matrix multiplication
-	
-	Parameters
-	----------
-	A: xarray.DataArray
-		matrix to be changed
-	
-	Returns
-	-------
-	res: xarray.DataArray
-		changed matrix
-	
-	Notes
-	-----
-	This function was introduced by C. Burgard to adapt the python functions to xarray.DataArray 
-	parameters and output.
-	
-	"""
+    This function is more technical, adds a dummy ``matrix_dim`` to enable matrix multiplication
+
+    Parameters
+    ----------
+    A: xarray.DataArray
+        matrix to be changed
+
+    Returns
+    -------
+    res: xarray.DataArray
+        changed matrix
+
+    Notes
+    -----
+    This function was introduced by `C. Burgard <http://www.github.com/ClimateClara>`_ to adapt the python functions to
+    :py:class:`xarray.DataArray` parameters and output.
+    """
 
     res = A*xr.DataArray(np.ones(1),coords=[(name_new_dim, range(1,2))])
 
@@ -1668,46 +1623,36 @@ def add_matrix_dim(A,name_new_dim):
 
 
 def layer(ri,s_i,ti,Ti,Tgnd,Tsky):
-
     """Compute the upwelling brightness temperatures
-    
-	This function computes the upwelling brightness temperatures (see Note 6)
-	
-	Parameters
-	----------
-	ri: xarray.DataArray
-		reflectivity
-    s_i: xarray.DataArray
-    	interface reflectivity
-    ti: xarray.DataArray
-    	transmissivity
-    Ti: xarray.DataArray
-    	temperature in K
-	Tgnd: float
-		brightness temperature of the ocean below the ice in K
-	Tsky: float
-		brightness temperature of the sky in K
-	
-	Returns
-	-------
-	D1: xarray.DataArray
-		brightness temperatures at each layer
-		
-	Notes
-	-----
-	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
-	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
-	It was translated by C. Burgard to Python to be used in ARC3O.
-	
-	References
-	----------
-	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
-	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
-	layered snowpack"s, Remote Sens. Environ., 70, 307–316.
 
-	"""
+    This function computes the upwelling brightness temperatures, see Eq. 14 in :cite:`wiesmann98`.
+
+    Parameters
+    ----------
+    ri: xarray.DataArray
+        reflectivity
+    s_i: xarray.DataArray
+        interface reflectivity
+    ti: xarray.DataArray
+        transmissivity
+    Ti: xarray.DataArray
+        temperature in K
+    Tgnd: float
+        brightness temperature of the ocean below the ice in K
+    Tsky: float
+        brightness temperature of the sky in K
+
+    Returns
+    -------
+    D1: xarray.DataArray
+        brightness temperatures at each layer
+
+    Notes
+    -----
+    This function is part of the original MEMLS developed by the Institute of Applied Physics,
+    University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
+    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    """
 
     N = len(ri.layer_nb)
     ei = 1 - ri - ti
@@ -1758,57 +1703,48 @@ def layer(ri,s_i,ti,Ti,Tgnd,Tsky):
 
 def memls_2D_1freq(freq,DI,TI,WI,ROI,PCI,SAL,SITYPE):
 
-    """Compute the brightness temperature of a lon-lat-time-depth field
-	at a given frequency
-    
-	This function computes the brightness temperature of a lon-lat-time-depth field
-	at a given frequency
-	
-	Parameters
-	----------
-	freq: float
-		frequency
+    """Compute the brightness temperature of a lon-lat-time-depth field at a given frequency
+
+    This is the main MEMLS function. It computes the brightness temperature of a lon-lat-time-depth field at a given frequency.
+
+    Parameters
+    ----------
+    freq: float
+        frequency
     DI: xarray.DataArray
-    	ice thickness in m
+        ice thickness in m
     TI: xarray.DataArray
-    	temperature in K
+        temperature in K
     WI: xarray.DataArray
-    	wetness between 0 and 1
-	ROI: xarray.DataArray
-		density in kg/m3
-	PCI: xarray.DataArray
-		correlation length in mm
-	SAL: xarray.DataArray
-		salinity in g/kg
-	SITYPE: xarray.DataArray
-		snow 1 /first year ice 3 /multiyear ice 4
-	
-	Returns
-	-------
-	Tbh: xarray.DataArray
-		brightness temperature h-pol
-	Tbv: xarray.DataArray
-		brightness temperature v-pol
-	eh: xarray.DataArray
-		emissivity h-pol
-	ev:	xarray.DataArray
-	 	emissivity v-pol
-	
-	Notes
-	-----
-	This function is part of the original MEMLS developed by the Institute of Applied Physics, 
-	University of Bern, Switzerland. 
-	A description of that model version can be found in [Wiesmann & Mätzler, 1998]_ and [Wiesmann & Mätzler, 1999]_
-	It has been slightly modified to accomodate sea-ice layers by R.T. Tonboe.
-	It was translated by C. Burgard to Python to be used in ARC3O.
-	
-	References
-	----------
-	..[Wiesmann & Mätzler, 1998] Wiesmann, A., and Mätzler, C. (1998). "Documentation for MEMLS 98.1." Research Report No. 98. 
-	http://www.iapmw.unibe.ch/research/projects/snowtools/memls/memls981.pdf.
-	..[Wiesmann & Mätzler, 1999] Wiesmann, A. and Mätzler, C. (1999): "Microwave emission model of 
-	layered snowpacks", Remote Sens. Environ., 70, 307–316.
-	"""
+        wetness between 0 and 1
+    ROI: xarray.DataArray
+        density in kg/m3
+    PCI: xarray.DataArray
+        correlation length in mm
+    SAL: xarray.DataArray
+        salinity in g/kg
+    SITYPE: xarray.DataArray
+        snow 1 /first year ice 3 /multiyear ice 4
+
+    Returns
+    -------
+    Tbh: xarray.DataArray
+        brightness temperature h-pol
+    Tbv: xarray.DataArray
+        brightness temperature v-pol
+    eh: xarray.DataArray
+        emissivity h-pol
+    ev:	xarray.DataArray
+        emissivity v-pol
+
+    Notes
+    -----
+    This function is part of the original MEMLS developed by the Institute of Applied Physics,
+    University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
+    and :cite:`wiesmann99`. It was slightly modified to accomodate sea-ice layers by
+    `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_. It was translated and further adapted by
+    `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    """
 
     start_time = timeit.default_timer()
     print('--------------COMPUTING BRIGHTNESS TEMPERATURE FOR '+str(freq)+'GHz--------------')
