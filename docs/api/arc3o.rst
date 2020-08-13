@@ -1,8 +1,8 @@
 arc3o package
 =============
 
-Package contents
-----------------
+Package main functions
+----------------------
 
 .. automodule:: arc3o
    	:members:

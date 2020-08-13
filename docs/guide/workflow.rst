@@ -5,7 +5,11 @@ ARC3O simulates brightness temperatures from climate model output. It follows th
 
 .. note:: 
 	
-	Please remain aware that the results from ARC3O have only been evaluated for the frequency of 6.9 GHz,
+	Please remain aware that the assumptions used in ARC3O have only been evaluated for the frequency of 6.9 GHz,
 	vertical polarization at the moment! The use for other frequencies and polarizations is at your own risk!
 	
-.. image:: Figure1.pdf
+.. image:: ./Figure1.png
+    :alt: ARC3O workflow from `Burgard et al. 2020b`_
+    :align: center
+
+.. _`Burgard et al., 2020b`: https://tc.copernicus.org/articles/14/2387/2020/

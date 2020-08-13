@@ -6,7 +6,7 @@ Currently, ARC3O is tailored for model output from ECHAM, the atmospheric module
 The input data for ARC3O should be divided into monthly files, found in the folder ``inputpath``. 
 Also, to prepare the seasons and ice types mask, ARC3O needs one file in which all the data is merged. 
 
-These monthly and overview files should contain fields [``lat``,``lon``,``time``] of the following variables:
+These monthly and overview files should contain fields [lat,lon,time] of the following variables:
 	* ``snifrac``: snow fraction on ice [0-1]
 	* ``siced``: sea-ice thickness [m]
 	* ``sni``: snow water equivalent [m]

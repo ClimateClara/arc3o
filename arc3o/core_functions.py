@@ -1098,7 +1098,7 @@ def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath
     snow_emis: float, optional
         assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods; *default is 1*
     snow_dens: float, optional
-        constant snow density to use; *default is 1*
+        constant snow density to use; *default is 300.*
 
     Returns
     -------
@@ -1172,7 +1172,7 @@ def satsim_complete_1month(orig_data,freq_of_int,yy,mm,inputpath,outputpath,file
     snow_emis: float, optional
         assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods; *default is 1*
     snow_dens: float, optional
-        constant snow density to use; *default is 1*
+        constant snow density to use; *default is 300.*
     
     Returns
     -------
