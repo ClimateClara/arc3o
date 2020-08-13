@@ -105,7 +105,8 @@ def new_outputpath(log,outputpath,existing):
 
 def prep_mask(input_data,write_mask,outputpath,timestep):
     
-    """Prepare or read out the mask for the seasons and ice types
+    """
+    Prepare or read out the mask for the seasons and ice types
     This function prepares or reads out the mask for the seasons and ice types
     
     Parameters
@@ -122,7 +123,9 @@ def prep_mask(input_data,write_mask,outputpath,timestep):
     Returns
     -------
     info_ds: xarray.Dataset
-        dataset with masks for seasons and ice types, also written in ``period_masks_assim.nc`` in ``outputpath``
+        dataset with masks for seasons and ice types
+    'period_masks_assim.nc': netcdf file
+        File containing ``info_ds`` in ``outputpath``. Written if *write_mask* is ``'yes'``. Can be found in ``outputpath``.
     
     """
         
@@ -171,7 +174,7 @@ def prep_prof(input_data,write_profiles,info_ds,outputpath,yy,e_bias_fyi,e_bias_
     input_data: xarray.Dataset
         the MPI-ESM data over the whole time period of interest
     write_profiles: str
-        ``'yes'`` if you want to write to a file, ``'no'`` if you already have written it to a file before
+        ``'yes'`` if you want to write to a file, ``'no'`` if you already have written it to a file in ``outputpaht`` before
     info_ds: xarray.Dataset
         dataset with masks for seasons and ice types over whole time period of interest
     outputpath: str
@@ -191,12 +194,10 @@ def prep_prof(input_data,write_profiles,info_ds,outputpath,yy,e_bias_fyi,e_bias_
         profiles assuming snow-covered ice
     profiles2: xarray.Dataset
         profiles assuming bare ice
-    
-    Notes
-    -----
-    Both outputs are written to files (``profiles_for_memls_snowno_yyyymm.nc`` and
-    ``profiles_for_memls_snowyes_yyyymm.nc``) in ``outputpath``
-    
+    'profiles_for_memls_snowno_yyyymm.nc': netcdf file
+        Snow-free profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'profiles_for_memls_snowyes_yyyymm.nc': netcdf file
+        Snow-covered profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
     """
 
     if write_profiles == 'yes':
@@ -230,20 +231,19 @@ def run_memls_2D(profiles,freq):
     
     """Run MEMLS
     
-    This function calls MEMLS.
-    
+    This function calls MEMLS for multi-dimensional files.
+
     Parameters
     ----------
     profiles: xarray.Dataset
-    	either the snow covered or bare ice property profiles
+        either the snow covered or bare ice property profiles
     freq: float
-    	frequency in GHz
+        frequency in GHz
 
     Returns
     -------
     ds: xarray.Dataset
-    	Dataset containing TBH, TBV, emissivity H, emissivity V
-    
+        Dataset containing TBH, TBV, emissivity H, emissivity V
     """
     
     temp = profiles['layer_temperature']
@@ -303,33 +303,44 @@ def memls_module_general(yy,freq_of_int,profiles_yes,profiles_no,snifrac,barefra
         
     """Combine the brightness temperatures of bare and snow-covered ice
     
-    This function wraps around MEMLS to combine the brightness temperatures of bare and snow-covered ice
+    This function wraps around MEMLS to combine the brightness temperatures of bare and snow-covered ice.
 
     Parameters
     ----------
     yy: int
-    	actually stands for yyyymm, defines the year and month we are looking at
+        actually stands for yyyymm, defines the year and month we are looking at
     freq_of_int: float
-    	frequency in GHz
+        frequency in GHz
     profiles_yes: xarray.Dataset
-    	Dataset containing property profiles for snow-covered ice
+        Dataset containing property profiles for snow-covered ice
     profiles_no: xarray.Dataset
-    	Dataset containing property profiles for bare ice
+        Dataset containing property profiles for bare ice
     snifrac: xarray.DataArray
-    	snow fraction given by MPI-ESM data, already month of interest selected
+        snow fraction given by MPI-ESM data, already month of interest selected
     barefrac: xarray.DataArray
-    	bare ice fraction given by MPI-ESM data, already month of interest selected
+        bare ice fraction given by MPI-ESM data, already month of interest selected
     outputpath: str
-    	path where you want the file to be written
+        path where you want the file to be written
     compute_memls: str
-    	..`yes` if you want to feed profiles to MEMLS and write the result out 
-    	..`no` if you don't want anything to happen
+        ``'yes'`` if you want to feed profiles to MEMLS and write the result out, ``'no'`` if you do not want to run MEMLS again and
+        use previous output
 
     Returns
     -------
-    if the compute_memls option is set to `yes`: netcdf-file containing the weighted ice 
-    brightness temperatures and emissivities (TBH, TBV, eh, ev), called "TB_assim_yyyymm_f.nc"
-    `f` is rounded `freq_of_int`
+    ds1 : xarray.Dataset
+        Dataset containing the weighted ice brightness temperatures and emissivities (``TBH``, ``TBV``, ``eh``, ``ev``).
+    'TB_assim_yyyymm_f.nc': netcdf files
+        Chunked by months. Ice surface brightness temperatures for cold conditions. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+
+
+    Notes
+    -----
+    ``f`` in the filename is the rounded value of ``freq_of_int``.
+
+    .. note::
+        Please remain aware that the results from ARC3O have only been evaluated for the frequency of **6.9 GHz,
+        vertical polarization** at the moment! The use for other frequencies and polarizations is at your own risk!
+        Especially, this function will also give out results for H polarization. However, they have not been evaluated yet!
 
     """ 
     
@@ -367,34 +378,35 @@ def memls_module_general(yy,freq_of_int,profiles_yes,profiles_no,snifrac,barefra
 
 def compute_TBVice(info_ds,TB,pol,snow_emis,surf_temp):
     
-    """Combine the brightness temperature computed through MEMLS with other
-    brightness temperatures from other seasons
-    
-    This function combines the brightness temperature computed through MEMLS with other
-    brightness temperatures from other seasons
+    """Produce ice surface brightness temperature for all seasons.
+
+    This function combines ice surface brightness temperatures computed through MEMLS (i.e. for cold conditions)
+    with ice surface brightness temperatures from other seasons.
 
     Parameters
     ----------
     info_ds: xarray.Dataset
-    	dataset containing masks about seasons and ice types
+        dataset containing masks about seasons and ice types
     TB: xarray.DataArray
-    	array of brightness temperatures in one polarization computed by MEMLS
+        array of brightness temperatures in one polarization computed by MEMLS
     pol: str
-    	`V` for vertical polarization, `H` for horizontal polarization
+        ``'V'`` for vertical polarization, ``'H'`` for horizontal polarization
     snow_emis: float
-    	assign the snow emissivity to `1` or `np.nan` for melting snow periods
+        assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods
     surf_temp: xarray.DataArray
-    	snow surface temperature to use for the brightness temperature if snow emissivity is 1
+        snow surface temperature to use for the brightness temperature if snow emissivity is 1
 
     Returns
-    ------- 
+    -------
     TBice: xarray.DataArray
-    	array of ice surface brightness temperature in the given polarization
-    
+        array of ice surface brightness temperature in the given polarization for all seasons
+
     Notes
     -----
-    !At the moment this is only valid for 6.9 GHz! and was evaluated more thouroughly for vertical 
-    polarization than horizontal polarization
+    .. note::
+        Please remain aware that the results from ARC3O have only been evaluated for the frequency of **6.9 GHz,
+        vertical polarization** at the moment! The use for other frequencies and polarizations is at your own risk!
+        Especially, this function will also give out results for H polarization. However, they have not been evaluated yet!
 
 
     """ 
@@ -418,34 +430,33 @@ def compute_TBVice(info_ds,TB,pol,snow_emis,surf_temp):
 ############################################
 
 def compute_emisV(info_ds,eice,pol,snow_emis):
+    """Produce emissivities for all seasons.
     
-    """Combine the emissivity computed through MEMLS with other
-    emissivities from other seasons
-    
-    This function combines the emissivity computed through MEMLS with other
-    emissivities from other seasons
+    This function combines ice surface emissivities computed through MEMLS (i.e. for cold conditions)
+    with ice surface emissivities from other seasons.
 
     Parameters
     ----------
     info_ds: xarray.Dataset
-    	dataset containing masks about seasons and ice types
+        dataset containing masks about seasons and ice types
     eice: xarray.DataArray
-    	array of emissivity in one polarization computed by MEMLS
+        array of emissivity in one polarization computed by MEMLS
     pol: str
-    	`V` for vertical polarization, `H` for horizontal polarization
+        ``'V'`` for vertical polarization, ``'H'`` for horizontal polarization
     snow_emis: float
-    	assign the snow emissivity to `1` or `np.nan` for melting snow periods
+        assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods
 
     Returns
     -------
     e_ice: xarray.DataArray
-    	array of ice emissivities in the given polarization
+        array of ice emissivities in the given polarization
 
     Notes
     -----
-    !At the moment this is only valid for 6.9 GHz! and was evaluated more thouroughly for vertical 
-    polarization than horizontal polarization
-
+    .. note::
+        Please remain aware that the results from ARC3O have only been evaluated for the frequency of **6.9 GHz,
+        vertical polarization** at the moment! The use for other frequencies and polarizations is at your own risk!
+        Especially, this function will also give out results for H polarization. However, they have not been evaluated yet!
     """ 
     
     #computes ice emissivity from season info and MEMLS computed TBV
@@ -468,38 +479,28 @@ def compute_emisV(info_ds,eice,pol,snow_emis):
 ########################################
 
 def comp_F(m1,m2,W,pol):
-    
+
     """Compute the empirical term for any residual non-linear wind variations
     
-    This function is necessary for the atmospheric and ocean contribution. It computes
-    the empirical term for any residual non-linear wind variations 
+    This function is necessary for the atmospheric and ocean contribution in :func:`amsr`. It computes
+    the empirical term for any residual non-linear wind variations. It is based on Eq. 60 of :cite:`wentz00`. Data for
+    6.9 GHz was not available so we use the same values as for 10.7 GHz
 
     Parameters
     ----------
     m1: xarray.DataArray
-    	coefficients given by [Wentz & Meissner, 2000]_
+        coefficients given by [Wentz & Meissner, 2000]_
     m2: xarray.DataArray
-    	coefficients given by [Wentz & Meissner, 2000]_
+        coefficients given by [Wentz & Meissner, 2000]_
     W: xarray.DataArray
-    	wind speed in m/s
+        wind speed in m/s
     pol: str
-    	`V` for vertical polarization, `H` for horizontal polarization
+        ``'V'`` for vertical polarization, ``'H'`` for horizontal polarization
 
     Returns
     -------
     F: xarray.DataArray
-    	empirical term for any residual non-linear wind variations
-    
-    Notes
-    -----
-    This function is based Eq. 60 of [Wentz & Meissner, 2000]_ 
-    Data for 6.9 GHz was not available so we use the same values as for 10.7 GHz
-    
-    References
-    ----------
-    ..[Wentz & Meissner, 2000] Wentz, F.J. and T. Meissner (2000). Algorithm theoretical basis document (atbd), 
-    version 2. Tech. rep. AMSR Ocean Algorithm, RSS Tech. Proposal 121599A-1. Remote Sensing Systems, Santa Rosa, CA.
-
+        empirical term for any residual non-linear wind variations
     """ 
     
     if pol == 'H':
@@ -522,60 +523,48 @@ def comp_F(m1,m2,W,pol):
 
 def amsr(V,W,L,Ta,Ts,TBV_ice,TBH_ice,e_icev,e_iceh,c_ice,freq,slm,mpf): # get rid of H
 
-    """Compute the atmospheric and ocean contribution to the brightness temperature
-    
-    This function computes the atmospheric and ocean contribution to the brightness temperature. 
-    
+    """Add the atmospheric and oceanic contribution to the ice surface brightness temperature.
+
+    This function adds the atmospheric and oceanic contribution to the brightness temperature to the ice surface
+    brightness temperature, resulting in a brightness temperature for the top of the atmosphere. This function is based
+    on equations given in :cite:`wentz00` and is tailored to AMSR2 frequencies. It was extended by
+    `C. Burgard <http://www.github.com/ClimateClara>`_ to include melt ponds for the use in ARC3O.
 
     Parameters
     ----------
     V: xarray.DataArray
-    	columnar water vapor in mm
+        columnar water vapor in mm
     W: xarray.DataArray
-    	windspeed over water in m/s
+        windspeed over water in m/s
     L: xarray.DataArray
-    	columnar cloud liquid water in mm
+        columnar cloud liquid water in mm
     Ta: xarray.DataArray
-    	ice surface temperature in K
+        ice surface temperature in K
     Ts: xarray.DataArray
-    	sea surface temperature in K
+        sea surface temperature in K
     TBV_ice: xarray.DataArray
-    	brightness temperature ice surface vertical polarization in K
+        brightness temperature ice surface vertical polarization in K
     TBH_ice: xarray.DataArray
-    	brightness temperature ice surface horizontal polarization in K
+        brightness temperature ice surface horizontal polarization in K
     e_icev: xarray.DataArray
-    	ice emissivity vertical polarization
+        ice emissivity vertical polarization
     e_iceh: xarray.DataArray
-    	ice emissivity horizontal polarization
+        ice emissivity horizontal polarization
     c_ice: xarray.DataArray
-    	ice concentration between 0 and 1
+        ice concentration between 0 and 1
     freq: float
-    	AMSR frequency of interest in GHz [6.9, 10.7, 18.7, 23.8, 36.5, 50.3, 52.8, 89.0]
+        AMSR frequency of interest in GHz, one of the following: 6.9, 10.7, 18.7, 23.8, 36.5, 50.3, 52.8, 89.0
     slm: xarray.DataArray
-    	sea-land mask (0 for ocean, 1 for land)
+        sea-land mask (0 for ocean, 1 for land)
     mpf: xarray.DataArray
-    	melt pond fraction between 0 and 1
-    
+        melt pond fraction between 0 and 1
+
     Returns
     -------
     TBH: xarray.DataArray
-    	brightness temperature, horizontal polarization, 
-          at top of the atmosphere in K
+        brightness temperature, horizontal polarization, at top of the atmosphere in K
     TBV: xarray.DataArray
-    	brightness temperature, vertical polarization, 
-          at top of the atmosphere in K
-
-    Notes
-    -----
-    This function is based on equations given in [Wentz & Meissner, 2000]_ and is tailored to AMSR2 frequencies. 
-    It was extended by C. Burgard to include melt ponds for the use in ARC3O. 
-    
-    References
-    ----------
-    ..[Wentz & Meissner, 2000] Wentz, F.J. and T. Meissner (2000). Algorithm theoretical basis document (atbd), 
-    version 2. Tech. rep. AMSR Ocean Algorithm, RSS Tech. Proposal 121599A-1. Remote Sensing Systems, Santa Rosa, CA.
-
-
+        brightness temperature, vertical polarization, at top of the atmosphere in K
     """     
  
 
@@ -834,29 +823,34 @@ def TB_tot(input_data,info_ds,memls_output,freq,snow_emis,surf_temp):
     
     """Compute the brightness temperature at top of the atmosphere
     
-    This function computes the brightness temperature at top of the atmosphere
+    This function computes the brightness temperature at top of the atmosphere.
 
     Parameters
     ----------
     input_data: xarray.Dataset
-    	MPI-ESM data for period of interest (yyyymm)
+        MPI-ESM data for period of interest (yyyymm)
     info_ds: xarray.Dataset
-    	dataset of mask for seasons and ice types for period of interest (yyyymm)
+        dataset of mask for seasons and ice types for period of interest (yyyymm)
     memls_output: xarray.Dataset
-    	dataset with MEMLS output
+        dataset with MEMLS output
     freq: float
-    	freguency in GHz
+        freguency in GHz
     snow_emis: float
-    	assign the snow emissivity to `1` or `np.nan` for melting snow periods
+        assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods
     surf_temp: xarray.DataArray
-    	snow surface temperature to use for the brightness temperature if snow emissivity is 1
-    
+        snow surface temperature to use for the brightness temperature if snow emissivity is 1
+
     Returns
     -------
     ds: xarray.Dataset
-    	dataset containing brightness temperatures at both polarizations 
-         at top of the atmosphere in K
+        dataset containing brightness temperatures at both polarizations at top of the atmosphere in K
 
+    Notes
+    -----
+    .. note::
+        Please remain aware that the results from ARC3O have only been evaluated for the frequency of **6.9 GHz,
+        vertical polarization** at the moment! The use for other frequencies and polarizations is at your own risk!
+        Especially, this function will also give out results for H polarization. However, they have not been evaluated yet!
     """     
     
     #combines TB_ice with TB_ocean and atmosphere
@@ -914,45 +908,63 @@ def TB_tot(input_data,info_ds,memls_output,freq,snow_emis,surf_temp):
 
 def satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,write_profiles,compute_memls,snow_emis,snow_dens):
     
-    """Simulate brightness temperature 
-    
-    This function is where the actual brightness temperature simulation takes place
+    """Simulate the brightness temperature of an Arctic Ocean surface.
+
+    This function combines all necessary functions for the brightness temperature simulation.
 
     Parameters
     ----------
     file: str
-        	path to file containing MPI-ESM data 
+        path to file containing MPI-ESM data
     yy: int
-        	year (format yyyy)
+        year (format yyyy)
     mm: int
-        	month (format mm)
+        month (format mm)
     info_ds: xarray.Dataset
-        	dataset of mask for seasons and ice types 
+        dataset of mask for seasons and ice types
     freq_of_int: float
-        	freguency in GHz
+        freguency in GHz
     e_bias_fyi: float
-        	tuning parameter for the first-year ice temperature profile to influence the MEMLS result
+        tuning parameter for the first-year ice temperature profile to influence the MEMLS result
     e_bias_myi: float
-        	tuning parameter for the multiyear ice temperature profile to influence the MEMLS result
+        tuning parameter for the multiyear ice temperature profile to influence the MEMLS result
     outputpath: str
-        	path where files should be written
+        path where files should be written
     write_profiles: str
-        	..`yes` if you want to compute the property profiles and write them to files,
-		..`no` if you have already written them out and nothing has changed
+        ``'yes'`` if you want to write to a file, ``'no'`` if you already have written it to a file in ``outputpath`` before
     compute_memls: str
-        	..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-		..`no` if you have already written them out and nothing has changed
+        ``'yes'`` if you want to feed profiles to MEMLS and write the result out, ``'no'`` if you do not want to run MEMLS again and
+        use previous output
     snow_emis: float
-        	assign the snow emissivity to `1` or `np.nan` for melting snow periods
+        assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods
     snow_dens: float
-        	constant snow density to use
+        constant snow density to use
 
-   	Returns
-   	-------
+    Returns
+    -------
     ds_TB: xarray.Dataset
-        	brightness temperatures at both polarizations at top of the atmosphere in K
-    """   
-	
+        brightness temperatures at both polarizations at top of the atmosphere in K
+    'profiles_for_memls_snowno_yyyymm.nc': netcdf files
+        Chunked by months. Snow-free profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'profiles_for_memls_snowyes_yyyymm.nc': netcdf files
+        Chunked by months. Snow-covered profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'TB_assim_yyyymm_f.nc': netcdf files
+        Chunked by months. Ice surface brightness temperatures for cold conditions. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'TBtot_assim_yyyymm_f.nc': netcdf files
+        Chunked by months. Brightness temperatures at the top of atmosphere. Can be found in ``outputpath``.
+
+
+    Notes
+    -----
+    ``f`` in the filenames is the rounded ``freq_of_int``.
+
+    .. note::
+        Please remain aware that the results from ARC3O have only been evaluated for the frequency of **6.9 GHz,
+        vertical polarization** at the moment! The use for other frequencies and polarizations is at your own risk!
+        Especially, this function will also give out results for H polarization. However, they have not been evaluated yet!
+
+    """
+
     if freq_of_int != 6.9:
         return print('ARC3O has currently only been evaluated for 6.9 GHz, vertical polarization! You need to tweak the code if you want to apply it to other frequencies ;)') 
 	
@@ -973,49 +985,62 @@ def satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,
 
 def compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_emis,snow_dens,inputpath,outputpath,file_begin,file_end,info_ds,write_profiles,compute_memls):
 
-    """Parallelize the brightness temperature simulation
-    
-    This function parallelizes the brightness temperature simulation for the different months
-    of a given year
+    """Parallelize the brightness temperature simulation.
+
+    This function parallelizes the brightness temperature simulation for the different months of a given year.
 
     Parameters
     ----------
     start_year: int
-    	first year of interest (format yyyy)
+        first year of interest (format yyyy)
     end_year: int
-    	last year of interest (format yyyy)
+        last year of interest (format yyyy)
     freq_of_int: float
-    	freguency in GHz
+        freguency in GHz
     e_bias_fyi: float
-    	tuning parameter for the first-year ice temperature profile to influence the MEMLS result
+        tuning parameter for the first-year ice temperature profile to influence the MEMLS result
     e_bias_myi: float
-    	tuning parameter for the multiyear ice temperature profile to influence the MEMLS result
-    snow_emis: 
-    	assign the snow emissivity to `1` or `np.nan` for melting snow periods
+        tuning parameter for the multiyear ice temperature profile to influence the MEMLS result
+    snow_emis:
+        assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods
     snow_dens: float
-    	constant snow density to use
+        constant snow density to use
     inputpath: str
-    	path where to find the MPI-ESM data chunked in month
+        path where to find the MPI-ESM data chunked in month
     outputpath: str
-    	path where files should be written
+        path where files should be written
     file_begin: str
-    	how the MPI-ESM data filename starts (before date)
+        how the MPI-ESM data filename starts (before date)
     file_end: str
-    	how the MPI-ESM data filename ends (after date)
-    info_ds: xarray.Dataset 
-    	dataset of mask for seasons and ice types
+        how the MPI-ESM data filename ends (after date)
+    info_ds: xarray.Dataset
+        dataset of mask for seasons and ice types
     write_profiles: str
-    	..`yes` if you want to compute the property profiles and write them to files,
-    	..`no` if you have already written them out and nothing has changed
+        ``'yes'`` if you want to compute the property profiles and write them to files,
+        ``'no'`` if you if you have already written them out in ``outputpath`` and nothing has changed
     compute_memls: str
-    	..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-    	..`no` if you have already written them out and nothing has changed
-    
+        ``'yes'`` if you want to feed profiles to MEMLS and write the result out,
+        ``'no'`` if you have already written them out and nothing has changed
+
     Returns
     -------
-    Writes out profiles, ice brightness temperatures and brightness temperatures at the top of atmosphere
-    to netcdf-file called "TBtot_assim_yyyymm_f.nc"
-    `f` is rounded `freq_of_int`
+    'profiles_for_memls_snowno_yyyymm.nc': netcdf files
+        Chunked by months. Snow-free profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'profiles_for_memls_snowyes_yyyymm.nc': netcdf files
+        Chunked by months. Snow-covered profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'TB_assim_yyyymm_f.nc': netcdf files
+        Chunked by months. Ice surface brightness temperatures for cold conditions. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'TBtot_assim_yyyymm_f.nc': netcdf files
+        Chunked by months. Brightness temperatures at the top of atmosphere. Can be found in ``outputpath``.
+
+    Notes
+    -----
+    ``f`` in the filenames is the rounded ``freq_of_int``.
+
+    .. note::
+        Please remain aware that the results from ARC3O have only been evaluated for the frequency of **6.9 GHz,
+        vertical polarization** at the moment! The use for other frequencies and polarizations is at your own risk!
+        Especially, this function will also give out results for H polarization. However, they have not been evaluated yet!
 
     """   
     
@@ -1034,61 +1059,69 @@ def compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_
 
 def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.963,e_bias_myi=0.963,snow_emis=1,snow_dens=300.):
 
-    """Compute top-of-atmosphere brightness temperature over a long time period
-    
-    This function is the full observation operator and is enough to run it
+    """Compute top-of-atmosphere brightness temperature over a long time period.
+
+    This function is the full observation operator and should be used as ARC3O main function.
 
     Parameters
     ----------
     orig_data: xarray.Dataset
-    	MPI-ESM data all years merged together
+        MPI-ESM data all years merged together
     freq_of_int: float
-    	freguency in GHz
+        freguency in GHz
     start_year: int
-    	first year of interest (format yyyy)
+        first year of interest (format yyyy)
     end_year: int
-    	last year of interest (format yyyy)
+        last year of interest (format yyyy)
     inputpath: str
-    	path where to find the MPI-ESM data chunked in months
+        path where to find the MPI-ESM data chunked in months
     outputpath: str
-    	path where files should be written
+        path where files should be written
     file_begin: str
-    	how the MPI-ESM data filename starts (before date)
+        how the MPI-ESM data filename starts (before date)
     file_end: str
-    	how the MPI-ESM data filename ends (after date)
+        how the MPI-ESM data filename ends (after date)
     timestep: int, optional
-    	default is 6
-    	timestep of data [in hours]
+        timestep of data in hours; *default is 6*
     write_mask: str, optional
-   		default is `yes`
-    	..`yes` if you want to write the masks to a file
-        ..`no` if you already have written them to a file before
+        ``'yes'`` if you want to write to a file, ``'no'`` if you already have written it to a file before; *default is 'yes'*
     write_profiles: str, optional
-    	default is `yes`
-    	..`yes` if you want to compute the property profiles and write them to files,
-    	..`no` if you have already written them out and nothing has changed
+        ``'yes'`` if you want to compute the property profiles and write them to files,
+        ``'no'`` if you if you have already written them out in ``outputpath`` and nothing has changed; *default is 'yes'*
     compute_memls: str, optional
-    	default is `yes`
-    	..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-    	..`no` if you have already written them out and nothing has changed
+        ``'yes'`` if you want to feed profiles to MEMLS and write the result out,
+        ``'no'`` if you have already written them out and nothing has changed; *default is 'yes'*
     e_bias_fyi: float, optional
-    	default is 0.963
-    	tuning parameter for the first-year ice temperature profile to influence the MEMLS result
+        tuning parameter for the first-year ice temperature profile to bias-correct the MEMLS result; *default is 0.963*
     e_bias_myi: float, optional
-    	default is 0.963
-    	tuning parameter for the multiyear ice temperature profile to influence the MEMLS result
+        tuning parameter for the multiyear ice temperature profile to bias-correct the MEMLS result; *default is 0.963*
     snow_emis: float, optional
-    	default is 1
-    	assign the snow emissivity to `1` or `np.nan` for melting snow periods
+        assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods; *default is 1*
     snow_dens: float, optional
-    	default is 300.
-    	constant snow density to use    
+        constant snow density to use; *default is 1*
+
     Returns
     -------
-    writes out the netcdf-file containing masks ("period_masks_assim.nc"), and the netcdf-files, chunked by months,
-    containing profiles ("profiles_for_memls_snowno_yyyymm.nc" and "profiles_for_memls_snowyes_yyyymm.nc"), 
-    ice brightness temperatures ("TB_assim_yyyymm_f.nc") and brightness temperatures at top of atmosphere
-    ("TBtot_assim_yyyymm_f.nc") to files, `f` is the rounded `freq_of_int`
+    'period_masks_assim.nc': netcdf file
+        Masks for ice type and seasons. Written if *write_mask* is ``'yes'``. Can be found in ``outputpath``.
+    'profiles_for_memls_snowno_yyyymm.nc': netcdf files
+        Chunked by months. Snow-free profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'profiles_for_memls_snowyes_yyyymm.nc': netcdf files
+        Chunked by months. Snow-covered profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'TB_assim_yyyymm_f.nc': netcdf files
+        Chunked by months. Ice surface brightness temperatures for cold conditions. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'TBtot_assim_yyyymm_f.nc': netcdf files
+        Chunked by months. Brightness temperatures at the top of atmosphere. Can be found in ``outputpath``.
+
+    Notes
+    -----
+    ``f`` in the filenames is the rounded ``freq_of_int``.
+
+    .. note::
+        Please remain aware that the results from ARC3O have only been evaluated for the frequency of **6.9 GHz,
+        vertical polarization** at the moment! The use for other frequencies and polarizations is at your own risk!
+        Especially, this function will also give out results for H polarization. However, they have not been evaluated yet!
+
 
     """   
     
@@ -1099,62 +1132,69 @@ def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath
 
 def satsim_complete_1month(orig_data,freq_of_int,yy,mm,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.963,e_bias_myi=0.963,snow_emis=1,snow_dens=300.):
     
-    """Compute top-of-atmosphere brightness temperature for one single month
+    """Compute top-of-atmosphere brightness temperature for one single month.
     
-    This function is the full observation operator that can be run on a single month
+    This function is a subset of the full observation operator and should be used as ARC3O main function if you only want to simulate
+    brightness temperatures for one given month.
 
     Parameters
     ----------
-    orig_data: 
-    	MPI-ESM data all years merged together
+    orig_data:
+        MPI-ESM data all years merged together
     freq_of_int: float
-    	freguency in GHz
+        freguency in GHz
     yy: int
-    	year of interest (format yyyy)
+        year of interest (format yyyy)
     mm: int
-    	month of interest (format mm)
+        month of interest (format mm)
     inputpath: str
-    	path where to find the MPI-ESM data chunked in months
+        path where to find the MPI-ESM data chunked in months
     outputpath: str
-    	path where files should be written
+        path where files should be written
     file_begin: str
-    	how the MPI-ESM data filename starts (before date)
+        how the MPI-ESM data filename starts (before date)
     file_end: str
-    	how the MPI-ESM data filename ends (after date)
+        how the MPI-ESM data filename ends (after date)
     timestep: int, optional
-    	default is 6
-    	timestep of data [in hours]
+        timestep of data in hours; *default is 6*
     write_mask: str, optional
-   		default is `yes`
-    	..`yes` if you want to write the masks to a file
-        ..`no` if you already have written them to a file before
+        ``'yes'`` if you want to write to a file, ``'no'`` if you already have written it to a file before; *default is 'yes'*
     write_profiles: str, optional
-    	default is `yes`
-    	..`yes` if you want to compute the property profiles and write them to files,
-    	..`no` if you have already written them out and nothing has changed
+        ``'yes'`` if you want to compute the property profiles and write them to files,
+        ``'no'`` if you if you have already written them out in ``outputpath`` and nothing has changed; *default is 'yes'*
     compute_memls: str, optional
-    	default is `yes`
-    	..`yes` if you want to compute brightness temperatures in MEMLS and write them to files,
-    	..`no` if you have already written them out and nothing has changed
+        ``'yes'`` if you want to feed profiles to MEMLS and write the result out,
+        ``'no'`` if you have already written them out and nothing has changed; *default is 'yes'*
     e_bias_fyi: float, optional
-    	default is 0.963
-    	tuning parameter for the first-year ice temperature profile to influence the MEMLS result
+        tuning parameter for the first-year ice temperature profile to bias-correct the MEMLS result; *default is 0.963*
     e_bias_myi: float, optional
-    	default is 0.963
-    	tuning parameter for the multiyear ice temperature profile to influence the MEMLS result
+        tuning parameter for the multiyear ice temperature profile to bias-correct the MEMLS result; *default is 0.963*
     snow_emis: float, optional
-    	default is 1
-    	assign the snow emissivity to `1` or `np.nan` for melting snow periods
+        assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods; *default is 1*
     snow_dens: float, optional
-    	default is 300.
-    	constant snow density to use
+        constant snow density to use; *default is 1*
     
     Returns
-    ------- 
-    writes out the file containing masks ("period_masks_assim.nc"), and the files for the given month,
-    containing profiles ("profiles_for_memls_snowno_yyyymm.nc" and "profiles_for_memls_snowyes_yyyymm.nc"), 
-    ice brightness temperatures ("TB_assim_yyyymm_f.nc") and brightness temperatures at top of atmosphere
-    ("TBtot_assim_yyyymm_f.nc") to files, `f` is the rounded `freq_of_int`
+    -------
+    'period_masks_assim.nc': netcdf file
+        Masks for ice type and seasons. Written if *write_mask* is ``'yes'``. Can be found in ``outputpath``.
+    'profiles_for_memls_snowno_yyyymm.nc': netcdf file
+        Snow-free profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'profiles_for_memls_snowyes_yyyymm.nc': netcdf file
+        Snow-covered profiles of ice and snow properties. Written if *write_profiles* is ``'yes'``. Can be found in ``outputpath``.
+    'TB_assim_yyyymm_f.nc': netcdf file
+        Ice surface brightness temperatures for cold conditions. Written if *compute_memls* is ``'yes'``. Can be found in ``outputpath``.
+    'TBtot_assim_yyyymm_f.nc': netcdf file
+        Brightness temperatures at the top of atmosphere. Can be found in ``outputpath``.
+
+    Notes
+    -----
+    ``f`` in the filenames is the rounded ``freq_of_int``.
+
+    .. note::
+        Please remain aware that the results from ARC3O have only been evaluated for the frequency of **6.9 GHz,
+        vertical polarization** at the moment! The use for other frequencies and polarizations is at your own risk!
+        Especially, this function will also give out results for H polarization. However, they have not been evaluated yet!
 
     """   
 

@@ -37,15 +37,16 @@ import xarray as xr
 
 def is_summer(month):
     """Filters warm conditions months
-    
+
     Parameters
     ----------
-    month: integer
+    month: int or np.array or xarray.DataArray
         month of the year, January is 1, December is 12
-    
+
     Returns
     -------
-    part of the array, where month is between April (4) and September (9)"""
+    same type as 'month': int or np.array or xarray.DataArray
+        ``True`` if month is between April (4) and September (9), ``False`` if month is between October (10) and March (3)"""
 
     return (month >= 4) & (month <= 9)
 
@@ -65,10 +66,7 @@ def ice_type_wholeArctic(sit, timestep):
     Returns
     -------
     ice_type: xarray.DataArray
-        mask defining the different ice types, where:
-            * 1 = open water OW
-            * 2 = first-year ice FYI
-            * 3 = multiyear ice MYI
+        mask defining the different ice types, where: 1 = open water OW, 2 = first-year ice FYI, 3 = multiyear ice MYI
     """
 
     print('FUNCTION TO DEFINE ICE TYPES')
@@ -100,24 +98,23 @@ def ice_type_wholeArctic(sit, timestep):
 
 def snow_period_masks(tsi, snow):
     """Identify snow growth and snow melt.
-    
-	This function defines when there is snow growth 
-	and snow melt 
-	
-	Parameters
-	----------
-	tsi: xarray.DataArray
-		sea-ice (or snow) surface temperature in K
-	snow: xarray.DataArray
-		snow thickness in m
-	
-	Returns
-	-------
-	snowdown_mask: xarray.DataArray
-		mask defining if the snow depth decreased since the last timestep
-	melt_mask: xarray.DataArray
-		mask defining grid cells where snow decreased and it was warm enough to be melt
-	"""
+
+    This function defines when there is snow growth and snow melt
+
+    Parameters
+    ----------
+    tsi: xarray.DataArray
+        sea-ice (or snow) surface temperature in K
+    snow: xarray.DataArray
+        snow thickness in m
+
+    Returns
+    -------
+    snowdown_mask: xarray.DataArray
+        mask defining if the snow depth decreased since the last timestep
+    melt_mask: xarray.DataArray
+        mask defining grid cells where snow decreased and it was warm enough to be melt
+    """
 
     print('FUNCTION TO DEFINE SNOW GROWTH AND SNOW MELT')
     # initialize snow array
@@ -141,23 +138,23 @@ def snow_period_masks(tsi, snow):
 
 def summer_bareice_mask(sit, snow, timestep):
     """Identify areas of bare ice in summer.
-    
-	This function defines areas of bare ice in summer
-	
-	Parameters
-	----------
-	sit: xarray.DataArray
-		sea-ice thickness in m
-	snow: xarray.DataArray
-		snow thickness in m
-	timestep: integer
-		timestep of your data in h
-	
-	Returns
-	-------
-	bareice_summer_mask: xarray.DataArray
-		mask defining if the grid cells consist of bare ice in summer
-	"""
+
+    This function defines areas of bare ice in summer.
+
+    Parameters
+    ----------
+    sit: xarray.DataArray
+        sea-ice thickness in m
+    snow: xarray.DataArray
+        snow thickness in m
+    timestep: int
+        timestep of your data in h
+
+    Returns
+    -------
+    bareice_summer_mask: xarray.DataArray
+        mask defining if the grid cells consist of bare ice in summer
+    """
 
     print('FUNCTION TO DEFINE WHERE THERE IS BARE ICE IN SUMMER')
     # prepare mask for ice in summer
@@ -179,30 +176,25 @@ def summer_bareice_mask(sit, snow, timestep):
 
 def define_periods(sit, snow, tsi, timestep):
     """Build masks for different seasons.
-    
-	This function combines all season masking functions 
-	to have an overall season overview
-	
-	Parameters
-	----------
-	sit: xarray.DataArray
-		sea-ice thickness in m
-	snow: xarray.DataArray
-		snow thickness in m
-	tsi: xarray.DataArray
-		sea-ice (or snow) surface temperature in K
-	timestep: integer
-		timestep of your data in h
-	
-	Returns
-	-------
-	period_masks: xarray.DataArray
-		mask for all seasons, where
-		0 = open water 
-		1 = winter
-		2 = snow melt
-		3 = bare ice in summer	
-	"""
+
+    This function combines all season masking functions to have an overall season overview.
+
+    Parameters
+    ----------
+    sit: xarray.DataArray
+        sea-ice thickness in m
+    snow: xarray.DataArray
+        snow thickness in m
+    tsi: xarray.DataArray
+        sea-ice (or snow) surface temperature in K
+    timestep: int
+        timestep of your data in h
+
+    Returns
+    -------
+    period_masks: xarray.DataArray
+        mask for all seasons, where 0 = open water, 1 = cold conditions, 2 = snow melt, 3 = bare ice in summer
+    """
 
     print("DEFINING THE MASK FOR THE DIFFERENT 'SEASONS' ")
     # compute the mask for bare ice in summer
