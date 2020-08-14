@@ -866,10 +866,10 @@ def TB_tot(input_data,info_ds,memls_output,freq,snow_emis,surf_temp):
     print('variables read')
     
     print('-------------- ADAPT MEMLS OUTPUT TO ALL SEASONS -----------------')
-    TBV_ice = compute_TBVice(info_ds,memls_output['TBV'],'V',snow_emis,surf_temp) #will need to investigate other frequencies for the summer
-    TBH_ice = compute_TBVice(info_ds,memls_output['TBH'],'H',snow_emis,surf_temp)
+    TBV_ice = compute_TBVice(info_ds,memls_output['TBV'],'V',snow_emis,surf_temp)
+    TBH_ice = compute_TBVice(info_ds,memls_output['TBH'],'H',snow_emis,surf_temp) # until no evaluation for H-pol, V-pol is used
     eice_v = compute_emisV(info_ds,memls_output['ev'],'V',snow_emis)
-    eice_h = compute_emisV(info_ds,memls_output['eh'],'H',snow_emis)
+    eice_h = compute_emisV(info_ds,memls_output['eh'],'H',snow_emis) # until no evaluation for H-pol, V-pol is used
     
     TBH,TBV = amsr(V,W,L,IST,SST,TBV_ice,TBH_ice,eice_v.where(np.isnan(eice_v)==False,0),eice_h.where(np.isnan(eice_h)==False,0),sic,freq,slm,mpf)
     
@@ -1057,7 +1057,7 @@ def compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_
         p.map(f, range(1,13))
     return 
 
-def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.963,e_bias_myi=0.963,snow_emis=1,snow_dens=300.):
+def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.968,e_bias_myi=0.968,snow_emis=1,snow_dens=300.):
 
     """Compute top-of-atmosphere brightness temperature over a long time period.
 
@@ -1092,9 +1092,9 @@ def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath
         ``'yes'`` if you want to feed profiles to MEMLS and write the result out,
         ``'no'`` if you have already written them out and nothing has changed; *default is 'yes'*
     e_bias_fyi: float, optional
-        tuning parameter for the first-year ice temperature profile to bias-correct the MEMLS result; *default is 0.963*
+        tuning parameter for the first-year ice temperature profile to bias-correct the MEMLS result; *default is 0.968*
     e_bias_myi: float, optional
-        tuning parameter for the multiyear ice temperature profile to bias-correct the MEMLS result; *default is 0.963*
+        tuning parameter for the multiyear ice temperature profile to bias-correct the MEMLS result; *default is 0.968*
     snow_emis: float, optional
         assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods; *default is 1*
     snow_dens: float, optional
@@ -1130,7 +1130,7 @@ def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath
     compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_emis,snow_dens,inputpath,outputpath,file_begin,file_end,info_ds,write_profiles,compute_memls)
     return
 
-def satsim_complete_1month(orig_data,freq_of_int,yy,mm,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.963,e_bias_myi=0.963,snow_emis=1,snow_dens=300.):
+def satsim_complete_1month(orig_data,freq_of_int,yyyy,mm,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.968,e_bias_myi=0.968,snow_emis=1,snow_dens=300.):
     
     """Compute top-of-atmosphere brightness temperature for one single month.
     
@@ -1143,7 +1143,7 @@ def satsim_complete_1month(orig_data,freq_of_int,yy,mm,inputpath,outputpath,file
         MPI-ESM data all years merged together
     freq_of_int: float
         freguency in GHz
-    yy: int
+    yyyy: int
         year of interest (format yyyy)
     mm: int
         month of interest (format mm)
@@ -1166,9 +1166,9 @@ def satsim_complete_1month(orig_data,freq_of_int,yy,mm,inputpath,outputpath,file
         ``'yes'`` if you want to feed profiles to MEMLS and write the result out,
         ``'no'`` if you have already written them out and nothing has changed; *default is 'yes'*
     e_bias_fyi: float, optional
-        tuning parameter for the first-year ice temperature profile to bias-correct the MEMLS result; *default is 0.963*
+        tuning parameter for the first-year ice temperature profile to bias-correct the MEMLS result; *default is 0.968*
     e_bias_myi: float, optional
-        tuning parameter for the multiyear ice temperature profile to bias-correct the MEMLS result; *default is 0.963*
+        tuning parameter for the multiyear ice temperature profile to bias-correct the MEMLS result; *default is 0.968*
     snow_emis: float, optional
         assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods; *default is 1*
     snow_dens: float, optional

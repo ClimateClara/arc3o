@@ -54,7 +54,8 @@ def epsice(Ti,freq):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     pp = (300/Ti)-1;
@@ -90,7 +91,8 @@ def epsr(roi):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     vfi = roi/0.917
@@ -131,7 +133,8 @@ def ro2epsd(roi,Ti,freq):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     eice = epsice(Ti,freq)
@@ -194,7 +197,8 @@ def mixmod(f,Ti,Wi,epsi,epsii):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     Aa = 0.005
@@ -260,7 +264,8 @@ def epice(T,freq):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     if T.max() < 100:
@@ -296,8 +301,8 @@ def Nsw(Ssw):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used
-    in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     N = 0.9141*Ssw*(1.707e-2 +1.205e-5*Ssw+4.058e-9*(Ssw**2))
@@ -324,8 +329,8 @@ def condbrine(T):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used
-    in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     if T.max() > 100:
@@ -358,7 +363,8 @@ def relaxt(T):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     if T.max() > 100:
@@ -389,7 +395,8 @@ def epsib0(T):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     if T.max() > 100:
@@ -423,7 +430,8 @@ def ebrine(T,freq):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     if T.max() > 100:
@@ -469,7 +477,8 @@ def eice_s2p(e1,e2,v):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     eeff=0.25*(2.*e1-e2+3.*v*(e2-e1)+np.sqrt((2.*e1-e2+3.*v*(e2-e1))**2 +8.*e1*e2))
@@ -508,7 +517,8 @@ def sie(si,sal,Ti,freq,epsi,epsii):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     if Ti.max() > 100:
@@ -564,7 +574,8 @@ def mysie(si,rho,Ti,sal,freq,epsi,epsii):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     #permittivity of saline ice
@@ -617,7 +628,8 @@ def abscoeff(epsi,epsii,Ti,freq):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     # constants
@@ -740,7 +752,8 @@ def pfadi(tei,di):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     N = len(di.layer_nb)
@@ -771,7 +784,8 @@ def fresnelc0(tei,epsi):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     N = len(epsi.layer_nb)-1
@@ -828,7 +842,8 @@ def sccoeff(roi,Ti,pci,freq,Wi,gai,sccho):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`.     It was translated to Python and adapted for multi-dimensional input by
+    `C. Burgard <http://www.github.com/ClimateClara>`_ to be used in ARC3O.
     """
 
     ## constants
@@ -964,7 +979,8 @@ def meteo_sc(si,rroi,rTi,rpci,freq,rWi,rgai,gbih,gbiv,gs6,ga2i):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     [dumgbih,dumgbiv,ags6,dumga2i] = sccoeff(rroi,rTi,rpci,freq,rWi,rgai,6)
@@ -1002,7 +1018,8 @@ def iborn_s2p(e1,e2,eeff,v,k,pcc):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     ss=(3. *pcc**3 *k**4 /32.) *v *(1-v) *abs(((e2-e1)*(2. *eeff+e1)) /(2. *eeff+e2))**2
@@ -1051,7 +1068,8 @@ def scice(si,gbih,gbiv,gs6,ga2i,Ti,sal,freq,pci):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     k=(2*3.14159)/(0.3 /freq)
@@ -1114,7 +1132,8 @@ def scice_my(si,gbih,gbiv,gs6,ga2i,Ti,dens,freq,pci,sal):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     k=(2.*3.14159)/(0.3/freq)
@@ -1186,7 +1205,8 @@ def absorp2f(gbih,gbiv,gs6,ga2i,epsi,epsii,roi,Ti,pci,freq,Wi,gai):
     Notes
     -----
     This function was introduced into the MEMLS code by `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_.
-    It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     if roi.max() > 10:
@@ -1251,7 +1271,8 @@ def pfadc(teta,di,epsi,gs6):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     N = len(epsi.layer_nb)
@@ -1306,7 +1327,8 @@ def polmix(tscat,sih,siv):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input
+    by `C. Burgard <http://www.github.com/ClimateClara>`_ to be used in ARC3O.
     """
 
     tscat = append_laydim_end(tscat,1)
@@ -1344,7 +1366,8 @@ def rt(gai,gbi,dei):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     gamma = np.sqrt(gai * (gai + 2 * gbi))
@@ -1651,7 +1674,8 @@ def layer(ri,s_i,ti,Ti,Tgnd,Tsky):
     -----
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
-    and :cite:`wiesmann99`. It was translated by `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    and :cite:`wiesmann99`. It was translated to Python and adapted for multi-dimensional input by `C. Burgard <http://www.github.com/ClimateClara>`_
+    to be used in ARC3O.
     """
 
     N = len(ri.layer_nb)
@@ -1742,8 +1766,8 @@ def memls_2D_1freq(freq,DI,TI,WI,ROI,PCI,SAL,SITYPE):
     This function is part of the original MEMLS developed by the Institute of Applied Physics,
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
     and :cite:`wiesmann99`. It was slightly modified to accomodate sea-ice layers by
-    `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_. It was translated and further adapted by
-    `C. Burgard <http://www.github.com/ClimateClara>`_ to Python to be used in ARC3O.
+    `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_. It was translated to Python, adapted for multi-dimensional input and
+     further extended by `C. Burgard <http://www.github.com/ClimateClara>`_ to be used in ARC3O.
     """
 
     start_time = timeit.default_timer()
