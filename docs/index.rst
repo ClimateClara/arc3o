@@ -25,14 +25,9 @@ Documentation
 .. toctree::
    :maxdepth: 2
    :caption: User's Guide:
-   
-   guide/input
+
+   guide/howtorun
    guide/workflow
-   guide/step1
-   guide/step2
-   guide/step3
-   guide/step4
-   guide/step5
    
 .. toctree::
    :maxdepth: 2

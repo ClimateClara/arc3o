@@ -1,6 +1,9 @@
 Workflow overview
 =================
 
+General workflow
+----------------
+
 ARC3O simulates brightness temperatures from climate model output. It follows the following workflow.
 
 .. note:: 
@@ -13,3 +16,9 @@ ARC3O simulates brightness temperatures from climate model output. It follows th
     :align: center
 
 .. _`Burgard et al., 2020b`: https://tc.copernicus.org/articles/14/2387/2020/
+
+.. include:: ./step1.rst
+.. include:: ./step2.rst
+.. include:: ./step3.rst
+.. include:: ./step4.rst
+.. include:: ./step5.rst

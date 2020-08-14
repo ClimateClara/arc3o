@@ -1,8 +1,9 @@
 Step 2: Prepare sea-ice profiles for cold conditions
-====================================================
+----------------------------------------------------
 
 In a second step, we prepare the climate model output data for the simulation of the ice surface brightness temperature
 for cold conditions through the Microwave Emission Model for Layered Snowpacks (MEMLS, :cite:`wiesmann99` and :cite:`matzler06`).
+This is done in the main function with :func:`arc3o.core_functions.prep_prof`.
 
 Based on the climate model sea-ice thickness, snow thickness, and the snow/ice surface temperature, combined with the masks
 described in :ref:`step1`, ARC3O adds the dimension *layer_number* to the lat-lon-time arrays. This way, it prepares two sets
