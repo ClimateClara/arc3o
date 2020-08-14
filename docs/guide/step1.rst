@@ -15,3 +15,5 @@ thus dividing into open water, first-year and multiyear ice.
 To divide the grid cells into the different seasons, the function :func:`arc3o.mask_functions.define_periods` uses information about
 sea-ice thickness, snow thickness, and surface temperature to identify periods of melting snow and periods of bare ice in summer. All
 other grid cells are defined as "cold conditions".
+
+The resulting masks are written to ``period_masks_assim.nc`` in ``outputpath``.

@@ -16,3 +16,6 @@ describe the layer:
     * density :func:`arc3o.profile_functions.build_density_profile`
     * correlation length :func:`arc3o.profile_functions.build_corrlen_profile`
     * type :func:`arc3o.profile_functions.build_sisn_profile`
+
+The resulting profiles are written to ``profiles_for_memls_snowno_yyyymm.nc`` and ``profiles_for_memls_snowyes_yyyymm.nc``
+in ``outputpath``.

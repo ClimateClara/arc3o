@@ -7,6 +7,6 @@ to the seasons "melting snow conditions" and "bare ice in summer conditions". Th
 
 .. note::
 
-    Be aware that, currently, the brightness temperature of "melting snow conditions" and "bare ice in summer conditions" are set to the
-    values for 6.9 GHz, vertical polarization, for all frequencies and polarizations! This is because other frequencies and
-    polarizations were not evaluated!
+    Please remain aware that, currently, the brightness temperatures of "melting snow conditions" and "bare ice in summer conditions" are set to the
+    values for 6.9 GHz, vertical polarization, **for all frequencies and polarizations**! This is because we concentrated our effort on 6.9 GHz,
+    vertical polarization. You are welcome to try out new things though! :)

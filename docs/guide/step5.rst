@@ -8,3 +8,6 @@ surface brightness temperature for a simple atmospheric radiative transfer model
 requires the atmospheric columnar liquid water and water vapor.
 Both adding the oceanic contribution and adding the atmospheric contribution are done in the main function with :func:`arc3o.core_functions.amsr`,
 based on the geophysical model described in :cite:`wentz00`.
+
+The resulting top-of-the-atmosphere brightness temperatures for all grid cells are written to ``TBtot_assim_yyyymm_f.nc`` in ``outputpath``,
+where *f* is the rounded frequency of interest.

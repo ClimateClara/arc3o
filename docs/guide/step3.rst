@@ -11,3 +11,5 @@ The MEMLS simulation is conducted through calling the function :func:`arc3o.core
 the detailed steps of the brightness temperature simulation can be found in :func:`arc3o.memls_functions_2D.memls_2D_1freq`
 and its documentation of :ref:`memls_api`.
 
+The resulting ice surface brightness temperatures for cold conditions are written to ``TB_assim_yyyymm_f.nc`` in  ``outputpath``,
+where *f* is the rounded frequency of interest.

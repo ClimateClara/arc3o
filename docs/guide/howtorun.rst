@@ -5,6 +5,7 @@ Input data
 ----------
 
 Currently, ARC3O is tailored for model output from ECHAM, the atmospheric module of the Max Planck Institute Earth System Model.
+However, it can be used for other models if the variable names are changed accordingly either in the ARC3O functions or the model's output.
 
 The input data for ARC3O should be divided into monthly files, found in the folder ``inputpath``.
 Also, to prepare the seasons and ice types mask, ARC3O needs one file in which all the data is merged, found in the folder ``inputpath0``.
@@ -82,7 +83,8 @@ You can run ARC3O with the function :func:`arc3o.core_functions.satsim_complete_
 .. note::
 
     The process takes up a lot of memory so I recommend using a supercomputer if possible. I am working on a "lighter" version
-    but not sure when it will be ready so you'll need to tweak it yourself until then. Sorry :(
+    but not sure when it will be ready so you'll need to tweak it yourself until then, e.g. by reducing the number in the *Pool* in
+    :func:`arc3o.core_functions.compute_parallel`. Sorry :(
 
 If you only want to run one month instead of the whole time series, you can also run ARC3O with :func:`arc3o.core_functions.satsim_complete_1month`:
 
