@@ -17,19 +17,18 @@ Based on: https://github.com/pypa/sampleproject
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
 import setuptools
 import pathlib
+import os
 
 here = pathlib.Path(__file__).parent.resolve()
 
 # Get the long description from the README file
-long_description = (here / 'README.md').read_text(encoding='utf-8')
-
+long_description = open(os.path.join(here, 'README.rst'), encoding='utf-8').read()
 
 setuptools.setup(
 	
-	#The project's name
+    #The project's name
     name='arc3o',
     
     #The project's version 
@@ -47,7 +46,7 @@ setuptools.setup(
     #The project's license
     license='GPL-3.0',
     
-    packages=find_packages(exclude=['docs', 'tests*', 'examples']),
+    packages=setuptools.find_packages(exclude=['docs', 'tests*', 'examples']),
     
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -56,19 +55,6 @@ setuptools.setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3 :: Only',
     ],
-    
-    install_requires=[
-          'numpy',
-          'xarray',
-          'pandas',
-          'datetime',
-          'time',
-          'timeit',
-          'itertools',
-          'tqdm',
-          'subprocess',
-          'pathos.multiprocessing'
-      ],
       
     project_urls={
         'Source': 'https://github.com/ClimateClara/arc3o',
@@ -79,4 +65,13 @@ setuptools.setup(
     keywords='earth-sciences climate-modeling sea-ice arctic oceanography remote-sensing',
     
     python_requires='>=3.5',
+	
+    install_requires=[
+          'numpy',
+          'xarray',
+          'pandas',
+          'tqdm',
+          'pathos'
+      ],
+
 )
