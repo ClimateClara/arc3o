@@ -19,3 +19,11 @@ or via
 
 This package is programmed in python 3.6 and should be working with all `python
 versions > 3.6`. Additional requirements are numpy, xarray, pandas, tqdm and pathos.
+
+We recommend to install the dependencies via 
+
+.. code-block:: bash
+  
+  conda install -c conda-forge pandas tqdm pathos 
+
+as they might not work well using ``pip``.
