@@ -1,0 +1,28 @@
+name: arc3o
+channels:
+  - defaults
+dependencies:
+  - ipython
+  - numpy
+  - pandas
+  - pip
+  - python>3.6
+  - sphinx
+  - sphinx_rtd_theme
+  - sphinxcontrib-applehelp
+  - sphinxcontrib-devhelp
+  - sphinxcontrib-htmlhelp
+  - sphinxcontrib-jsmath
+  - sphinxcontrib-qthelp
+  - sphinxcontrib-serializinghtml
+  - tqdm
+  - xarray
+  - pip:
+    - latexcodec
+    - pybtex
+    - pybtex-apa-style
+    - pybtex-docutils
+    - pyyaml
+    - sphinxcontrib-bibtex
+
+#pathos - channel conda-forge (is it even needed here?
