@@ -10,7 +10,7 @@ However, it can be used for other models if the variable names are changed accor
 The input data for ARC3O should be divided into monthly files, found in the folder ``inputpath``.
 Also, to prepare the seasons and ice types mask, ARC3O needs one file in which all the data is merged, found in the folder ``inputpath0``.
 
-These monthly and overview files should contain fields [lat,lon,time] of the following variables:
+These monthly and overview files should contain fields [time,lat,lon] of the following variables:
 	* ``snifrac``: snow fraction on ice [0-1]
 	* ``siced``: sea-ice thickness [m]
 	* ``sni``: snow water equivalent [m]
@@ -145,14 +145,13 @@ Output
 ------
 
 The output of ARC3O is written into several netcdf files to ``outputpath``:
-    * 'period_masks_assim.nc': Masks for ice type and seasons.
-    * 'profiles_for_memls_snowno_yyyymm.nc': Snow-free profiles of ice and snow properties.
-    * 'profiles_for_memls_snowyes_yyyymm.nc': Snow-covered profiles of ice and snow properties.
-    * 'TB_assim_yyyymm_f.nc': Ice surface brightness temperatures (H and V polarization) for grid cells with ice in cold conditions.
-    * 'TBtot_assim_yyyymm_f.nc': Brightness temperatures (H and V polarization) at the top of atmosphere (incl. other seasons than cold conditions and ocean and atmosphere contribution) for all ocean grid cells.
+    * ``'period_masks_assim.nc'``: Masks for ice type and seasons.
+    * ``'profiles_for_memls_snowno_yyyymm.nc'``: Snow-free profiles of ice and snow properties.
+    * ``'profiles_for_memls_snowyes_yyyymm.nc'``: Snow-covered profiles of ice and snow properties.
+    * ``'TB_assim_yyyymm_f.nc'``: Ice surface brightness temperatures (H and V polarization) for grid cells with ice in cold conditions.
+    * ``'TBtot_assim_yyyymm_f.nc'``: Brightness temperatures (H and V polarization) at the top of atmosphere (incl. other seasons than cold conditions and ocean and atmosphere contribution) for all ocean grid cells.
 
 .. note::
 
 	Please remain aware that the assumptions used in ARC3O have only been evaluated for the frequency of 6.9 GHz,
 	vertical polarization at the moment! The use for other frequencies and polarizations is at your own risk!
-

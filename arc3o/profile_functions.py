@@ -491,9 +491,10 @@ def build_corrlen_profile(empty_corrlen_prof,prof_thick,fyi_mask,winter_mask,lay
 
     This function builds correlation length profiles. Based on experiments by R.T. Tonboe, the correlation lengths are
     defined as follows:
-        * First-year ice upper 20 cm: 0.25 mm
-        * First-year ice lower 20 cm: 0.35 mm
-        * Multiyear ice: 1.5 mm
+
+    * First-year ice upper 20 cm: 0.25 mm
+    * First-year ice lower 20 cm: 0.35 mm
+    * Multiyear ice: 1.5 mm
 
     Parameters
     ----------

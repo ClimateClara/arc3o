@@ -1767,7 +1767,7 @@ def memls_2D_1freq(freq,DI,TI,WI,ROI,PCI,SAL,SITYPE):
     University of Bern, Switzerland. A description of that model version can be found in :cite:`wiesmann98`
     and :cite:`wiesmann99`. It was slightly modified to accomodate sea-ice layers by
     `R.T. Tonboe <http://research.dmi.dk/staff/all-staff/rtt/>`_. It was translated to Python, adapted for multi-dimensional input and
-     further extended by `C. Burgard <http://www.github.com/ClimateClara>`_ to be used in ARC3O.
+    further extended by `C. Burgard <http://www.github.com/ClimateClara>`_ to be used in ARC3O.
     """
 
     start_time = timeit.default_timer()
@@ -1910,4 +1910,3 @@ def memls_2D_1freq(freq,DI,TI,WI,ROI,PCI,SAL,SITYPE):
 
     #return Tbh.drop('layer_nb').drop('matrix_dim'),Tbv.drop('layer_nb').drop('matrix_dim'),eh.drop('layer_nb').drop('matrix_dim'),ev.drop('layer_nb').drop('matrix_dim')
     return Tbh.drop('layer_nb'),Tbv.drop('layer_nb'),eh.drop('layer_nb'),ev.drop('layer_nb')
-
