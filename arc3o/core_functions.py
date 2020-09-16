@@ -27,9 +27,11 @@ import datetime
 import arc3o.profile_functions as pf
 import arc3o.mask_functions as mf
 import arc3o.memls_functions_2D as mf2
-import os
 import subprocess
-from pathos.multiprocessing import ProcessingPool as Pool
+
+import os
+if not os.getenv('READTHEDOCS'):
+    from pathos.multiprocessing import ProcessingPool as Pool
 
 #########################################
 
