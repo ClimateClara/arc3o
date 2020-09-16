@@ -1,5 +1,19 @@
 ARC3O
 =====
+.. start-badges
+
+.. list-table::
+    :stub-columns: 1
+    :widths: 10 90
+
+    * - docs
+      - |docs|
+
+.. |docs| image:: http://readthedocs.org/projects/arc3o/badge/?version=latest
+    :alt: Documentation Status
+    :target: http://arc3o.readthedocs.io/en/latest/?badge=latest
+
+.. end-badges
 
 This is the code for the Arctic Observation Operator for 6.9 GHz, presented in:
 
