@@ -28,7 +28,7 @@ long_description = open(os.path.join(here, 'README.rst'), encoding='utf-8').read
 
 setuptools.setup(
 	
-	#The project's name
+    #The project's name
     name='arc3o',
     
     #The project's version 
@@ -64,4 +64,12 @@ setuptools.setup(
     keywords='earth-sciences climate-modeling sea-ice arctic oceanography remote-sensing',
     
     python_requires='>=3.5',
+	
+    install_requires=[
+          'numpy',
+          'xarray',
+          'pandas',
+          'tqdm',
+          'pathos'
+      ],
 )
