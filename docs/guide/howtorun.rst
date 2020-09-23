@@ -84,8 +84,9 @@ You can run ARC3O with the function :func:`arc3o.core_functions.satsim_complete_
 .. note::
 
     The process takes up a lot of memory so I recommend using a supercomputer if possible. I am working on a "lighter" version
-    but not sure when it will be ready so you'll need to tweak it yourself until then, e.g. by reducing the number in the *Pool* in
-    :func:`arc3o.core_functions.compute_parallel`. Sorry :(
+    but not sure when it will be ready so you'll currently need to reduce the number of pool workers in the *Pool*. To do so, choose
+    a ``pool_nb`` between 1 and 12. The lower the ``pool_nb``, the less pool workers are activated at the moment (i.e. less memory usage but
+    also longer time until results are ready).
 
 If you only want to run one month instead of the whole time series, you can also run ARC3O with :func:`arc3o.core_functions.satsim_complete_1month`:
 
