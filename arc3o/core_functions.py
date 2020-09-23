@@ -985,7 +985,7 @@ def satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,
     year_data.close()
     return ds_TB
 
-def compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_emis,snow_dens,inputpath,outputpath,file_begin,file_end,info_ds,write_profiles,compute_memls):
+def compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_emis,snow_dens,inputpath,outputpath,file_begin,file_end,info_ds,write_profiles,compute_memls,pool_nb):
 
     """Parallelize the brightness temperature simulation.
 
@@ -1023,6 +1023,8 @@ def compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_
     compute_memls: str
         ``'yes'`` if you want to feed profiles to MEMLS and write the result out,
         ``'no'`` if you have already written them out and nothing has changed
+    pool_nb: int, optional
+        number of parallel pool workers to compute several months parallelly
 
     Returns
     -------
@@ -1055,11 +1057,11 @@ def compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_
             satsim_loop(file,yy,mm,info_ds,freq_of_int,e_bias_fyi,e_bias_myi,outputpath,write_profiles,compute_memls,snow_emis,snow_dens)
             return 
 
-        p = Pool(12)
+        p = Pool(pool_nb)
         p.map(f, range(1,13))
     return 
 
-def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.968,e_bias_myi=0.968,snow_emis=1,snow_dens=300.):
+def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.968,e_bias_myi=0.968,snow_emis=1,snow_dens=300.,pool_nb=12):
 
     """Compute top-of-atmosphere brightness temperature over a long time period.
 
@@ -1101,6 +1103,8 @@ def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath
         assign the snow emissivity to ``1`` or ``np.nan`` for melting snow periods; *default is 1*
     snow_dens: float, optional
         constant snow density to use; *default is 300.*
+    pool_nb: int, optional
+        number of parallel pool workers to compute several months parallelly, *default is 12*
 
     Returns
     -------
@@ -1129,7 +1133,7 @@ def satsim_complete_parallel(orig_data,freq_of_int,start_year,end_year,inputpath
     
     info_ds = prep_mask(orig_data,write_mask,outputpath,timestep)
     orig_data.close()
-    compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_emis,snow_dens,inputpath,outputpath,file_begin,file_end,info_ds,write_profiles,compute_memls)
+    compute_parallel(start_year,end_year,freq_of_int,e_bias_fyi,e_bias_myi,snow_emis,snow_dens,inputpath,outputpath,file_begin,file_end,info_ds,write_profiles,compute_memls,pool_nb)
     return
 
 def satsim_complete_1month(orig_data,freq_of_int,yyyy,mm,inputpath,outputpath,file_begin,file_end,timestep=6,write_mask='yes',write_profiles='yes',compute_memls='yes',e_bias_fyi=0.968,e_bias_myi=0.968,snow_emis=1,snow_dens=300.):
