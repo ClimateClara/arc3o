@@ -78,7 +78,8 @@ You can run ARC3O with the function :func:`arc3o.core_functions.satsim_complete_
                                 e_bias_fyi=0.968,           # factor affecting the temperature profiles to bias-correct the brightness temperature (for first-year ice)
                                 e_bias_myi=0.968,           # factor affecting the temperature profiles to bias-correct the brightness temperature (for multiyear ice)
                                 snow_emis=1,                # snow emissivity for periods of melting snow
-                                snow dens=300.)             # snow density in kg/m3
+                                snow dens=300.,             # snow density in kg/m3
+                                pool_nb=12)                 # amount of pool workers to compute several months parallelly
 
 .. note::
 
