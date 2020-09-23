@@ -7,7 +7,7 @@
 # Created for the arc3o package
 # These functions go through the whole timeseries of data
 # and define two masks:
-# 1. for the different ice types: open water (OW,1), first-year ice (FYI,2), multiyear ice (MYI,3)
+# 1. for the different ice types: open water (OW,1), first-year ice (FYI,2), maultiyear ice (MYI,3)
 # 2. for the different seasons: open water (0), winter (1), melting snow (2), bare summer ice (3)
 #
 # @author: Clara Burgard, github.com/ClimateClara
@@ -158,7 +158,7 @@ def summer_bareice_mask(sit, snow, timestep):
 
     print('FUNCTION TO DEFINE WHERE THERE IS BARE ICE IN SUMMER')
     # prepare mask for ice in summer
-    summer_mask = ana.is_summer(sit['time.month'])
+    summer_mask = is_summer(sit['time.month'])
     # select ice in summer
     summer = sit.where(summer_mask)
     # prepare masks identifying where there is ice and snow
