@@ -20,8 +20,8 @@ ARC3O
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to the documentation about the Arctic Observation Operator!
-===================================================================
+Welcome to the documentation about the Arctic Ocean Observation Operator!
+=========================================================================
 
 The Arctic Ocean Observation Operator (ARC3O) computes brightness temperatures at 6.9 GHz, 
 vertical polarization, based on climate model output. More information about the motivation, 
